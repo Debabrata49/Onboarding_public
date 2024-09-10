@@ -58,7 +58,7 @@ class LoginController extends Controller
                 if (!$token = JWTAuth::fromUser($user)) {
                     return response()->json(['error' => 'Unable to generate token'], 500);
                 }
-                Auth::login($user);
+                // Auth::login($user);
                 return response()->json(["error"=>false,"message"=>$this->respondWithToken($token,$user)]);
             }
             else{
@@ -90,12 +90,12 @@ class LoginController extends Controller
         return $this->respondWithToken(auth('api')->refresh());
     }
 
-    protected function respondWithToken($token)
+    protected function respondWithToken($token,$user)
     {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'user' => Auth::user(),
+            'user' => $user,
             'expires_in' => auth('api')->factory()->getTTL() * 1
         ]);
     }

@@ -12,6 +12,7 @@ Route::get('/user', function (Request $request) {
 
 // Route::get('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
 Route::POST('/loginOnboardingDashboard', [App\Http\Controllers\LoginController::class, 'loginOnboardingDashboard'])->name('loginOnboardingDashboard');
+Route::POST('/editEmployeeProfile', [App\Http\Controllers\EmployeeDataEditController::class, 'editEmployeeProfile'])->name('editEmployeeProfile');
 
 Route::middleware(['auth:api'])->group(function(){
     Route::get("/test-me", function () {

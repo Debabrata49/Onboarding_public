@@ -12,6 +12,7 @@ use App\Models\PosRegistration;
 use App\Models\PosVendorRegistration;
 use App\Models\SmsVendor;
 use App\Models\WhatsappVendor;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class EmployeeDataController extends Controller
 {
@@ -33,8 +34,8 @@ class EmployeeDataController extends Controller
         $limit = 10;
         $offset = ($request->page_number - 1) * $limit;
         
-        
-        $merchant_id = Auth::user()->id;
+        $merchant = JWTAuth::parseToken()->authenticate();
+        $merchant_id = $merchant->id;
         $merchant = MerchantDetails::where('user_id', $merchant_id)->first();
         if (!$merchant) {
             return response()->json(['error' => 'Merchant not found'], 404);
