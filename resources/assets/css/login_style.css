@@ -1,0 +1,101 @@
+
+.giftcard-log-sub-main .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.log-gift-part {
+    position: relative;
+}
+
+.login-part-cont {
+    position: absolute;
+    width: 92%;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-part-cont h4 {
+    width: 43%;
+    text-align: center;
+    font-family: "Istok Web", sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 34px;
+    color: #353131;
+    margin: 0 auto;
+}
+.login-mobil {
+    width: 80%;
+    text-align: center;
+    margin: 30px auto 31px auto;
+    font-family: "Inter", sans-serif;
+}
+
+.login-mobil .input-group {
+    position: relative;
+    z-index: 9;
+    margin-bottom: 24px;
+}
+
+.login-mobil .input-group .input {
+    width: 100%;
+    padding: 17px 29px;
+    border-radius: 13px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #2a1151;
+}
+
+.login-mobil .input-group input {
+    border: 1px solid #6d26d9;
+}
+
+input:internal-autofill-selected {
+    appearance: menulist-button;
+    background-image: none !important;
+    background-color: #ffffff !important;
+    color: fieldtext !important;
+}
+
+.log-btn button {
+    width: 100%;
+    padding: 14px;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #28188a;
+    border-radius: 13px;
+    border: none;
+}
+
+
+.input-group > .placeholder {
+    text-align: left;
+    position: absolute;
+    top: -17%;
+    left: 3%;
+    z-index: 10;
+    color: #7f7c8f !important;
+    background-color: white;
+    padding: 0 10px;
+    width: 100px;
+}
+
+.input-group > .placeholder:nth-child(1) {
+    width: 104px;
+    top: -15px;
+}
+
+.input:focus {
+    outline: none !important;
+}
+
+.login-mobil > .input-group > select {
+    border: 1px solid #6d26d9;
+}
+input:-internal-autofill-selected {
+    background-color: #fff !important;
+}
