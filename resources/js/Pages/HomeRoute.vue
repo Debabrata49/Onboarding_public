@@ -12,7 +12,18 @@
                 </form>
             </div>
 
+            <div class="profile-button">
+                <i class="bi bi-person"></i>
+            </div>
+    
+        </div>
+    </div>
+    <div class="onboarding-body">
 
+        <div class="txt-middle">
+            <div class="text-center">
+                <p>No of sub-accounts allowed: 20 | No. of active sub-accounts: 3</p>
+            </div>
             <div class="regular-button">
                 <button>
                     <div class="button-content">
@@ -23,100 +34,102 @@
                 <span>Create Sub-Account</span>
             </div>
         </div>
-    </div>
+        
+        <div class="onboarding-body-sub">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="5%" class="col-name">Account Name</th>
+                            <th width="10%" class="col-email">Email</th>
+                            <th width="5%" class="col-password">Password</th>
+                            <th width="5%" class="col-status">Status</th>
+                            <th width="10%">Activated On</th>
+                            <th width="10%" class="col-deactivate">Deactivated On</th>
+                            <th width="5%">Valid Till</th>
+                            <th width="5%">Outlet</th>
+                            <th width="5%">Loyalty Structure</th>
+                            <th width="7%" class="th-loyalty">Advanced Loyalty</th>
+                            <th width="7%">POS Integration</th>
+                            <th width="11%" class="th-communication">Communication</th>
+                            <th width="5%">Permissions & Settings</th>
+                            <th width="5%">Module Accesses</th>
+                            <th width="5%">Edit Account</th>
+                        </tr>
+                    </thead>
+                    <tbody v-if="!isLoading">
+                        <tr v-for="i in accounts">
+                            <td>
+                                <div class="content">
+                                    {{ i.name }}
+                                    <i class="bi bi-chevron-right"></i>
+                                </div>
+                            </td>
 
-    <div class="text-center">
-        <p>No of sub-accounts allowed: <span class="no_sub_acc">{{ merchant.no_sub_account }}</span> | No. of active sub-accounts: 3</p>
-    </div>
+                            <td>{{ i.email }}</td>
+                            <td>
+                                <div class="content">
+                                    {{ i.password }}
+                                    <i class="bi bi-pencil"></i>
+                                </div>
 
-    <div id="app">
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th width="" class="col-name">Account Name</th>
-                        <th style="width:12%" class="col-email">Email</th>
-                        <th width="" class="col-password">Password</th>
-                        <th width="" class="col-status">Status</th>
-                        <th width="">Activated On</th>
-                        <th width="" class="col-deactivate">Deactivated On</th>
-                        <th width="">Valid Till</th>
-                        <th width="">Outlet</th>
-                        <th width="">Loyalty Structure</th>
-                        <th width="" class="th-loyalty">Advanced Loyalty</th>
-                        <th width="">POS Integration</th>
-                        <th style="width:14%" class="th-communication">Communication</th>
-                        <th width="">Permissions & Settings</th>
-                        <th width="">Module Accesses</th>
-                        <th width="">Edit Account</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="i in accounts">
+                            </td>
+                            <td>{{ i.status }}</td>
+                            <td>{{ i.active_on }}</td>
+                            <td>{{ i.deactive_on }}</td>
+                            <td>{{ i.valid_till }}</td>
 
-                        <td>
-                            <div class="content">
-                                {{ i.name }}
-                                <i class="bi bi-chevron-right"></i>
-                            </div>
-                        </td>
-
-                        <td>{{ i.email }}</td>
-                        <td>
-                            <div class="content">
-                                {{ i.password }}
-                                <i class="bi bi-pencil"></i>
-                            </div>
-
-                        </td>
-                        <td>{{ i.status }}</td>
-                        <td>{{ i.active_on }}</td>
-                        <td>{{ i.deactive_on }}</td>
-                        <td>{{ i.valid_till }}</td>
-
-                        <td>
-                            <div class="content">
-                                {{ i.outletname }}
-                                <i class="bi bi-chevron-right"></i>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="content">
-                                {{ i.loyalty_percentage }}
-                                <i class="bi bi-chevron-right"></i>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="content">
-                                {{ i.adv_loyalty }}
-                                <i class="bi bi-chevron-right"></i>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="content">
-                                {{ i.pos_vendor_name }}
-                                <i class="bi bi-chevron-right"></i>
-                            </div>
-                        </td>
-                        <td>
-                            <ul>
-                                <li>{{ i.sms_vendor_name }}</li>
-                                <li>{{ i.promo_sms_vendor_name }}</li>
-                                <li>{{ i.whatsapp_vendor_name }}</li>
-                            </ul>
-                        </td>
-                        <td>{{ i.permission_text }}</td>
-                        <td>{{ i.module_access }}</td>
-                        <td>{{ i.edit }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <pagination v-if="accounts != ''" v-model="page" :records="total_entries" :per-page="limit" @paginate="pagination"/>
+                            <td>
+                                <div class="content">
+                                    {{ i.outletname }}
+                                    <i class="bi bi-chevron-right"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="content">
+                                    {{ i.loyalty_percentage }}
+                                    <i class="bi bi-chevron-right"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="content">
+                                    {{ i.adv_loyalty }}
+                                    <i class="bi bi-chevron-right"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="content">
+                                    {{ i.pos_vendor_name }}
+                                    <i class="bi bi-chevron-right"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>{{ i.sms_vendor_name }}</li>
+                                    <li>{{ i.promo_sms_vendor_name }}</li>
+                                    <li>{{ i.whatsapp_vendor_name }}</li>
+                                </ul>
+                            </td>
+                            <td>{{ i.permission_text }}</td>
+                            <td>{{ i.module_access }}</td>
+                            <td>{{ i.edit }}</td>
+                        </tr>
+                    </tbody>
+                    <tbody v-else>
+                        <tr v-for="j in [...new Array(5)]">
+                            <td v-for="k in [...new Array(15)]">
+                                <div class="cust-skeleton-loader"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+               
+            </div>
         </div>
     </div>
 </template>
+
 <script>
-import axios from "axios";
 import { ref } from "vue";
 import axiosService from "@/axiosService";
 import Pagination from 'v-pagination-3';
@@ -124,6 +137,7 @@ import Pagination from 'v-pagination-3';
 export default {
     data() {
         return {
+            isLoading: true,
             allowedAccounts: 20,
             activateAccounts: 3,
             accounts: [],
@@ -170,6 +184,7 @@ export default {
             axiosService.post("/api/getEmployeeData", data)
             .then(res => {
                 console.log(res.data.data);
+                this.isLoading = false;
                 this.accounts = res.data.data.employees;
                 this.merchant = res.data.data.merchant;
                 this.current_page = res.data.data.current_page;
