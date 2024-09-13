@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [
         vue(),
         laravel({
-            input: ["resources/css/app.css", "resources/js/app.js", "resources/assets/css/login_style.css"],
+            input: ["resources/css/app.css", "resources/js/app.js", "resources/assets/css/login_style.css","resources/assets/css/home_route.css"],
             refresh: true,
         }),
     ],

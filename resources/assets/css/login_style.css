@@ -1,7 +1,23 @@
-
+body{
+    padding: 0;
+    margin: 0;
+}
+.giftcard-log-sub-main {
+    background-image: url();
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.giftcard-log-sub-header{
+    padding: 22px 31px;
+}
 .giftcard-log-sub-main .row {
     display: flex;
     justify-content: space-between;
+    padding: 7% 5%;
+    align-items: center;
 }
 
 .log-gift-part {
@@ -71,7 +87,6 @@ input:internal-autofill-selected {
     border: none;
 }
 
-
 .input-group > .placeholder {
     text-align: left;
     position: absolute;
@@ -99,3 +114,9 @@ input:internal-autofill-selected {
 input:-internal-autofill-selected {
     background-color: #fff !important;
 }
+
+/* media-query */
+
+@media screen and (max-width: 768px) {}
+
+@media screen and (max-width: 576px) {}

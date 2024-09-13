@@ -28,9 +28,7 @@
                                 <!-- <label class="placeholder">Account Type</label> -->
                                  
                                 <select class="input" v-model="form.login_type">
-                                    <option value="1">
-                                        Account Type
-                                    </option>
+                                    <option value="1">Account Type</option>
                                     <option value="2">Admin</option>
                                     <option value="3">Sub-account</option>
                                 </select>
