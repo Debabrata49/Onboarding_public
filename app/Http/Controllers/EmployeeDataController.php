@@ -46,7 +46,7 @@ class EmployeeDataController extends Controller
 
         $total_entries = $employees->count();
         $total_pages = ceil($total_entries/$limit);
-        $employees = $employees->offset($offset)->limit($limit)->get(['id', 'name', 'merchant_id','email','password','orginialpassword','status','created_at','updated_at','outlet_id','loyalty_percentage','sms_vendor_type','promo_sms_vendor_type','whatsapp_vendor_type','push_redeemption_permission','permission']);
+        $employees = $employees->offset($offset)->limit($limit)->orderBy('id','desc')->get(['id', 'name', 'merchant_id','email','password','orginialpassword','status','created_at','updated_at','outlet_id','loyalty_percentage','sms_vendor_type','promo_sms_vendor_type','whatsapp_vendor_type','push_redeemption_permission','permission','valid_till']);
         $emp_array = [];
         if(count($employees) > 0){
             foreach ($employees as $employee) {
@@ -101,7 +101,7 @@ class EmployeeDataController extends Controller
                 //Activated ON
                 $active_on = 'N/A';
                 if($employee->status == 1){
-                    $active_on = $employee->created_at;
+                    $active_on = date('d-m-Y',strtotime($employee->created_at));
                 }
                 //Deactivated ON
                 $deactive_on = 'N/A';
@@ -124,7 +124,7 @@ class EmployeeDataController extends Controller
                     'password' => $employee->orginialpassword,
                     'active_on' => $active_on,
                     'deactive_on' => $deactive_on,
-                    'valid_till' => $employee->vaid_till,
+                    'valid_till' => date('d-m-Y',strtotime($employee->valid_till)),
                     'outletname' => $outletname,
                     'loyalty_percentage' => $loyalty_structure,  
                     'adv_loyalty' => $adv_loyalty,  
@@ -150,7 +150,9 @@ class EmployeeDataController extends Controller
             'employees' => $emp_array,
             'total_entries' => $total_entries,
             'total_pages' => $total_pages,
+            'limit' => $limit,
             'current_page' => (int)$request->page_number,
+            'next_page' => (int)$request->page_number+1,
         ];
         return response()->json(['data' => $data], 200);
     }

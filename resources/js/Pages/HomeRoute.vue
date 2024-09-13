@@ -26,7 +26,7 @@
     </div>
 
     <div class="text-center">
-        <p>No of sub-accounts allowed: 20 | No. of active sub-accounts: 3</p>
+        <p>No of sub-accounts allowed: <span class="no_sub_acc">{{ merchant.no_sub_account }}</span> | No. of active sub-accounts: 3</p>
     </div>
 
     <div id="app">
@@ -55,7 +55,7 @@
                     <tr v-for="i in accounts">
 
                         <td>
-                                <div class="content">
+                            <div class="content">
                                 {{ i.name }}
                                 <i class="bi bi-chevron-right"></i>
                             </div>
@@ -67,7 +67,7 @@
                                 {{ i.password }}
                                 <i class="bi bi-pencil"></i>
                             </div>
-                           
+
                         </td>
                         <td>{{ i.status }}</td>
                         <td>{{ i.active_on }}</td>
@@ -76,8 +76,8 @@
 
                         <td>
                             <div class="content">
-                            {{ i.outletname }}
-                            <i class="bi bi-chevron-right"></i>
+                                {{ i.outletname }}
+                                <i class="bi bi-chevron-right"></i>
                             </div>
                         </td>
                         <td>
@@ -85,17 +85,17 @@
                                 {{ i.loyalty_percentage }}
                                 <i class="bi bi-chevron-right"></i>
                             </div>
-                            </td>
-                        <td>
-                            <div class="content">
-                            {{ i.adv_loyalty }}
-                            <i class="bi bi-chevron-right"></i>
-                        </div>
                         </td>
                         <td>
                             <div class="content">
-                            {{ i.pos_vendor_name }}
-                            <i class="bi bi-chevron-right"></i>
+                                {{ i.adv_loyalty }}
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="content">
+                                {{ i.pos_vendor_name }}
+                                <i class="bi bi-chevron-right"></i>
                             </div>
                         </td>
                         <td>
@@ -111,20 +111,15 @@
                     </tr>
                 </tbody>
             </table>
+            <pagination v-if="accounts != ''" v-model="page" :records="total_entries" :per-page="limit" @paginate="pagination"/>
         </div>
     </div>
-
-    
-
-    
-
-
-
 </template>
 <script>
 import axios from "axios";
 import { ref } from "vue";
 import axiosService from "@/axiosService";
+import Pagination from 'v-pagination-3';
 
 export default {
     data() {
@@ -132,71 +127,69 @@ export default {
             allowedAccounts: 20,
             activateAccounts: 3,
             accounts: [],
+            merchant: '',
+            page: 1,
+            current_page: 0,
+            total_entries: 0,
+            total_pages: 0,
+            next_page: 0,
+            limit: 0,
         };
     },
 
+    components:{
+        Pagination
+    },
+
     setup() {
-        // const response = ref(null);
-
-        // const triggerEndpoint = async () => {
-        //     console.log(localStorage.getItem("access_token"));
-        //     try {
-        //         let data = {
-        //             page_number: 1,
-        //         };
-        //         const result = await axiosService.post(
-        //             "/api/getEmployeeData",
-        //             data
-        //         );
-        //         response.value = result.data;
-        //         console.log(response);
-        //     } catch (error) {
-        //         console.error(error);
-        //     }
-        // };
-
-        // return {
-        //     response,
-        //     triggerEndpoint,
-        // };
-
         const searchQuery = ref('');
-    const isSearchActive = ref(false);
+        const isSearchActive = ref(false);
 
-    const toggleSearch = () => {
-        isSearchActive.value = !isSearchActive.value;
-    };
-    const searchAction = () => {
-        // Handle the search logic here, using searchQuery.value
-        console.log("Searching for:", searchQuery.value);
-    };
+        const toggleSearch = () => {
+            isSearchActive.value = !isSearchActive.value;
+        };
+        const searchAction = () => {
+            // Handle the search logic here, using searchQuery.value
+            console.log("Searching for:", searchQuery.value);
+        };
 
-    return {
-        searchQuery,
-        isSearchActive,
-        toggleSearch,
-        searchAction
-    };
+        return {
+            searchQuery,
+            isSearchActive,
+            toggleSearch,
+            searchAction
+        };
 
     },
-    mounted(){
-        let data = {page_number: 1};
-        let token = localStorage.getItem("access_token")
-        axiosService.post("/api/getEmployeeData",data)
-        .then(res=>{
-            console.log(res.data.data);
-            this.accounts = res.data.data.employees
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+    mounted() {
+        this.getEmployeeData(this.page);
+    },
+    methods:{
+        getEmployeeData(page_no){
+            let data = { page_number: page_no };
+            axiosService.post("/api/getEmployeeData", data)
+            .then(res => {
+                console.log(res.data.data);
+                this.accounts = res.data.data.employees;
+                this.merchant = res.data.data.merchant;
+                this.current_page = res.data.data.current_page;
+                this.total_entries = res.data.data.total_entries;
+                this.total_pages = res.data.data.total_pages;
+                this.limit = res.data.data.limit;
+                this.next_page = res.data.data.next_page;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        },
+        pagination() {
+            this.getEmployeeData(this.page);
+        }
     }
 };
 </script>
 
 <style scoped>
-
-
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
 @font-face {
@@ -214,7 +207,7 @@ export default {
     src: url("../../font/Gilroy-Bold.ttf") format("truetype");
 }
 
-body{
+body {
     margin: 0;
 }
 
@@ -285,10 +278,12 @@ body{
     justify-content: center;
     align-items: center;
 }
+
 .text-center {
     text-align: center;
     padding: 20px;
 }
+
 .text-center p {
     font-family: "NewFont", sans-serif;
     font-size: 14px;
@@ -340,7 +335,7 @@ body{
     overflow: hidden;
 }
 
-.content{
+.content {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -360,7 +355,7 @@ table {
     border-radius: 8px;
 }
 
-table thead tr th{
+table thead tr th {
     width: 400px;
 }
 
@@ -378,7 +373,7 @@ thead {
     border-bottom: 4px solid #b6b4b8;
 }
 
-    td {
+td {
     padding: 10px;
     font-size: 12px;
     font-weight: 500;
@@ -402,9 +397,13 @@ table tbody tr td i {
     color: #f78e31;
 }
 
-table tbody tr:nth-child(even){
+table tbody tr:nth-child(even) {
     background: #F7F4FB;
 
+}
+
+.no_sub_acc{
+    color: #f78e31;
 }
 
 @media screen and (max-width: 768px) {
@@ -456,12 +455,12 @@ table tbody tr:nth-child(even){
         min-width: 1200px;
     }
 
-    .flex-container{
+    .flex-container {
         flex-wrap: wrap;
         justify-content: center;
     }
 
-    .text-item{
+    .text-item {
         margin-top: 25px;
     }
 
