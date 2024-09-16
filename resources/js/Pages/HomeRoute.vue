@@ -1,6 +1,6 @@
 <template>
     <div class="flex-container">
-        <div class="text-item">Sub-Accounts</div>
+        <div class="text-item">Sub-Accountssss</div>
         <div class="text-item flex-container-inner">
 
             <div class="search-icon">
