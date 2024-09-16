@@ -1,40 +1,52 @@
 <template>
     <div class="flex-container">
-        <div class="text-item">Sub-Accountssss</div>
         <div class="text-item flex-container-inner">
-
-            <div class="search-icon">
+            
+            <div class="search-container" :class="{active:isSearchActive}">
                 <form @submit.prevent="searchAction">
-                    <input type="text" v-model="searchQuery" :class="{ active: isSearchActive }">
-                    <button class="icon-button" @click="toggleSearch">
-                        <i class="bi bi-search"></i>
-                    </button>
+                    <input type="text" v-model="searchQuery" placeholder="Search..."/>
                 </form>
+                <button class="" @click="toggleSearch">
+                    <i class="bi bi-search" ></i>
+                </button>
             </div>
 
-            <div class="profile-button">
-                <i class="bi bi-person"></i>
+
+            <div class="profile-button"  @click="modalHandel">
+                <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726476490/uerewobugusvnamkcmco.png"
+                    alt="profile-button">
             </div>
-    
+            <div class="log-out" :class="{active:modalIsActive}" >
+                    <h3>Coffee to go</h3>
+                    <button>Log Out</button>
+                </div>
+
         </div>
     </div>
     <div class="onboarding-body">
 
         <div class="txt-middle">
-            <div class="text-center">
-                <p>No of sub-accounts allowed: 20 | No. of active sub-accounts: 3</p>
+            <div class="text-left">
+
+                <div class="txt-icon">
+                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726477817/folder-with-files-svgrepo-com_1_epmxrz.png"
+                        alt="txt-icon">
+                </div>
+
+                <div class="txt-content">
+                    <h3>Sub-Accounts</h3>
+                    <pre><p>Total sub-accounts allowed: 20   |  Active sub-accounts: 3</p></pre>
+                </div>
+
             </div>
             <div class="regular-button">
-                <button>
-                    <div class="button-content">
-                        <i class="bi bi-plus-lg"></i>
-                    </div>
-                </button>
-
+                <div class="button-content">
+                    <i class="bi bi-plus-lg"></i>
+                </div>
                 <span>Create Sub-Account</span>
             </div>
         </div>
-        
+
         <div class="onboarding-body-sub">
             <div class="table-container">
                 <table>
@@ -140,6 +152,7 @@ export default {
             allowedAccounts: 20,
             activateAccounts: 3,
             accounts: [],
+            modalIsActive:false,
         };
     },
 
@@ -147,14 +160,17 @@ export default {
 
         const searchQuery = ref('');
         const isSearchActive = ref(false);
-
         const toggleSearch = () => {
             isSearchActive.value = !isSearchActive.value;
+            if (isSearchActive.value) {
+                searchQuery.value = null;
+            }
         };
+
         const searchAction = () => {
-            // Handle the search logic here, using searchQuery.value
             console.log("Searching for:", searchQuery.value);
         };
+
 
         return {
             searchQuery,
@@ -176,6 +192,13 @@ export default {
             .catch((err) => {
                 console.log(err);
             })
+    },
+    methods:{
+        modalHandel(){
+            this.modalIsActive = !this.modalIsActive;
+            console.log(this.modalIsActive);
+            
+        },
     }
 };
 </script>
