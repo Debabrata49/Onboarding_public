@@ -6,6 +6,12 @@ use App\Models\WhatsappVendor;
 use App\Models\EmailVendor;
 use App\Models\PosRegistration;
 use App\Models\PosVendorRegistration;
+use App\Models\PromoStructureTable;
+use App\Models\Coupon;
+use App\Models\Booklet;
+use App\Models\EBooklet;
+use App\Models\Token;
+use App\Models\RecurringBookletDetails;
 
 trait EmployeeDataFormat
 {
@@ -431,14 +437,19 @@ trait EmployeeDataFormat
             ],
             'coupon_redeem_transaction' => [
                 [
+                    'name' => 'Please select',
+                    'value' => '0',
+                    'select' => (!$pos_reg) ? 1 : 0
+                ],
+                [
                     'name' => 'Yes',
                     'value' => 'transaction',
-                    'select' => $pos_reg->coupon_redeem_transaction == 'transaction' ? 1 : 0
+                    'select' => ($pos_reg && $pos_reg->coupon_redeem_transaction == 'transaction') ? 1 : 0
                 ],
                 [
                     'name' => 'No',
                     'value' => 'checkin',
-                    'select' => $pos_reg->coupon_redeem_transaction == 'checkin' ? 1 : 0
+                    'select' => ($pos_reg && $pos_reg->coupon_redeem_transaction == 'checkin') ? 1 : 0
                 ]
             ],
             'points_on_tax' => [
@@ -543,5 +554,110 @@ trait EmployeeDataFormat
             'pos_vendor_select' => $pos_vendor_select
         ];
         return $pos_reg_details;
+    }
+
+    public function get_offer($employee,$merchant){
+        $promos = PromoStructureTable::where('merchant_id', $merchant)->where('is_active', 1)->orderBy('id','desc')->get();
+        $offers = [];
+        $promo_select = [];
+        if(count($promos)>0){
+            foreach ($promos as $promo) {
+                $promo_sub_select_arr = $promo->sub_logins_allowed_to_redeem;
+                $promo_sub_select_arr = explode(',', $promo_sub_select_arr);
+                $promo_select[] = [
+                    [
+                        'name' => $promo->promo_name,
+                        'value' => $promo->id,
+                        'select' => in_array($employee->id,$promo_sub_select_arr) ? 1 : 0
+                    ]
+                ];
+                unset($promo_sub_select_arr);
+            }
+        }
+        unset($promos);
+        $coupons = Coupon::where('merchant_id', $merchant)->where('is_active', 1)->orderBy('id','desc')->get();
+        $coupon_select = [];
+        if(count($coupons)>0){
+            foreach ($coupons as $coupon) {
+                $coupon_select[] = [
+                    [
+                        'name' => $coupon->coupon_name,
+                        'value' => $coupon->id,
+                        'select' => 0
+                    ]
+                ];
+            }
+        }
+        unset($coupons);
+        $booklets = Booklet::where('merchant_id', $merchant)->where('status', 1)->orderBy('id','desc')->get();
+        $booklet_select = [];
+        if(count($booklets)>0){
+            foreach ($booklets as $booklet) {
+                $booklet_sub_select_arr = $booklet->allowed_subaccount;
+                $booklet_sub_select_arr = explode(',', $booklet_sub_select_arr);
+                $booklet_select[] = [
+                    [
+                        'name' => $booklet->booklet_name,
+                        'value' => $booklet->id,
+                        'select' => in_array($employee->id,$booklet_sub_select_arr) ? 1 : 0
+                    ]
+                ];
+                unset($booklet_sub_select_arr);
+            }
+        }
+        $ebooklets = EBooklet::where('merchant_id', $merchant)->where('status', 1)->orderBy('id','desc')->get();
+        $ebooklet_select = [];
+        if(count($ebooklets)>0){
+            foreach ($ebooklets as $ebooklet) {
+                $ebooklet_sub_select_arr = $ebooklet->allowed_subaccount;
+                $ebooklet_sub_select_arr = explode(', ', $ebooklet_sub_select_arr);
+                $ebooklet_select[] = [
+                    [
+                        'name' => $ebooklet->ebooklet_name,
+                        'value' => $ebooklet->id,
+                        'select' => in_array($employee->id, $ebooklet_sub_select_arr) ? 1 : 0
+                    ]
+                ];
+            }
+        }
+        $tokens = Token::where('merchant_id', $merchant)->where('is_active', 1)->orderBy('id','desc')->get();
+        $token_select = [];
+        if(count($tokens)>0){
+            foreach ($tokens as $token) {
+                $token_select_arr = $token->allowed_subaccount;
+                $token_select_arr = explode(', ', $token_select_arr);
+                $token_select[] = [
+                    [
+                        'name' => $token->token_name,
+                        'value' => $token->id,
+                        'select' => in_array($employee->id, $token_select_arr) ? 1 : 0
+                    ]
+                ];
+            }
+        }
+        $recurring_booklets = RecurringBookletDetails::where('merchant_id', $merchant)->where('status', 1)->orderBy('id','desc')->get();
+        $recurring_booklet_select = [];
+        if(count($recurring_booklets)>0){
+            foreach ($recurring_booklets as $recurring_booklet) {
+                $recurring_booklet_select_arr = $recurring_booklet->allowed_subaccount;
+                $recurring_booklet_select_arr = explode(', ', $recurring_booklet_select_arr);
+                $recurring_booklet_select[] = [
+                    [
+                        'name' => $recurring_booklet->recurring_booklet_name,
+                        'value' => $recurring_booklet->id,
+                        'select' => in_array($employee->id, $recurring_booklet_select_arr) ? 1 : 0
+                    ]
+                ];
+            }
+        }
+        $offers = [
+            'promo_select' => $promo_select,
+            'coupon_select' => $coupon_select,
+            'booklet_select' => $booklet_select,
+            'ebooklet_select' => $ebooklet_select,
+            'token_select' => $token_select,
+            'recurring_booklet_select' => $recurring_booklet_select
+        ];
+        return $offers;        
     }
 }

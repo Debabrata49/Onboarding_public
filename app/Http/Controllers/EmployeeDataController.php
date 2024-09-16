@@ -46,6 +46,14 @@ class EmployeeDataController extends Controller
 
         $total_entries = $employees->count();
         $total_pages = ceil($total_entries/$limit);
+        if(!empty($request->search)){
+            $employees = $employees->where(function ($query) use(&$search) {
+                $query->where('id','LIKE','%'.$search.'%')
+                    ->orWhere('name','LIKE','%'.$search.'%')
+                    ->orWhere('email', 'LIKE', '%' . $search . '%')
+                    ->orWhere('outlet:outletname', 'LIKE', '%' . $search . '%');
+            });
+        }
         $employees = $employees->offset($offset)->limit($limit)->orderBy('id','desc')->get(['id', 'name', 'merchant_id','email','password','orginialpassword','status','created_at','updated_at','outlet_id','loyalty_percentage','sms_vendor_type','promo_sms_vendor_type','whatsapp_vendor_type','push_redeemption_permission','permission','valid_till']);
         $emp_array = [];
         if(count($employees) > 0){
@@ -119,6 +127,7 @@ class EmployeeDataController extends Controller
                 $adv_loyalty = 'N/A';
 
                 $emp_array[] = [
+                    'id' => $employee->id,
                     'name' => $employee->name,
                     'email' => $employee->email,
                     'password' => $employee->orginialpassword,

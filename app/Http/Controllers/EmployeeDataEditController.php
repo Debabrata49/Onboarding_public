@@ -61,11 +61,18 @@ class EmployeeDataEditController extends Controller
         //Sub-Accounts Permission
         $sub_accounts_permission = $this->sub_accounts_permission_format($permission_arr);
 
-        echo"<pre>";
-        print_r($pos_vendor);
-        // print_r($pos_reg->pos_vendor_id);
-        exit;
+        //OFFERS
+        $offer = $this->get_offer($employee, $merchant_id);
 
+        $empEditData = [
+            'employee' => $employee,
+            'pos_vendor' => $pos_vendor,
+            'communication_channels' => $communication_channels,
+            'pos_level_permission' => $pos_level_permission,
+            'sub_accounts_permission' => $sub_accounts_permission,
+            'offer' => $offer
+        ];
 
+        return response()->json(['data' => $empEditData], 200);
     }
 }

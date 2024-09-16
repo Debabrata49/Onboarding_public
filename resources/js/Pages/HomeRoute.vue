@@ -22,7 +22,7 @@
 
         <div class="txt-middle">
             <div class="text-center">
-                <p>No of sub-accounts allowed: 20 | No. of active sub-accounts: 3</p>
+                <p>No of sub-accounts allowed: <span class="no_sub_acc">{{ merchant.no_sub_account }}</span> | No. of active sub-accounts: 3</p>
             </div>
             <div class="regular-button">
                 <button>
@@ -60,7 +60,7 @@
                     <tbody v-if="!isLoading">
                         <tr v-for="i in accounts">
                             <td>
-                                <div class="content">
+                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id)">
                                     {{ i.name }}
                                     <i class="bi bi-chevron-right"></i>
                                 </div>
@@ -116,14 +116,14 @@
                         </tr>
                     </tbody>
                     <tbody v-else>
-                        <tr v-for="j in [...new Array(5)]">
+                        <tr v-for="j in [...new Array(15)]">
                             <td v-for="k in [...new Array(15)]">
                                 <div class="cust-skeleton-loader"></div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-               
+                <pagination v-model="page" :records="total_entries" :per-page="limit" @paginate="pagination" />
             </div>
         </div>
     </div>
@@ -158,13 +158,13 @@ export default {
     setup() {
         const searchQuery = ref('');
         const isSearchActive = ref(false);
-
         const toggleSearch = () => {
             isSearchActive.value = !isSearchActive.value;
         };
         const searchAction = () => {
             // Handle the search logic here, using searchQuery.value
             console.log("Searching for:", searchQuery.value);
+            this.getEmployeeData(this.page,searchQuery.value);
         };
 
         return {
@@ -179,8 +179,8 @@ export default {
         this.getEmployeeData(this.page);
     },
     methods:{
-        getEmployeeData(page_no){
-            let data = { page_number: page_no };
+        getEmployeeData(page_no,search=null){
+            let data = { page_number: page_no, search:search };
             axiosService.post("/api/getEmployeeData", data)
             .then(res => {
                 console.log(res.data.data);
@@ -198,8 +198,13 @@ export default {
             })
         },
         pagination() {
+            this.isLoading = true;
             this.getEmployeeData(this.page);
-        }
+        },
+        loadEditAccToName(id) {
+            const encodedId = btoa(id);
+            this.$router.push({ name: 'editAccount', params: { encodedId: encodedId } });
+        },
     }
 };
 </script>
@@ -224,6 +229,7 @@ export default {
 
 body {
     margin: 0;
+    padding: 0;
 }
 
 .flex-container {
@@ -247,20 +253,6 @@ body {
     color: #363242;
 }
 
-/* .icon-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 7px;
-    background-color: #f8f8f8;
-    border: 2px solid #361863;
-    cursor: pointer;
-    font-size: 18px;
-    color: #361863;
-} */
-
 .regular-button {
     width: 169px;
     padding: 9px 11px;
@@ -269,6 +261,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 19%;
 }
 
 .regular-button span {
@@ -317,7 +310,6 @@ body {
 .search-icon input {
     width: 0;
     padding: 8px;
-    font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
     transition: width 0.4s ease;
@@ -336,42 +328,41 @@ body {
     padding: 10px;
     border-radius: 7px;
     transition: background-color 0.3s;
+    font-size: 15px;
 }
 
+.txt-middle {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 
+.profile-button {
+    background-color: #f8f8f8;
+    border: 2px solid #361863;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 7px;
+    transition: background-color 0.3s;
+    font-size: 15px;
+}
 
+/* table css */
 
-/* app css */
-
-#app {
+.table-container table {
     background-color: #eeedf0;
     border-radius: 8px;
     width: 100%;
     overflow: hidden;
+    border-collapse: collapse;
+    font-size: 18px;
+    text-align: left;
 }
 
 .content {
     display: flex;
     align-items: center;
     gap: 5px;
-}
-
-.table-container {
-    width: 100%;
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 18px;
-    text-align: left;
-    background-color: #eeedf0;
-    border-radius: 8px;
-}
-
-table thead tr th {
-    width: 400px;
 }
 
 th {
@@ -413,13 +404,48 @@ table tbody tr td i {
 }
 
 table tbody tr:nth-child(even) {
-    background: #F7F4FB;
+    background: #f7f4fb;
+}
 
+.cust-skeleton-loader {
+    width: 100%;
+    height: 30px;
+    background-color: #f5f5f5;
+    position: relative;
+    overflow: hidden;
+    border-radius: 7px;
+}
+
+.cust-skeleton-loader::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #f5f5f5, #e6e6e6, #f5f5f5);
+    animation: skeleton-loader-animation 1.2s infinite linear;
 }
 
 .no_sub_acc{
     color: #f78e31;
 }
+
+@keyframes skeleton-loader-animation {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.col-email {
+    width: 130px;
+}
+
+/* media-query */
 
 @media screen and (max-width: 768px) {
     table {
@@ -478,6 +504,19 @@ table tbody tr:nth-child(even) {
     .text-item {
         margin-top: 25px;
     }
+}
 
+.onboarding-body {
+    padding: 0px 20px;
+}
+
+.onboarding-body-sub {
+    width: 100%;
+    overflow: hidden;
+    overflow-x: scroll;
+}
+
+.table-container {
+    width: 2165px;
 }
 </style>
