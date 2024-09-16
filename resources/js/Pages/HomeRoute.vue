@@ -1,40 +1,51 @@
 <template>
     <div class="flex-container">
-        <div class="text-item">Sub-Accounts</div>
         <div class="text-item flex-container-inner">
-
-            <div class="search-icon">
+            
+            <div class="search-container" :class="{active:isSearchActive}">
                 <form @submit.prevent="searchAction">
-                    <input type="text" v-model="searchQuery" :class="{ active: isSearchActive }">
-                    <button class="icon-button" @click="toggleSearch">
-                        <i class="bi bi-search"></i>
-                    </button>
+                    <input type="text" v-model="searchQuery" placeholder="Search..."/>
                 </form>
+                <button class="" @click="toggleSearch">
+                    <i class="bi bi-search" ></i>
+                </button>
             </div>
 
-            <div class="profile-button">
-                <i class="bi bi-person"></i>
+
+            <div class="profile-button"  @click="modalHandel">
+                <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726476490/uerewobugusvnamkcmco.png"
+                    alt="profile-button">
             </div>
-    
+            <div class="log-out" :class="{active:modalIsActive}" >
+                    <h3>Coffee to go</h3>
+                    <button>Log Out</button>
+                </div>
+
         </div>
     </div>
     <div class="onboarding-body">
 
         <div class="txt-middle">
-            <div class="text-center">
-                <p>No of sub-accounts allowed: <span class="no_sub_acc">{{ merchant.no_sub_account }}</span> | No. of active sub-accounts: 3</p>
+            <div class="text-left">
+
+                <div class="txt-icon">
+                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726477817/folder-with-files-svgrepo-com_1_epmxrz.png"
+                        alt="txt-icon">
+                </div>
+
+                <div class="txt-content">
+                    <h3>Sub-Accounts</h3>
+                    <pre><p>Total sub-accounts allowed: <span class="no_sub_acc">{{ merchant.no_sub_account }}</span> |  Active sub-accounts: 3</p></pre>
+                </div>
             </div>
             <div class="regular-button">
-                <button>
-                    <div class="button-content">
-                        <i class="bi bi-plus-lg"></i>
-                    </div>
-                </button>
-
+                <div class="button-content">
+                    <i class="bi bi-plus-lg"></i>
+                </div>
                 <span>Create Sub-Account</span>
             </div>
         </div>
-        
+
         <div class="onboarding-body-sub">
             <div class="table-container">
                 <table>
@@ -148,6 +159,7 @@ export default {
             total_pages: 0,
             next_page: 0,
             limit: 0,
+            modalIsActive:false,
         };
     },
 
@@ -160,12 +172,16 @@ export default {
         const isSearchActive = ref(false);
         const toggleSearch = () => {
             isSearchActive.value = !isSearchActive.value;
+            if (isSearchActive.value) {
+                searchQuery.value = null;
+            }
         };
+
         const searchAction = () => {
-            // Handle the search logic here, using searchQuery.value
             console.log("Searching for:", searchQuery.value);
             this.getEmployeeData(this.page,searchQuery.value);
         };
+
 
         return {
             searchQuery,
@@ -197,6 +213,10 @@ export default {
                 console.log(err);
             })
         },
+        modalHandel(){
+            this.modalIsActive = !this.modalIsActive;
+            console.log(this.modalIsActive);
+        },
         pagination() {
             this.isLoading = true;
             this.getEmployeeData(this.page);
@@ -204,7 +224,7 @@ export default {
         loadEditAccToName(id) {
             const encodedId = btoa(id);
             this.$router.push({ name: 'editAccount', params: { encodedId: encodedId } });
-        },
+        }
     }
 };
 </script>
@@ -234,7 +254,7 @@ body {
 
 .flex-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     border-bottom: 1px solid #ebebeb;
     padding: 13px 20px;
@@ -254,14 +274,15 @@ body {
 }
 
 .regular-button {
-    width: 169px;
+    width: 157px;
     padding: 9px 11px;
     background-color: #2a1151;
+    font-size: 14px;
+    color: #ffffff;
     border-radius: 7px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 19%;
 }
 
 .regular-button span {
@@ -271,55 +292,72 @@ body {
     font-size: 14px;
     color: #ffffff;
     font-weight: 400;
-    margin-left: 2%;
 }
 
-.regular-button button {
-    padding: 6px 8px;
-    font-size: 11px;
-    background: linear-gradient(45deg, #ffb13d, #f25816);
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+.text-left { 
+    width: 34%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
-.text-center {
-    text-align: center;
-    padding: 20px;
+.text-left img {
+    width: 100%;
 }
 
-.text-center p {
-    font-family: "NewFont", sans-serif;
+.txt-content h3{
+    font-family: "Inter", system-ui;
+    font-size: 20px;
+    font-weight: 800;
+    color:#363242;
+    margin: 0 0 10px 0;
+}
+
+
+.txt-content p {
+    font-family: "Inter", system-ui;
     font-size: 14px;
     font-weight: 400;
     color: #727078;
     margin: 0;
 }
 
-.search-icon form {
+.search-container{
+    width: 40px;
     display: flex;
-    align-items: center;
-    position: relative;
-    margin-bottom: 0;
+    justify-content: end;
+    overflow: hidden;
+    border: 1px solid #b9b3b3;
+    transition: all 0.5s ease-in-out;
+    border-radius: 6px;
+    button{
+        height: 40px;
+        width: 40px;
+        border: 0;
+        background-color: #ffffff;
+    }
+    form{
+        margin-bottom: 0px;
+    }
 }
 
-.search-icon input {
-    width: 0;
-    padding: 8px;
-    border: 1px solid #ccc;
+.search-container.active{
+    width: 250px;
+}
+
+.search-container.active input{
+    width: 210px;
+    padding-left: 10px;
+}
+
+.search-container input {
+    width: 0px;
+    border: 0;
     border-radius: 5px;
     transition: width 0.4s ease;
-    opacity: 0;
+    height: 100%;
 }
 
-.search-icon input.active {
-    width: 200px;
-    opacity: 1;
-}
 
 .icon-button {
     background-color: #f8f8f8;
@@ -327,56 +365,59 @@ body {
     cursor: pointer;
     padding: 10px;
     border-radius: 7px;
-    transition: background-color 0.3s;
+    transition: width 0.4s ease, background-color 0.3s;
     font-size: 15px;
+    width: 40px;
 }
 
+
+
+
 .txt-middle {
+    padding: 18px 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
 }
 
-.profile-button {
-    background-color: #f8f8f8;
-    border: 2px solid #361863;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 7px;
-    transition: background-color 0.3s;
-    font-size: 15px;
+.profile-button img {
+    width: 100%;
 }
 
 /* table css */
 
 .table-container table {
-    background-color: #eeedf0;
+    background-color: #ffffff;
     border-radius: 8px;
     width: 100%;
     overflow: hidden;
     border-collapse: collapse;
     font-size: 18px;
     text-align: left;
+    border: 4px solid white;
 }
 
 .content {
     display: flex;
     align-items: center;
     gap: 5px;
+    background-color: #2a1151;
+    padding: 5px 10px;
+    color: #ffffff;
+    border-radius: 5px;
 }
 
 th {
     font-family: "FontNew", sans-serif;
-    padding: 12px 5px;
-    border: 1px solid #ddd;
+    padding: 12px 11px;
+    border: 1px solid #ffffff;
     font-size: 12px;
     font-weight: 400;
     color: #353b41;
 }
 
 thead {
-    background-color: #eeedf0;
-    border-bottom: 4px solid #b6b4b8;
+    background-color: #e9e1e1;    
 }
 
 td {
@@ -391,6 +432,7 @@ td {
 tbody tr {
     background-color: #ffffff;
     margin: 3px 2px;
+    border-top: 5px solid #e1dbea;
 }
 
 table tbody tr td ul {
@@ -401,10 +443,6 @@ table tbody tr td ul {
 table tbody tr td i {
     float: right;
     color: #f78e31;
-}
-
-table tbody tr:nth-child(even) {
-    background: #f7f4fb;
 }
 
 .cust-skeleton-loader {
@@ -425,10 +463,6 @@ table tbody tr:nth-child(even) {
     height: 100%;
     background: linear-gradient(to right, #f5f5f5, #e6e6e6, #f5f5f5);
     animation: skeleton-loader-animation 1.2s infinite linear;
-}
-
-.no_sub_acc{
-    color: #f78e31;
 }
 
 @keyframes skeleton-loader-animation {
@@ -508,6 +542,7 @@ table tbody tr:nth-child(even) {
 
 .onboarding-body {
     padding: 0px 20px;
+    background-color: #f9f7fb;
 }
 
 .onboarding-body-sub {
@@ -517,6 +552,35 @@ table tbody tr:nth-child(even) {
 }
 
 .table-container {
-    width: 2165px;
+    width: 2265px;
+}
+
+.profile-button{
+    position: relative;
+}
+
+.log-out{
+    width: 200px;
+    position: absolute;
+    top: 71px;
+    right: 5px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    padding: 40px 24px;
+    /* border: 1px solid black; */
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.log-out.active{
+    opacity: 1;
+}
+
+.log-out button{
+    width: 200px;
+    background-color: #2a1151;
+    padding: 10px 12px;
+    color: white;
+    border-radius: 5px;
 }
 </style>
