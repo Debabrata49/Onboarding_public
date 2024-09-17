@@ -22,6 +22,7 @@
                     />
                     <div class="login-part-cont">
                         <h4>PARTNER LOGIN</h4>
+
                         <div class="login-mobil">
                             <div class="input-group">
 
@@ -57,6 +58,7 @@
                                 <button class="btn" type="submit">Login</button>
                             </div>
                         </div>
+                        
                     </div>
                 </form>
                 <p class="log-error" v-if="error">{{ error }}</p>

@@ -1,4 +1,6 @@
 <template>
+
+    
     <div class="flex-container">
         <div class="text-item flex-container-inner">
             
@@ -18,8 +20,9 @@
             </div>
             <div class="log-out" :class="{active:modalIsActive}" >
                     <h3>Coffee to go</h3>
+                    <a href="mailto:coffee.to.go@gmail.com">coffee.to.go@gmail.com</a>
                     <button>Log Out</button>
-                </div>
+            </div>
 
         </div>
     </div>
@@ -34,7 +37,7 @@
                 </div>
 
                 <div class="txt-content">
-                    <h3>Sub-Accounts</h3>
+                    <h3 class="">Sub-Accounts</h3>
                     <pre><p>Total sub-accounts allowed: <span class="no_sub_acc">{{ merchant.no_sub_account }}</span> |  Active sub-accounts: 3</p></pre>
                 </div>
             </div>
@@ -79,7 +82,7 @@
 
                             <td>{{ i.email }}</td>
                             <td>
-                                <div class="content">
+                                <div class="content" @click="handleUser(i)">
                                     {{ i.password }}
                                     <i class="bi bi-pencil"></i>
                                 </div>
@@ -137,6 +140,42 @@
                 <pagination v-model="page" :records="total_entries" :per-page="limit" @paginate="pagination" />
             </div>
         </div>
+        
+        <div v-if="modalPassword"  class="modal-overlay" @click.self="closeModal">
+
+            <div class="modal-password" :class="{active:modalPassword}">
+                <form class="password-form" @submit.prevent="sent">
+                    <div class="password-content">
+
+                        <div class="password-upper">
+                            <h4>Create New Password</h4>
+                            <i class="bi bi-x-circle-fill" @click="closeModal"></i>
+                        </div>
+
+                        <div class="input-container">
+                            <div class="password-input">
+                                <label for="pwd">Current Password</label>
+                                <input type="password" name="pwd" class="pwd" placeholder="Enter Current Password">
+                            </div>
+                            <div class="password-input">
+                                <label for="pwd">New Password</label>
+                                <input type="password" name="pwd" class="pwd" placeholder="Enter New Password">
+                            </div>
+                            <div class="password-input">
+                                <label for="pwd">Confirm Password</label>
+                                <input type="password" name="pwd" class="pwd" placeholder="Re-Enter New Password">
+                            </div>
+                        </div>
+
+                        <div class="sub-btn">
+                            <button type="submit">Reset Password</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+
     </div>
 </template>
 
@@ -160,6 +199,8 @@ export default {
             next_page: 0,
             limit: 0,
             modalIsActive:false,
+            userObj :{},
+            modalPassword : false,
         };
     },
 
@@ -224,7 +265,16 @@ export default {
         loadEditAccToName(id) {
             const encodedId = btoa(id);
             this.$router.push({ name: 'editAccount', params: { encodedId: encodedId } });
-        }
+        },
+        handleUser(value){
+            this.userObj = {...value};
+            if (this.userObj) {
+                this.modalPassword = true;
+            }
+        },
+        closeModal() {
+            this.modalPassword = false; 
+        },
     }
 };
 </script>
