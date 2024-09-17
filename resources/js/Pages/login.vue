@@ -29,9 +29,9 @@
                                 <!-- <label class="placeholder">Account Type</label> -->
                                  
                                 <select class="input" v-model="form.login_type">
-                                    <option value="1">Account Type</option>
-                                    <option value="2">Admin</option>
-                                    <option value="3">Sub-account</option>
+                                    <option value="0">Account Type</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Sub-account</option>
                                 </select>
                                 <span class="login_type_custom"></span>
                             </div>
@@ -75,7 +75,7 @@ export default {
         let form = reactive({
             email: "",
             password: "",
-            login_type: "1",
+            login_type: "0",
         });
         const router = useRouter();
         isRequired: false;

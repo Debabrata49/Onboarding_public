@@ -42,19 +42,20 @@ class EmployeeDataController extends Controller
         }
         $merchant_data = $merchant->toArray();
         // $employees = $merchant->employees()->select('id', 'name', 'merchant_id','email','password','vaid_till','status','deactived','created_at','updated_at','outlet_id')->get();
-        $employees = Employee::where('merchant_id', $merchant_id)->with('outlet:id,outletname');
+        $employees = Employee::where('employee.merchant_id', $merchant_id)->join('wl_outlets', 'employee.outlet_id', '=', 'wl_outlets.id');
 
-        $total_entries = $employees->count();
-        $total_pages = ceil($total_entries/$limit);
         if(!empty($request->search)){
+            $search = $request->search;
             $employees = $employees->where(function ($query) use(&$search) {
-                $query->where('id','LIKE','%'.$search.'%')
-                    ->orWhere('name','LIKE','%'.$search.'%')
-                    ->orWhere('email', 'LIKE', '%' . $search . '%')
-                    ->orWhere('outlet:outletname', 'LIKE', '%' . $search . '%');
+                $query->where('employee.id','LIKE','%'.$search.'%')
+                    ->orWhere('employee.name','LIKE','%'.$search.'%')
+                    ->orWhere('employee.email', 'LIKE', '%' . $search . '%')
+                    ->orWhere('wl_outlets.outletname', 'LIKE', '%' . $search . '%');
             });
         }
-        $employees = $employees->offset($offset)->limit($limit)->orderBy('id','desc')->get(['id', 'name', 'merchant_id','email','password','orginialpassword','status','created_at','updated_at','outlet_id','loyalty_percentage','sms_vendor_type','promo_sms_vendor_type','whatsapp_vendor_type','push_redeemption_permission','permission','valid_till']);
+        $total_entries = $employees->count();
+        $total_pages = ceil($total_entries/$limit);
+        $employees = $employees->offset($offset)->limit($limit)->orderBy('employee.id','desc')->get(['employee.*','wl_outlets.id','wl_outlets.outletname']);
         $emp_array = [];
         if(count($employees) > 0){
             foreach ($employees as $employee) {

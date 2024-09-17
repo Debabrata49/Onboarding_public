@@ -19,9 +19,9 @@
                     alt="profile-button">
             </div>
             <div class="log-out" :class="{active:modalIsActive}" >
-                    <h3>Coffee to go</h3>
-                    <a href="mailto:coffee.to.go@gmail.com">coffee.to.go@gmail.com</a>
-                    <button>Log Out</button>
+                <h3>{{ merchant.business_name }}</h3>
+                <a href="mailto:coffee.to.go@gmail.com">coffee.to.go@gmail.com</a>
+                <button @click="logoutCall">Log Out</button>
             </div>
 
         </div>
@@ -137,7 +137,8 @@
                         </tr>
                     </tbody>
                 </table>
-                <pagination v-model="page" :records="total_entries" :per-page="limit" @paginate="pagination" />
+                <pagination v-if="accounts != ''" v-model="page" :records="total_entries" :per-page="limit" @paginate="pagination" />
+                <p v-else>No - Data found</p>
             </div>
         </div>
         
@@ -201,6 +202,9 @@ export default {
             modalIsActive:false,
             userObj :{},
             modalPassword : false,
+            searchQuery: '',  // Moved searchQuery to data
+            isSearchActive: false,
+            shouldReCall : true
         };
     },
 
@@ -216,19 +220,21 @@ export default {
             if (isSearchActive.value) {
                 searchQuery.value = null;
             }
-        };
-
-        const searchAction = () => {
-            console.log("Searching for:", searchQuery.value);
+            console.log(searchQuery.value);
             this.getEmployeeData(this.page,searchQuery.value);
         };
+
+        // const searchAction = () => {
+        //     console.log("Searching for:", searchQuery.value);
+        //     // this.getEmployeeData(this.page,searchQuery.value);
+        // };
 
 
         return {
             searchQuery,
             isSearchActive,
             toggleSearch,
-            searchAction
+            // searchAction
         };
 
     },
@@ -263,24 +269,74 @@ export default {
             this.getEmployeeData(this.page);
         },
         loadEditAccToName(id) {
-            const encodedId = btoa(id);
-            this.$router.push({ name: 'editAccount', params: { encodedId: encodedId } });
+            console.log(id);
+            this.editEmployeeProfile(id,this.shouldReCall);
         },
         handleUser(value){
             this.userObj = {...value};
+            
             if (this.userObj) {
+                console.log(value);
                 this.modalPassword = true;
+                console.log(this.modalPassword);
             }
         },
         closeModal() {
             this.modalPassword = false; 
         },
+        editEmployeeProfile(id,shouldReCall){
+            if(shouldReCall == false){
+                return false;
+            }
+            this.shouldReCall = false;
+            let data = { employee_id: id };
+            axiosService.post("/api/editEmployeeProfile", data)
+            .then(res => {
+                console.log(res.data.data);
+                this.shouldReCall = true;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        },
+        toggleSearch() {
+            this.isSearchActive = !this.isSearchActive;
+            console.log(this.isSearchActive);
+            if (this.isSearchActive) {
+                this.searchQuery = ''; // Assuming searchQuery is in data or methods
+            }else{
+                this.isLoading = true;
+                this.getEmployeeData(this.page, this.searchQuery);
+            }            
+        },
+        logoutCall(){
+            axiosService.post("/api/logout", [])
+            .then(res => {
+                console.log(res.data);
+                if(res.data.error == false){
+                    localStorage.removeItem("access_token");
+                    localStorage.removeItem("expires_in");
+                    window.location.reload();
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                // Ensure the tokens are removed regardless of success or failure
+                localStorage.removeItem("access_token");
+                localStorage.removeItem("expires_in");
+                window.location.reload();
+            });
+        }
     }
 };
 </script>
 
 <style scoped>
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+
 
 @font-face {
     font-family: "MyCustomFont";
@@ -297,9 +353,30 @@ export default {
     src: url("../../font/Gilroy-Bold.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "CustomFont";
+    src: url("../../font/Gilroy-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Font";
+    src: url("../../font/Gilroy-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "FontLight";
+    src: url("../../font/Gilroy-Light.ttf") format("truetype");
+}
+
+
 body {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
 }
 
 .flex-container {
@@ -324,7 +401,7 @@ body {
 }
 
 .regular-button {
-    width: 157px;
+    width: 180px;
     padding: 9px 11px;
     background-color: #2a1151;
     font-size: 14px;
@@ -344,7 +421,7 @@ body {
     font-weight: 400;
 }
 
-.text-left { 
+.text-left {
     width: 34%;
     display: flex;
     justify-content: space-between;
@@ -355,11 +432,11 @@ body {
     width: 100%;
 }
 
-.txt-content h3{
+.txt-content h3 {
     font-family: "Inter", system-ui;
     font-size: 20px;
     font-weight: 800;
-    color:#363242;
+    color: #363242;
     margin: 0 0 10px 0;
 }
 
@@ -372,7 +449,7 @@ body {
     margin: 0;
 }
 
-.search-container{
+.search-container {
     width: 40px;
     display: flex;
     justify-content: end;
@@ -380,32 +457,48 @@ body {
     border: 1px solid #b9b3b3;
     transition: all 0.5s ease-in-out;
     border-radius: 6px;
-    button{
+
+    button {
         height: 40px;
         width: 40px;
         border: 0;
         background-color: #ffffff;
     }
-    form{
+
+    form {
         margin-bottom: 0px;
     }
 }
 
-.search-container.active{
+.search-container.active {
     width: 250px;
 }
 
-.search-container.active input{
+.search-container.active input {
     width: 210px;
-    padding-left: 10px;
+    padding: 10px;
+
 }
 
 .search-container input {
+    font-family: "FontLight", sans-serif;
     width: 0px;
     border: 0;
     border-radius: 5px;
     transition: width 0.4s ease;
     height: 100%;
+
+}
+
+.search-container input:focus {
+    outline: none;
+}
+
+.search-container form input::placeholder {
+    font-family: "FontLight", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #b0adad;
 }
 
 
@@ -419,8 +512,6 @@ body {
     font-size: 15px;
     width: 40px;
 }
-
-
 
 
 .txt-middle {
@@ -445,6 +536,11 @@ body {
     font-size: 18px;
     text-align: left;
     border: 4px solid white;
+    position: relative;
+}
+
+.table-container thead {
+    background-color: #e9e1e1;
 }
 
 .content {
@@ -466,9 +562,7 @@ th {
     color: #353b41;
 }
 
-thead {
-    background-color: #e9e1e1;    
-}
+
 
 td {
     padding: 10px;
@@ -477,6 +571,7 @@ td {
     font-family: "Poppins", sans-serif;
     color: #441a83;
     border: 1px solid #d6cfcf;
+    cursor: pointer;
 }
 
 tbody tr {
@@ -528,6 +623,184 @@ table tbody tr td i {
 .col-email {
     width: 130px;
 }
+
+
+.onboarding-body {
+    padding: 0px 20px;
+    background-color: #f9f7fb;
+}
+
+.onboarding-body-sub {
+    width: 100%;
+    overflow: hidden;
+    overflow-x: scroll;
+}
+
+.table-container {
+    width: 2265px;
+}
+
+.profile-button {
+    position: relative;
+}
+
+.log-out {
+    width: 169px;
+    z-index: 99;
+    position: absolute;
+    top: 71px;
+    right: 5px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    padding: 28px 21px;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 0 2px 8px 0 #00000040;
+}
+
+.log-out.active {
+    opacity: 1;
+}
+
+.log-out button {
+    font-family: "Font", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    width: 128px;
+    background-color: #2a1151;
+    padding: 12px 10px;
+    color: white;
+    border-radius: 5px;
+    margin-top: 23px;
+    border: 0;
+}
+
+.log-out h3 {
+    font-family: "FontNew", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4f4d53;
+    margin: 0 0 10px 0;
+}
+
+.log-out a {
+    font-family: "CustomFont", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #88878a;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Make sure it appears on top of everything */
+}
+
+.modal-password {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    position: relative;
+    transform: translateY(100%);
+    animation: modalSlideUp 0.4s ease forwards;
+}
+
+@keyframes modalSlideUp {
+    from {
+        transform: translateY(200%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+
+.password-form .password-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.password-content .password-upper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.password-upper h4 {
+    font-family: "FontNew", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #353b41;
+    margin: 0;
+}
+
+.password-upper i {
+    color: #3632425E;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.input-container {
+    margin-top: 21px;
+}
+
+.password-input {
+    margin-bottom: 10px;
+}
+
+
+.password-input label {
+    display: block;
+    font-family: "Font", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #353B41;
+    margin-bottom: 15px;
+}
+
+.password-input input {
+    width: 100%;
+    padding: 13px 17px;
+    background-color: white;
+    border: 1px solid #b6b4b8;
+    border-radius: 12px;
+}
+
+.password-input input::placeholder {
+    font-family: "CustomFont", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #AAAFB4;
+}
+
+.sub-btn{
+    margin-top: 26px;
+}
+
+.sub-btn button{
+    width: 100%;
+    border-radius: 12px;
+    background-color: #361863;
+    border: none;
+    padding: 14px;
+    color: white;
+}
+
+
+
 
 /* media-query */
 
@@ -588,49 +861,5 @@ table tbody tr td i {
     .text-item {
         margin-top: 25px;
     }
-}
-
-.onboarding-body {
-    padding: 0px 20px;
-    background-color: #f9f7fb;
-}
-
-.onboarding-body-sub {
-    width: 100%;
-    overflow: hidden;
-    overflow-x: scroll;
-}
-
-.table-container {
-    width: 2265px;
-}
-
-.profile-button{
-    position: relative;
-}
-
-.log-out{
-    width: 200px;
-    position: absolute;
-    top: 71px;
-    right: 5px;
-    border-radius: 12px;
-    background-color: #ffffff;
-    padding: 40px 24px;
-    /* border: 1px solid black; */
-    opacity: 0;
-    transition: all 0.5s ease-in-out;
-}
-
-.log-out.active{
-    opacity: 1;
-}
-
-.log-out button{
-    width: 200px;
-    background-color: #2a1151;
-    padding: 10px 12px;
-    color: white;
-    border-radius: 5px;
 }
 </style>
