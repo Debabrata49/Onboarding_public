@@ -35,9 +35,9 @@ class EmployeeDataEditController extends Controller
             ], 422);
         }
         
-        // $merchant = JWTAuth::parseToken()->authenticate();
-        // $merchant_id = $merchant->id;
-        $merchant_id = 15657;
+        $merchant = JWTAuth::parseToken()->authenticate();
+        $merchant_id = $merchant->id;
+        // $merchant_id = 15657;
         $merchant = MerchantDetails::where('user_id', $merchant_id)->first();
         if (!$merchant) {
             return response()->json(['error' => 'Merchant not found'], 404);

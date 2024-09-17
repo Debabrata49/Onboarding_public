@@ -17,9 +17,9 @@
                     alt="profile-button">
             </div>
             <div class="log-out" :class="{active:modalIsActive}" >
-                    <h3>Coffee to go</h3>
-                    <button>Log Out</button>
-                </div>
+                <h3>{{ merchant.business_name }}</h3>
+                <button @click="logoutCall">Log Out</button>
+            </div>
 
         </div>
     </div>
@@ -134,7 +134,8 @@
                         </tr>
                     </tbody>
                 </table>
-                <pagination v-model="page" :records="total_entries" :per-page="limit" @paginate="pagination" />
+                <pagination v-if="accounts != ''" v-model="page" :records="total_entries" :per-page="limit" @paginate="pagination" />
+                <p v-else>No - Data found</p>
             </div>
         </div>
     </div>
@@ -160,6 +161,9 @@ export default {
             next_page: 0,
             limit: 0,
             modalIsActive:false,
+            searchQuery: '',  // Moved searchQuery to data
+            isSearchActive: false,
+            shouldReCall : true
         };
     },
 
@@ -175,19 +179,21 @@ export default {
             if (isSearchActive.value) {
                 searchQuery.value = null;
             }
-        };
-
-        const searchAction = () => {
-            console.log("Searching for:", searchQuery.value);
+            console.log(searchQuery.value);
             this.getEmployeeData(this.page,searchQuery.value);
         };
+
+        // const searchAction = () => {
+        //     console.log("Searching for:", searchQuery.value);
+        //     // this.getEmployeeData(this.page,searchQuery.value);
+        // };
 
 
         return {
             searchQuery,
             isSearchActive,
             toggleSearch,
-            searchAction
+            // searchAction
         };
 
     },
@@ -222,8 +228,53 @@ export default {
             this.getEmployeeData(this.page);
         },
         loadEditAccToName(id) {
-            const encodedId = btoa(id);
-            this.$router.push({ name: 'editAccount', params: { encodedId: encodedId } });
+            console.log(id);
+            this.editEmployeeProfile(id,this.shouldReCall);
+        },
+        editEmployeeProfile(id,shouldReCall){
+            if(shouldReCall == false){
+                return false;
+            }
+            this.shouldReCall = false;
+            let data = { employee_id: id };
+            axiosService.post("/api/editEmployeeProfile", data)
+            .then(res => {
+                console.log(res.data.data);
+                this.shouldReCall = true;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        },
+        toggleSearch() {
+            this.isSearchActive = !this.isSearchActive;
+            console.log(this.isSearchActive);
+            if (this.isSearchActive) {
+                this.searchQuery = ''; // Assuming searchQuery is in data or methods
+            }else{
+                this.isLoading = true;
+                this.getEmployeeData(this.page, this.searchQuery);
+            }            
+        },
+        logoutCall(){
+            axiosService.post("/api/logout", [])
+            .then(res => {
+                console.log(res.data);
+                if(res.data.error == false){
+                    localStorage.removeItem("access_token");
+                    localStorage.removeItem("expires_in");
+                    window.location.reload();
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                // Ensure the tokens are removed regardless of success or failure
+                localStorage.removeItem("access_token");
+                localStorage.removeItem("expires_in");
+                window.location.reload();
+            });
         }
     }
 };
