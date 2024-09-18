@@ -357,12 +357,10 @@ table tbody tr td i {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.6);
-    /* Semi-transparent black background */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    /* Make sure it appears on top of everything */
 }
 
 .modal-password {
@@ -376,6 +374,7 @@ table tbody tr td i {
     transform: translateY(100%);
     animation: modalSlideUp 0.4s ease forwards;
 }
+
 
 @keyframes modalSlideUp {
     from {
@@ -421,7 +420,6 @@ table tbody tr td i {
     margin-bottom: 10px;
 }
 
-
 .password-input label {
     display: block;
     font-family: "Font", sans-serif;
@@ -446,11 +444,11 @@ table tbody tr td i {
     color: #AAAFB4;
 }
 
-.sub-btn{
+.sub-btn {
     margin-top: 26px;
 }
 
-.sub-btn button{
+.sub-btn button {
     width: 100%;
     border-radius: 12px;
     background-color: #361863;
@@ -459,7 +457,99 @@ table tbody tr td i {
     color: white;
 }
 
+/* modalName css */
 
+.modalName {
+    background: #fff;
+    border-radius: 8px;
+    width: 540px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    position: relative;
+    transform: translateY(100%);
+    animation: modalSlideUp 0.4s ease forwards;
+    padding: 20px 10px;
+    z-index: 1001;
+}
+
+.name-form {
+    padding: 24px 68px 14px 25px;
+}
+
+.name-upper {
+    text-align: center;
+    position: relative;
+}
+
+.name-upper h4 {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #47444c;
+    margin: 0;
+}
+
+.name-upper i {
+    position: absolute;
+    color: #3632425E;
+    right: 10%;
+    top: 10%;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.login-details {
+    width: 100%;
+    height: 450px;
+    overflow-y: scroll;
+}
+
+.login-details-heading {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.login-details-heading p {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 0 4%;
+}
+
+body.modal-active {
+    overflow: hidden;
+    filter: blur(4px);
+}
+
+.login-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.field-container {
+    margin-top: 18px;
+}
+
+.login-form label {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #615c65;
+}
+
+.login-form input {
+    width: 68%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #d6cfcf;
+    font-size: 12px;
+    font-weight: 400;
+    color: #5d5c5e;
+}
 
 
 /* media-query */
