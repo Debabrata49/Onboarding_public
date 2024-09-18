@@ -1,6 +1,4 @@
 <template>
-
-    
     <div class="flex-container">
         <div class="text-item flex-container-inner">
             
@@ -175,6 +173,12 @@
                 </form>
             </div>
             
+        </div>
+
+        <div class="modalName">
+
+            
+
         </div>
 
     </div>
