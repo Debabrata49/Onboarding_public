@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="txt-content">
-                    <h3 class="">Sub-Accounts</h3>
+                    <h3 class="text">Sub-Accounts</h3>
                     <pre><p>Total sub-accounts allowed: <span class="no_sub_acc">{{ merchant.no_sub_account }}</span> |  Active sub-accounts: 3</p></pre>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                 </table>
                 <pagination v-if="accounts != ''" v-model="page" :records="total_entries" :per-page="limit"
                     @paginate="pagination" />
-                <p v-else>No - Data found</p>
+                <!-- <p v-else>No - Data found</p> -->
             </div>
         </div>
 
@@ -177,20 +177,45 @@
         </div>
 
         <div v-if="modalName" class="modal-overlay" @click.self="closeModalName">
-
             <div class="modalName">
+
                 <div class="name-upper">
                     <h4>Jumboking, Kolkata</h4>
                     <i v-if="innerModal" class="bi bi-x-circle-fill" @click="innerModal=false"></i>
                     <i v-else class="bi bi-x-circle-fill" @click="closeModalName"></i>
                 </div>
+
                 <form class="name-form" @submit.prevent="name">
                     <div class="login-details">
+
                         <div v-if="innerModal" class="">
+
+                            <div class="field-container">
+                                <div class="login-details-heading">
+
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726730085/folder-cloud-svgrepo-com_1_p1xcuj.svg" alt="login-icon">
+
+                                    <p>Sub-Accounts Permission</p>
+
+                                </div>
+
+                                <div class="login-form">
+                                    <label for="pos">Add Credits</label>
+
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                    
+                                </div>
+
+                                
+                            </div>
 
                         </div>
 
                         <div v-else class="">
+
                             <div class="field-container">
 
                                 <div class="login-details-heading">
@@ -240,10 +265,142 @@
 
                                 <div class="login-form">
                                     <label for="outlet">Outlet Name</label>
-                                    <input type="text" id="outlet">
+
+                                    <div class="input-holder">
+                                        <input type="text" id="outlet">
+                                        <div class="link"><i class="bi bi-link cust-link-icon"></i></div>
+                                    </div>
+                                    
                                 </div>
                             </div>
-                        <button class="preview-btn" @click="innerModal=true">View Permission List</button>
+
+                            <div class="field-container">
+                                <div class="login-details-heading">
+
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726722154/Group_fcrhwb.svg" alt="login-icon">
+
+                                    <p>Loyalty Set - up</p>
+
+                                </div>
+
+                                <div class="login-form">
+                                    <label for="flat">Flat</label>
+                                    <input type="text" name="flat" id="flat">
+                                </div>
+
+                                <div class="login-form">
+                                    <label for="loyalty">Advanced Loyalty</label>
+                                    <input type="text" name="text" id="loyalty">   
+                                </div>
+                            </div>
+
+                            <div class="field-container">
+                                <div class="login-details-heading">
+
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726730085/folder-cloud-svgrepo-com_1_p1xcuj.svg" alt="login-icon">
+
+                                    <p>Sub-Accounts Permission</p>
+
+                                </div>
+
+                                <button class="preview-btn" @click="innerModal=true">
+                                    View Permission List <i class="bi bi-box-arrow-up-right"></i>
+                                </button>
+                            </div>
+
+                            <div class="field-container">
+                                <div class="login-details-heading">
+
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726736519/chat-round-line-svgrepo-com_1_iz4p9s.svg" alt="login-icon">
+
+                                    <p>Set communication channels</p>
+
+                                </div>
+
+                                <div class="login-form">
+                                    <label for="sms">SMS</label>
+                                    <select name="sms" id="sms">
+                                        <option value="0">Gupshup</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="field-container">
+                                <div class="login-details-heading">
+
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738258/pos-svgrepo-com_1_l5vqn0.svg" alt="login-icon">
+
+                                    <p>Integrate with POS Vendor</p>
+
+                                </div>
+
+                                <div class="login-form">
+                                    <label for="vendor">Pos Vendor</label>
+                                    <select name="vendor" id="vendor">
+                                        <option value="0">Generic</option>
+                                    </select>
+                                </div>
+
+                                <div class="login-form">
+                                    <label for="key">customer key</label>
+                                    <input type="text" name="key" id="key">   
+                                </div>
+                            </div>
+
+                            <div class="field-container">
+                                <div class="login-details-heading">
+
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738938/hashtag-square-svgrepo-com_1_jiqmg3.svg" alt="login-icon">
+
+                                    <p>Manage POS level permissions</p>
+
+                                </div>
+
+                                <div class="login-form">
+                                    <label for="pos">Points on discounted bill permission</label>
+
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                    
+                                </div>
+  
+                            </div>
+
+                            <div class="field-container">
+                                <div class="login-details-heading">
+
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742094/discount-svgrepo-com_2_1_kgb7s6.svg" alt="login-icon">
+
+                                    <p>Offers</p>
+
+                                </div>
+
+                                <div class="login-form">
+                                    <label for="promo">Promos</label>
+                                    <select name="promo" id="promo">
+                                        <option value="0">Promos</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="field-container">
+                                <div class="login-details-heading">
+
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742390/campaign-svgrepo-com_1_vx4hkk.svg" alt="login-icon">
+
+                                    <p>Manage Campaigns</p>
+
+                                </div>
+
+                                <div class="login-form">
+                                    <label for="instant">Instant Gratification</label>
+                                    <select name="instant" id="instant">
+                                        <option value="0">IG</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
