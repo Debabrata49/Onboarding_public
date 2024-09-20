@@ -408,6 +408,10 @@
             </div>
         </div>
 
+        <div v-if="modalFilter" class="modal-overlay" @click.self="">
+
+        </div>
+
     </div>
 </template>
 
