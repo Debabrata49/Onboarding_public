@@ -185,7 +185,7 @@
                     <i v-else class="bi bi-x-circle-fill" @click="closeModalName"></i>
                 </div>
 
-                <form class="name-form" @submit.prevent="name">
+                <div class="name-form">
                     <div class="login-details">
 
                         <div v-if="innerModal" class="">
@@ -404,7 +404,7 @@
                         </div>
 
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 

@@ -224,10 +224,11 @@ a {
     display: flex;
     align-items: center;
     gap: 5px;
-    background-color: #2a1151;
+    background-color:transparent;
     padding: 5px 10px;
-    color: #ffffff;
-    border-radius: 5px;
+    color: #565459;
+    border: 1px solid #eae7ee;
+    border-radius: 9px;
 }
 
 th {
@@ -477,14 +478,15 @@ table tbody tr td i {
 .modalName {
     background: #fff;
     border-radius: 8px;
-    width: 540px;
+    width: 1319px;
+    height: 100vh;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     z-index: 1001;
     position: relative;
     transform: translateY(100%);
     animation: modalSlideUp 0.4s ease forwards;
     padding: 20px 10px;
-    z-index: 1001;
+    
 }
 
 .name-form {
