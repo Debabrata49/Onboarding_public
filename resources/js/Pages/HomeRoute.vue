@@ -180,7 +180,7 @@
             <div class="modalName">
 
                 <div class="name-upper">
-                    <h4>Jumboking, Kolkata</h4>
+                    <!-- <h4>Jumboking, Kolkata</h4> -->
                     <i v-if="innerModal" class="bi bi-x-circle-fill" @click="innerModal=false"></i>
                     <i v-else class="bi bi-x-circle-fill" @click="closeModalName"></i>
                 </div>
@@ -188,7 +188,7 @@
                 <div class="name-form">
                     <div class="login-details">
 
-                        <div v-if="innerModal" class="">
+                        <!-- <div v-if="innerModal" class="">
 
                             <div class="field-container">
                                 <div class="login-details-heading">
@@ -212,10 +212,17 @@
                                 
                             </div>
 
+                        </div> -->
+
+
+                        <div class="login-heading">
+                            <h4>Jumboking, Kolkata</h4>
+                            <div class="name-icon">
+                                <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1727073668/layer1_n2praq.svg" alt="name-icon">
+                            </div>
                         </div>
-
-                        <div v-else class="">
-
+                        
+                        <div class="login-content">
                             <div class="field-container">
 
                                 <div class="login-details-heading">
@@ -226,7 +233,8 @@
                                     <p>Login Details</p>
 
                                 </div>
-                                <div class="login-form">
+  
+                                <!-- <div class="login-form">
                                     <label for="name">Name</label>
                                     <input type="text" id="name">
                                 </div>
@@ -244,7 +252,7 @@
                                 <div class="login-form">
                                     <label for="business">Business</label>
                                     <input type="text" id="business">
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="field-container">
@@ -258,7 +266,7 @@
 
                                 </div>
 
-                                <div class="login-form">
+                                <!-- <div class="login-form">
                                     <label for="email">Login Id</label>
                                     <input type="email" id="email">
                                 </div>
@@ -271,10 +279,11 @@
                                         <div class="link"><i class="bi bi-link cust-link-icon"></i></div>
                                     </div>
                                     
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="field-container">
+
                                 <div class="login-details-heading">
 
                                     <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726722154/Group_fcrhwb.svg" alt="login-icon">
@@ -283,7 +292,7 @@
 
                                 </div>
 
-                                <div class="login-form">
+                                <!-- <div class="login-form">
                                     <label for="flat">Flat</label>
                                     <input type="text" name="flat" id="flat">
                                 </div>
@@ -291,7 +300,7 @@
                                 <div class="login-form">
                                     <label for="loyalty">Advanced Loyalty</label>
                                     <input type="text" name="text" id="loyalty">   
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="field-container">
@@ -303,9 +312,9 @@
 
                                 </div>
 
-                                <button class="preview-btn" @click="innerModal=true">
+                                <!-- <button class="preview-btn" @click="innerModal=true">
                                     View Permission List <i class="bi bi-box-arrow-up-right"></i>
-                                </button>
+                                </button> -->
                             </div>
 
                             <div class="field-container">
@@ -317,12 +326,12 @@
 
                                 </div>
 
-                                <div class="login-form">
+                                <!-- <div class="login-form">
                                     <label for="sms">SMS</label>
                                     <select name="sms" id="sms">
                                         <option value="0">Gupshup</option>
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="field-container">
@@ -333,8 +342,7 @@
                                     <p>Integrate with POS Vendor</p>
 
                                 </div>
-
-                                <div class="login-form">
+                                <!-- <div class="login-form">
                                     <label for="vendor">Pos Vendor</label>
                                     <select name="vendor" id="vendor">
                                         <option value="0">Generic</option>
@@ -344,10 +352,11 @@
                                 <div class="login-form">
                                     <label for="key">customer key</label>
                                     <input type="text" name="key" id="key">   
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="field-container">
+
                                 <div class="login-details-heading">
 
                                     <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738938/hashtag-square-svgrepo-com_1_jiqmg3.svg" alt="login-icon">
@@ -356,7 +365,7 @@
 
                                 </div>
 
-                                <div class="login-form">
+                                <!-- <div class="login-form">
                                     <label for="pos">Points on discounted bill permission</label>
 
                                     <label class="switch">
@@ -364,7 +373,7 @@
                                         <span class="slider round"></span>
                                     </label>
                                     
-                                </div>
+                                </div> -->
   
                             </div>
 
@@ -377,12 +386,12 @@
 
                                 </div>
 
-                                <div class="login-form">
+                                <!-- <div class="login-form">
                                     <label for="promo">Promos</label>
                                     <select name="promo" id="promo">
                                         <option value="0">Promos</option>
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="field-container">
@@ -394,16 +403,17 @@
 
                                 </div>
 
-                                <div class="login-form">
+                                <!-- <div class="login-form">
                                     <label for="instant">Instant Gratification</label>
                                     <select name="instant" id="instant">
                                         <option value="0">IG</option>
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
                     </div>
+                    <!-- <div class="this">s</div> -->
                 </div>
             </div>
         </div>
