@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "jwt-decode": "^4.0.0",
-        "v-pagination-3": "^0.1.7"
+        "v-pagination-3": "^0.1.7",
+        "vue-tel-input": "^9.1.4"
     }
 }

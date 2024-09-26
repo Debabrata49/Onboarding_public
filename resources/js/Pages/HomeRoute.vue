@@ -1,4 +1,5 @@
 <template>
+
     <div class="flex-container">
         <div class="text-item flex-container-inner">
 
@@ -72,7 +73,7 @@
                     <tbody v-if="!isLoading">
                         <tr v-for="i in accounts">
                             <td>
-                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i)">
+                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i,'name')">
                                     {{ i.name }}
                                     <i class="bi bi-chevron-right"></i>
                                 </div>
@@ -124,7 +125,13 @@
                             </td>
                             <td>{{ i.permission_text }}</td>
                             <td>{{ i.module_access }}</td>
-                            <td>{{ i.edit }}</td>
+                            <td>
+
+                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i,'edit')">
+                                    {{ i.edit }}
+                                </div>
+                               
+                            </td>
                         </tr>
                     </tbody>
                     <tbody v-else>
@@ -180,7 +187,7 @@
             <div class="modalName">
 
                 <div class="name-upper">
-                    <!-- <h4>Jumboking, Kolkata</h4> -->
+                    
                     <i v-if="innerModal" class="bi bi-x-circle-fill" @click="innerModal=false"></i>
                     <i v-else class="bi bi-x-circle-fill" @click="closeModalName"></i>
                 </div>
@@ -422,22 +429,83 @@
 
         </div>
 
-        <div v-if="modalName" class="modal-overlay" @click.self="closeModalName">
+        <div v-if="modalEdit" class="modal-overlay" @click.self="closeModalName">
             <div class="modalEdit">
+            <div class="name-upper">
+                <h4>Edit Sub Account Details</h4>
+                <i class="bi bi-x-circle-fill" @click="closeModalName"></i>
+            </div> 
+            <div class="edit-form">
+                <form class="form-edit" @submit.prevent="edit">
 
-                
-            </div>
+                    
+                    <div class="input-fields">
+                        <div class="edit-input" v-for="field in inputFields" :key="field.id || field.label">
+                        
+                        
+                        <div v-if="field.type === 'multiple'">
+                            <label>{{ field.label }}</label>
+                            <div class="multiple-fields-container">
+                                <div v-for="subField in field.fields" :key="subField.id" class="subfield-item">
+                                    
+                                    <vue-tel-input v-if="subField.type === 'tel'" v-model="empObj[subField.id]" :placeholder="subField.label" :required="subField.required"/>
+
+                                    
+                                    <input v-else :id="subField.id" :type="subField.type" :name="subField.id" :required="subField.required" :placeholder="subField.label">
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- For fields that are not of type 'multiple' -->
+                        <div v-else>
+                            <label :for="field.id">
+                            {{ field.label }}
+                            <span v-if="field.required" class="label-icon"><i class="bi bi-asterisk"></i></span>
+                            </label>
+
+                            <!-- Use vue-tel-input for telephone fields -->
+                            <vue-tel-input v-if="field.type === 'tel'" v-model="empObj[field.id]" :placeholder="field.label" :required="field.required"/>
+
+                            <!-- For other input types (text, password, email, etc.) -->
+                            <input v-else-if="field.type !== 'select'" :id="field.id" :type="field.type" :name="field.id" :required="field.required">
+
+                            <!-- For select input fields -->
+                            <select v-else :id="field.id" :name="field.id" :required="field.required">
+                            <option v-for="option in field.options" :key="option.value" :value="option.value">
+                                {{ option.text }}
+                            </option>
+                            </select>
+                        </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="submit">
+                        <div class="btn-container">
+                            <button class="discard">DISCARD</button>
+                            <button class="save" type="submit">SAVE</button>
+                        </div>   
+                    </div>
+
+                </form>
+            </div> 
         </div>
-
-
+        </div>
+        
 
     </div>
+   
 </template>
 
 <script>
 import { ref } from "vue";
 import axiosService from "@/axiosService";
 import Pagination from 'v-pagination-3';
+import VueTelInput from 'vue-tel-input';
+import 'vue-tel-input/vue-tel-input.css';
 
 export default {
     data() {
@@ -462,11 +530,59 @@ export default {
             shouldReCall: true,
             modalName: false,
             innerModal: false,
+            inputFields: [
+                { id: 'name', label: 'Name', type: 'text', required: true },
+                { id: 'mobile', label: 'Mobile', type: 'text', required: false },
+                { id: 'email', label: 'Email ID', type: 'email', required: true },
+                { id: 'pwd', label: 'Password', type: 'password', required: true },
+                { id: 'pwd_1', label: 'Confirm Password', type: 'password', required: true },
+                { id: 'business', label: 'Business Name', type: 'text', required: true },
+                { id: 'location', label: 'Business Location', type: 'text'},
+                { id: 'category', label: 'Category', type: 'text'},
+                { 
+                id: 'country', 
+                label: 'Country', 
+                type: 'select', 
+                
+                options: [
+                    { value: 'india', text: 'India' },
+                    
+                ]
+                } ,
+
+                { 
+                id: 'region', 
+                label: 'Region', 
+                type: 'select', 
+                
+                options: [
+                    { value: 'west bengal', text: 'West Bengal' },
+                    
+                ]
+                } ,
+
+                {
+                label: 'ASM Details', 
+                type: 'multiple', 
+                fields: [
+                    { id: 'aName', type: 'text'},
+                    { id: 'aEmail',  type: 'email'},
+                    { id: 'telephone', type: 'tel', required: true },
+                ]
+              },
+
+                { id: 'manager', label: 'Manager Details', type: 'text'},
+
+
+
+            ],
+        modalEdit:false
         };
     },
 
     components: {
-        Pagination
+        Pagination,
+        VueTelInput
     },
 
     setup() {
@@ -525,10 +641,9 @@ export default {
             this.isLoading = true;
             this.getEmployeeData(this.page);
         },
-        loadEditAccToName(id) {
-            // console.log(this.empObj.name);
-            this.modalName = true;
-
+        loadEditAccToName(id,instance,modalName) {
+            modalName === 'edit' && (this.modalEdit=true)
+            modalName === 'name' && (this.modalName=true)
             this.editEmployeeProfile(id, this.shouldReCall);
         },
         handleUser(value) {
@@ -545,7 +660,8 @@ export default {
         },
 
         closeModalName() {
-            this.modalName = false;// Remove blur effect when closing
+            this.modalName = false;
+            this.modalEdit = false
         },
 
         editEmployeeProfile(id, shouldReCall) {
@@ -567,7 +683,7 @@ export default {
             this.isSearchActive = !this.isSearchActive;
             console.log(this.isSearchActive);
             if (this.isSearchActive) {
-                this.searchQuery = ''; // Assuming searchQuery is in data or methods
+                this.searchQuery = ''; 
             } else {
                 this.isLoading = true;
                 this.getEmployeeData(this.page, this.searchQuery);
