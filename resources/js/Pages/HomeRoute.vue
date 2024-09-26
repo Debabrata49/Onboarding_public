@@ -413,7 +413,7 @@
                         </div>
 
                     </div>
-                    <!-- <div class="this">s</div> -->
+                    
                 </div>
             </div>
         </div>
@@ -421,6 +421,15 @@
         <div v-if="modalFilter" class="modal-overlay" @click.self="">
 
         </div>
+
+        <div v-if="modalName" class="modal-overlay" @click.self="closeModalName">
+            <div class="modalEdit">
+
+                
+            </div>
+        </div>
+
+
 
     </div>
 </template>

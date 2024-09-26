@@ -525,7 +525,7 @@ table tbody tr td i {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 28px 18px;
+    padding: 22px 18px;
     border-bottom: 1px solid #FFDFC3;
 }
 
@@ -538,9 +538,10 @@ table tbody tr td i {
 }
 
 .login-details {
-    width: auto;
+    width: 23%;
     background-color: white;
     border-radius: 12px;
+    box-shadow: 0 0 14px 0 #00000012;
     overflow-y: scroll;
 }
 
@@ -550,7 +551,7 @@ table tbody tr td i {
 
 
 .login-content {
-    padding: 28px 18px;
+    padding: 22px 18px;
 }
 
 .field-container{
