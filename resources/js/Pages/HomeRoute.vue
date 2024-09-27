@@ -425,9 +425,9 @@
             </div>
         </div>
 
-        <div v-if="modalFilter" class="modal-overlay" @click.self="">
+        <!-- <div v-if="modalFilter" class="modal-overlay" @click.self="">
 
-        </div>
+        </div> -->
 
         <div v-if="modalEdit" class="modal-overlay" @click.self="closeModalName">
             <div class="modalEdit">
@@ -448,7 +448,9 @@
                             <div class="multiple-fields-container">
                                 <div v-for="subField in field.fields" :key="subField.id" class="subfield-item">
                                     
-                                    <vue-tel-input v-if="subField.type === 'tel'" v-model="empObj[subField.id]" :placeholder="subField.label" :required="subField.required"/>
+                                    <vue-tel-input v-if="subField.type === 'tel'" v-model="empObj[subField.id]" 
+                                   @input="validatePhone(empObj[subField.id])" 
+                                   :placeholder="subField.label" :required="subField.required"></vue-tel-input>
 
                                     
                                     <input v-else :id="subField.id" :type="subField.type" :name="subField.id" :required="subField.required" :placeholder="subField.label">
@@ -458,6 +460,7 @@
                         </div>
 
                         <!-- For fields that are not of type 'multiple' -->
+
                         <div v-else>
                             <label :for="field.id">
                             {{ field.label }}
@@ -465,7 +468,9 @@
                             </label>
 
                             <!-- Use vue-tel-input for telephone fields -->
-                            <vue-tel-input v-if="field.type === 'tel'" v-model="empObj[field.id]" :placeholder="field.label" :required="field.required"/>
+                            <vue-tel-input v-if="field.type === 'tel'" v-model="empObj[field.id]" 
+                                @enter="console.log('s')"
+                               :placeholder="field.label" :required="field.required"/>
 
                             <!-- For other input types (text, password, email, etc.) -->
                             <input v-else-if="field.type !== 'select'" :id="field.id" :type="field.type" :name="field.id" :required="field.required">
@@ -478,9 +483,11 @@
                             </select>
                         </div>
 
+                        <i v-if="isValidPhone" class="bi bi-check-circle-fill"></i>
+                        <i v-else-if="empObj[field.id]" class="bi bi-x-circle-fill"></i>
+
                         </div>
                     </div>
-
 
 
                     <div class="submit">
@@ -504,8 +511,9 @@
 import { ref } from "vue";
 import axiosService from "@/axiosService";
 import Pagination from 'v-pagination-3';
-import VueTelInput from 'vue-tel-input';
+import {VueTelInput} from 'vue-tel-input';
 import 'vue-tel-input/vue-tel-input.css';
+
 
 export default {
     data() {
@@ -576,7 +584,14 @@ export default {
 
 
             ],
-        modalEdit:false
+            modalEdit:false,
+            empObj: {
+                aName:'',
+                aEmail:'',
+                telephone:''
+            },    
+            isValidPhone: false
+
         };
     },
 
@@ -708,7 +723,14 @@ export default {
                     localStorage.removeItem("expires_in");
                     window.location.reload();
                 });
+        },
+
+        validatePhone(phoneNumber) {
+            console.log(phoneNumber);
+            const digitsOnly = phoneNumber.replace(/\D/g, '');
+            this.isValidPhone = digitsOnly.length === 10;
         }
+
     }
 };
 </script>
