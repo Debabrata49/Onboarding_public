@@ -898,7 +898,7 @@ body.modal-active {
     color: #AAAFB4;
 }
 
-.subfield-item .vue-tel-input > input {
+.multiple-item .vue-tel-input > input {
     border-left: 1px solid #D6CFCF;
     border-right: 0;
     border-top: 0;
