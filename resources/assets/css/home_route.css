@@ -508,6 +508,19 @@ table tbody tr td i {
     position: relative;
 }
 
+.upper-new {
+    text-align: center;
+    /* position: relative; */
+}
+
+.upper-new i {
+    position: absolute;
+    color: #3632425E;
+    right: 2%;
+    top: 6%;
+    font-size: 21px;
+    cursor: pointer;
+}
 
 .name-upper h4 {
     font-family: "Instrument Sans", sans-serif;
@@ -751,7 +764,7 @@ body.modal-active {
     align-items: center;
 }
 
-.edit-input label {
+.input-fields label {
     display: block;
     font-family: "Instrument Sans", sans-serif;
     font-size: 12px;
@@ -759,6 +772,13 @@ body.modal-active {
     color: #353B41;
     margin-bottom: 0;
 }
+
+.edit-input i {
+    color: #FD0515;
+    font-size: 6px;
+}
+
+
 
 .edit-input input,
 .edit-input select {
@@ -774,12 +794,21 @@ body.modal-active {
     color: #AAAFB4;
 }
 
-/* .edit-input input::placeholder {
+.edit-input textarea {
+    width: 71%;
+    height: 65px;
+    padding: 8px 12px;
+    background-color: white;
+    border: 1px solid #D6CFCF;
+    border-radius: 4px;
     font-family: "Instrument Sans", sans-serif;
     font-size: 12px;
     font-weight: 400;
     color: #AAAFB4;
-} */
+
+}
+
+
 
 .label-icon {
     color: #FD0515;
@@ -812,7 +841,7 @@ body.modal-active {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 9%;
+    margin-left: 3%;
 }
 
 .discard {
@@ -841,22 +870,35 @@ body.modal-active {
 }
 
 .multiple-fields-container {
-    width: 71%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    width: 100%;
+    /* display: flex;
+    justify-content: space-between; */
+    /* gap: 10px; */
 }
 
 .subfield-item {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .subfield-item input {
-    width: 100%;
+    width: 71%;
+    height: 32px;
+    padding: 8px 12px;
+    background-color: white;
+    border: 1px solid #D6CFCF;
+    border-radius: 4px;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #AAAFB4;
 }
 
-.subfield-item .vue-tel-input input {
+.subfield-item .vue-tel-input > input {
     border-left: 1px solid #D6CFCF;
     border-right: 0;
     border-top: 0;
@@ -866,6 +908,49 @@ body.modal-active {
 
 .subfield-item .vti__dropdown-list {
     width: 240px;
+}
+
+.multiple-item {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.multiple-fields-container {
+    margin-bottom: 8px;
+}
+
+.multiple-item input {
+    width: 71%;
+    height: 32px;
+    padding: 8px 12px;
+    background-color: white;
+    border: 1px solid #D6CFCF;
+    border-radius: 4px;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #AAAFB4;
+
+}
+
+/* modal-tab */
+
+.modal-tab {
+    width: 73%;
+}
+
+.tab-content h3 {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+
+}
+
+.vue-tel-input{
+    width: 71%;
+    margin-top: 10px;
 }
 
 
