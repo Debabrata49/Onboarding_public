@@ -19,7 +19,7 @@
             </div>
             <div class="log-out" :class="{ active: modalIsActive }">
                 <h3>{{ merchant.business_name }}</h3>
-                <a href="mailto:coffee.to.go@gmail.com">coffee.to.go@gmail.com</a>
+                <p>coffee.to.go@gmail.com</p>
                 <button @click="logoutCall">Log Out</button>
             </div>
 
@@ -212,27 +212,7 @@
 
                                     <p>Login Details</p>
 
-                                </div>
-  
-                                <!-- <div class="login-form">
-                                    <label for="name">Name</label>
-                                    <input type="text" id="name">
-                                </div>
-
-                                <div class="login-form">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" disabled>
-                                </div>
-
-                                <div class="login-form">
-                                    <label for="address">Address</label>
-                                    <input type="text" id="address">
-                                </div>
-
-                                <div class="login-form">
-                                    <label for="business">Business</label>
-                                    <input type="text" id="business">
-                                </div> -->
+                                </div>   
                             </div>
 
                             <div class="field-container">
@@ -245,20 +225,6 @@
 
                                 </div>
 
-                                <!-- <div class="login-form">
-                                    <label for="email">Login Id</label>
-                                    <input type="email" id="email">
-                                </div>
-
-                                <div class="login-form">
-                                    <label for="outlet">Outlet Name</label>
-
-                                    <div class="input-holder">
-                                        <input type="text" id="outlet">
-                                        <div class="link"><i class="bi bi-link cust-link-icon"></i></div>
-                                    </div>
-                                    
-                                </div> -->
                             </div>
 
                             <div class="field-container">
@@ -271,29 +237,17 @@
 
                                 </div>
 
-                                <!-- <div class="login-form">
-                                    <label for="flat">Flat</label>
-                                    <input type="text" name="flat" id="flat">
-                                </div>
-
-                                <div class="login-form">
-                                    <label for="loyalty">Advanced Loyalty</label>
-                                    <input type="text" name="text" id="loyalty">   
-                                </div> -->
+                                
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-four' ">
 
                                     <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726730085/folder-cloud-svgrepo-com_1_p1xcuj.svg" alt="login-icon">
 
                                     <p>Sub-Accounts Permission</p>
 
                                 </div>
-
-                                <!-- <button class="preview-btn" @click="innerModal=true">
-                                    View Permission List <i class="bi bi-box-arrow-up-right"></i>
-                                </button> -->
                             </div>
 
                             <div class="field-container">
@@ -396,23 +350,147 @@
                     <div class="modal-tab">
 
                         <div v-if="currentModalTab === 'tab-one'" class="tab-one">
-                            a
 
                             <div class="tab-content">
-
                                 <h3>Login Details</h3>
 
+                                    <form class="modal-form" @submit.prevent="modal">
+
+                                        <div class="tab-div">
+                                            <div class="login-form">
+                                                <label for="name">Name</label>
+                                                <input type="text" id="name">
+                                            </div>
+
+                                            <div class="login-form">
+                                                <label for="email">Email</label>
+                                                <input type="email" id="email" disabled>
+                                            </div>
+
+                                            <div class="login-form">
+                                                <label for="address">Address</label>
+                                                <input type="text" id="address">
+                                            </div>
+
+                                            <div class="login-form">
+                                                <label for="business">Business</label>
+                                                <input type="text" id="business">
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-sub">
+                                            <button class="discard">DISCARD</button>
+                                            <button class="save" type="submit">SAVE</button>
+                                        </div>
+
+                                    </form>
+                                
                             </div>
+
                         </div>
 
                         
                         <div v-if="currentModalTab === 'tab-two'" class="tab-two">
-                            b
+                            <div class="tab-content">
+                                <h3>Outlet Details</h3>
+
+                                    <form class="modal-form" @submit.prevent="modal">
+
+                                        <div class="tab-div">
+                                            <div class="login-form">
+                                                <label for="email">Login Id</label>
+                                                <input type="email" id="email">
+                                            </div>
+
+                                            <div class="login-form">
+                                                <label for="outlet">Outlet Name</label>
+
+                                                <div class="input-holder">
+                                                    <input type="text" id="outlet">
+                                                    <div class="link">
+                                                        <i class="bi bi-link cust-link-icon"></i>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-sub">
+                                            <button class="discard">DISCARD</button>
+                                            <button class="save" type="submit">SAVE</button>
+                                        </div>
+
+                                        
+
+                                    </form>
+                                
+                            </div>
                         </div>
 
                         
                         <div v-if="currentModalTab === 'tab-three'" class="tab-three">
-                            c
+                            <div class="tab-content">
+                                <h3>Loyalty Set - Up</h3>
+
+                                    <form class="modal-form" @submit.prevent="modal">
+
+                                        <div class="tab-div">
+
+                                            <div class="login-form">
+                                                <label for="flat">Flat</label>
+                                                <input type="text" name="flat" id="flat">
+                                            </div>
+
+                                            <div class="login-form">
+                                                <label for="loyalty">Advanced Loyalty</label>
+                                                <input type="text" name="text" id="loyalty">   
+                                            </div>
+
+                                        </div>
+
+                                        <div class="modal-sub">
+                                            <button class="discard">DISCARD</button>
+                                            <button class="save" type="submit">SAVE</button>
+                                        </div>
+
+                                    
+                                    </form>
+                                
+                            </div>
+                        </div>
+
+                        <div v-if="currentModalTab === 'tab-four'" class="tab-four">
+                            <div class="tab-content">
+                                <h3>Sub-Accounts Permission</h3>
+
+                                    <form class="modal-form" @submit.prevent="modal">
+
+                                        <div class="tab-div">
+
+                                            <div class="txt-div">
+                                                <div class="txt">
+
+                                                </div>
+                                                <label class="switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+
+                                            
+
+
+                                        </div>
+
+                                        <div class="modal-sub">
+                                            <button class="discard">DISCARD</button>
+                                            <button class="save" type="submit">SAVE</button>
+                                        </div>
+
+                                    
+                                    </form>
+                                
+                            </div>
                         </div>
 
                     </div>
@@ -423,188 +501,183 @@
             </div>
         </div>
 
-    
         <div v-if="modalEdit" class="modal-overlay" @click.self="closeModalName">
             <div class="modalEdit">
-            <div class="name-upper">
-                <h4>Edit Sub Account Details</h4>
-                <i class="bi bi-x-circle-fill" @click="closeModalName"></i>
-            </div> 
-            <div class="edit-form">
-                <form class="form-edit" @submit.prevent="edit">
-
-                    
-                    <div class="input-fields">
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="name">Name <i class="bi bi-asterisk"></i></label>
-                            <input type="text" name="name" id="name" required>
-                        </div>
-
-                        </div>
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="mobile">Mobile</label>
-                            <input type="text" name="mobile" id="mobile">
-                        </div>
-
-                        </div>
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="email">Email ID <i class="bi bi-asterisk"></i></label>
-                            <input type="email" name="email" id="email" required>
-                        </div>
-
-                        </div>
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="pwd">Password <i class="bi bi-asterisk"></i></label>
-                            <input type="password" name="pwd" id="pwd" required>
-                        </div>
-
-                        </div>
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="pwd_2">Confirm Password<i class="bi bi-asterisk"></i></label>
-                            <input type="password" name="pwd_2" id="pwd_2" required>
-                        </div>
-
-                        </div>
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="bs">Business Name <i class="bi bi-asterisk"></i></label>
-                            <input type="text" name="bs" id="bs" required>
-                        </div>
-
-                        </div>
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="loc">Business Location</label>
-                            <input type="text" name="loc" id="loc">
-                        </div>
-
-                        </div>
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="cat">Category</label>
-                            <input type="text" name="cat" id="cat">
-                        </div>
-
-                        </div>
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="country">Country</label>
-                            <select name="country" id="country">
-                                <option value="*">India</option>
-                            </select>
-                        </div>
-
-                        </div>
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="region">Region</label>
-                            <select name="region" id="region">
-                                <option value="*">West Bengal</option>
-                            </select>
-                        </div>
-
-                        </div>
-                        <div class="multiple-fields-container">
-                        
-                        <div class="subfield-item">
-                            <label for="det">ASM Details</label>
-                            <input type="text" name="det" id="det">
-                        </div>
-
-                        <div class="multiple-item">
-                            <input type="email" name="mail" id="mail">
-                        </div>
-
-                        <div class="multiple-item">
-                            <vue-tel-input
-                            v-model="form.mobile"
-                            mode="international"
-                            :default-country="iso_code"
-                            id="code"
-                        ></vue-tel-input>
-                        </div>
+                <div class="name-upper">
+                    <h4>Edit Sub Account Details</h4>
+                    <i class="bi bi-x-circle-fill" @click="closeModalName"></i>
+                </div> 
+                <div class="edit-form">
+                    <form class="form-edit" @submit.prevent="edit">
 
                         
-
-                        
-
-                        </div>
-                        <div class="multiple-fields-container">
-                        
-                        <div class="subfield-item">
-                            <label for="det">Manager Details</label>
-                            <input type="text" name="det" id="det">
-                        </div>
-
-                        <div class="multiple-item">
-                            <input type="email" name="mail" id="mail">
-                        </div>
-
-                        <div class="multiple-item">
-                            <vue-tel-input
-                            v-model="form.mobile"
-                            mode="international"
-                            :default-country="iso_code"
-                            id="code"
-                        ></vue-tel-input>
-                        </div>
-
-                        </div>
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="cur">Currency</label>
-                            <select name="cur" id="cur">
-                                <option value="*">Indian Rupees (India)</option>
-                            </select>
-                        </div>
-
-                        </div>
-                        <div class="edit-input">
-                        
-                        <div>
-                            <label for="time">Time zone</label>
-                            <select name="time" id="time">
-                                <option value="*">Asia/ Kolkata (India)</option>
-                            </select>
-                        </div>
-
-                        </div>
-
-                        <div class="edit-input">
+                        <div class="input-fields">
+                            <div class="edit-input">
+                            
                             <div>
-                                <label for="note">Note</label>
-                                <textarea name="note" id="note" placeholder="Enter Note here"></textarea>
+                                <label for="name">Name <i class="bi bi-asterisk"></i></label>
+                                <input type="text" name="name" id="name" required>
+                            </div>
+
+                            </div>
+                            <div class="edit-input">
+                            
+                            <div>
+                                <label for="mobile">Mobile</label>
+                                <input type="text" name="mobile" id="mobile">
+                            </div>
+
+                            </div>
+                            <div class="edit-input">
+                            
+                            <div>
+                                <label for="email">Email ID <i class="bi bi-asterisk"></i></label>
+                                <input type="email" name="email" id="email" required>
+                            </div>
+
+                            </div>
+                            <div class="edit-input">
+                            
+                            <div>
+                                <label for="pwd">Password <i class="bi bi-asterisk"></i></label>
+                                <input type="password" name="pwd" id="pwd" required>
+                            </div>
+
+                            </div>
+                            <div class="edit-input">
+                            
+                            <div>
+                                <label for="pwd_2">Confirm Password<i class="bi bi-asterisk"></i></label>
+                                <input type="password" name="pwd_2" id="pwd_2" required>
+                            </div>
+
+                            </div>
+                            <div class="edit-input">
+                            
+                            <div>
+                                <label for="bs">Business Name <i class="bi bi-asterisk"></i></label>
+                                <input type="text" name="bs" id="bs" required>
+                            </div>
+
+                            </div>
+                            <div class="edit-input">
+                            
+                            <div>
+                                <label for="loc">Business Location</label>
+                                <input type="text" name="loc" id="loc">
+                            </div>
+
+                            </div>
+                            <div class="edit-input">
+                            
+                            <div>
+                                <label for="cat">Category</label>
+                                <input type="text" name="cat" id="cat">
+                            </div>
+
+                            </div>
+                            <div class="edit-input">
+                            
+                            <div>
+                                <label for="country">Country</label>
+                                <select name="country" id="country">
+                                    <option value="*">India</option>
+                                </select>
+                            </div>
+
+                            </div>
+                            <div class="edit-input">
+                            
+                            <div>
+                                <label for="region">Region</label>
+                                <select name="region" id="region">
+                                    <option value="*">West Bengal</option>
+                                </select>
+                            </div>
+
+                            </div>
+                            <div class="multiple-fields-container">
+                            
+                            <div class="subfield-item">
+                                <label for="det">ASM Details</label>
+                                <input type="text" name="det" id="det">
+                            </div>
+
+                            <div class="multiple-item">
+                                <input type="email" name="mail" id="mail">
+                            </div>
+
+                            <div class="multiple-item">
+                                <vue-tel-input
+                                v-model="form.mobile"
+                                mode="international"
+                                :default-country="iso_code"
+                                id="code"
+                            ></vue-tel-input>
+                            </div>
+
+                            </div>
+                            <div class="multiple-fields-container">
+                            
+                            <div class="subfield-item">
+                                <label for="det">Manager Details</label>
+                                <input type="text" name="det" id="det">
+                            </div>
+
+                            <div class="multiple-item">
+                                <input type="email" name="mail" id="mail">
+                            </div>
+
+                            <div class="multiple-item">
+                                <vue-tel-input
+                                v-model="form.mobile"
+                                mode="international"
+                                :default-country="iso_code"
+                                id="code"
+                            ></vue-tel-input>
+                            </div>
+
+                            </div>
+                            <div class="edit-input">
+                            
+                            <div>
+                                <label for="cur">Currency</label>
+                                <select name="cur" id="cur">
+                                    <option value="*">Indian Rupees (India)</option>
+                                </select>
+                            </div>
+
+                            </div>
+                            <div class="edit-input">
+                            
+                            <div>
+                                <label for="time">Time zone</label>
+                                <select name="time" id="time">
+                                    <option value="*">Asia/ Kolkata (India)</option>
+                                </select>
+                            </div>
+
+                            </div>
+
+                            <div class="edit-input">
+                                <div>
+                                    <label for="note">Note</label>
+                                    <textarea name="note" id="note" placeholder="Enter Note here"></textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <div class="submit">
-                        <div class="btn-container">
-                            <button class="discard">DISCARD</button>
-                            <button class="save" type="submit">SAVE</button>
-                        </div>   
-                    </div>
+                        <div class="submit">
+                            <div class="btn-container">
+                                <button class="discard">DISCARD</button>
+                                <button class="save" type="submit">SAVE</button>
+                            </div>   
+                        </div>
 
-                </form>
-            </div> 
-        </div>
+                    </form>
+                </div> 
+            </div>
         </div>
 
 
@@ -650,13 +723,10 @@ export default {
             
             modalEdit:false,
             form:{
-
                 mobile:''
-
             },
 
-            iso_code: 'IN',
-              
+            iso_code: 'IN', 
             isValidPhone: false,
             currentModalTab: 'tab-one'
 
