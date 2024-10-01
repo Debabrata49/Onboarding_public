@@ -41,8 +41,8 @@ class EmployeeDataController extends Controller
             return response()->json(['error' => 'Merchant not found'], 404);
         }
         $merchant_data = $merchant->toArray();
-        // $employees = $merchant->employees()->select('id', 'name', 'merchant_id','email','password','vaid_till','status','deactived','created_at','updated_at','outlet_id')->get();
-        $employees = Employee::where('employee.merchant_id', $merchant_id)->join('wl_outlets', 'employee.outlet_id', '=', 'wl_outlets.id');
+
+        $employees = Employee::where('employee.merchant_id', $merchant_id)->join('wl_outlets', 'employee.outlet_id', '=', 'wl_outlets.id')->where('is_active',1)->where('deleted',0);
 
         if(!empty($request->search)){
             $search = $request->search;
@@ -56,6 +56,7 @@ class EmployeeDataController extends Controller
         $total_entries = $employees->count();
         $total_pages = ceil($total_entries/$limit);
         $employees = $employees->offset($offset)->limit($limit)->orderBy('employee.id','desc')->get(['employee.*','wl_outlets.id','wl_outlets.outletname']);
+
         $emp_array = [];
         if(count($employees) > 0){
             foreach ($employees as $employee) {
