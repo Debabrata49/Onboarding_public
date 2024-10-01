@@ -38,6 +38,7 @@ body {
     --sb-track-color: #232E33;
     --sb-thumb-color: #6BAF8D;
     --sb-size: 6px;
+    font-family: "Instrument Sans", sans-serif;
 }
 
 a {
@@ -504,8 +505,7 @@ table tbody tr td i {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-
+    /* align-items: center; */
 }
 
 .name-upper {
@@ -607,10 +607,6 @@ body.modal-active {
     margin-bottom: 8px;
 }
 
-/* .field-container {
-    margin-top: 30px;
-} */
-
 .login-form label {
     font-family: "Instrument Sans", sans-serif;
     font-size: 12px;
@@ -674,8 +670,8 @@ body.modal-active {
 .switch {
     position: relative;
     display: inline-block;
-    width: 52px;
-    height: 24px;
+    width: 49px;
+    height: 23px;
 }
 
 .switch input {
@@ -699,8 +695,8 @@ body.modal-active {
 .slider:before {
     position: absolute;
     content: "";
-    height: 17px;
-    width: 17px;
+    height: 15px;
+    width: 15px;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -966,9 +962,51 @@ body.modal-active {
     align-items: center;
 }
 
-.modal-sub .discard{
+.modal-sub .discard {
     margin-right: 2%;
-} 
+}
+
+.txt-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 12px;
+    border-bottom: 1px dashed #EAE7EE;
+}
+
+.tab-div .txt-div:nth-of-type(2n) {
+    background-color: #FBFBFB;
+}
+
+.txt p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #615C65;
+    margin-bottom: 0;
+}
+
+.tab-four .tab-div {
+    height: 681px;
+}
+
+.tab-five .login-form {
+    display: block;
+}
+
+.tab-five .login-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.tab-six .login-form input {
+    width: 68%;
+}
+
+
+
+
+
+
 
 
 
