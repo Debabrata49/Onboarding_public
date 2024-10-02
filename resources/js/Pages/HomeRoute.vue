@@ -25,6 +25,7 @@
 
         </div>
     </div>
+
     <div class="onboarding-body">
 
         <div class="txt-middle">
@@ -49,6 +50,7 @@
         </div>
 
         <div class="onboarding-body-sub">
+
             <div class="table-container">
                 <table>
                     <thead>
@@ -73,7 +75,7 @@
                     <tbody v-if="!isLoading">
                         <tr v-for="i in accounts">
                             <td>
-                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i,'name')">
+                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i, 'name')">
                                     {{ i.name }}
                                     <i class="bi bi-chevron-right"></i>
                                 </div>
@@ -127,10 +129,10 @@
                             <td>{{ i.module_access }}</td>
                             <td>
 
-                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i,'edit')">
+                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i, 'edit')">
                                     {{ i.edit }}
                                 </div>
-                               
+
                             </td>
                         </tr>
                     </tbody>
@@ -142,9 +144,13 @@
                         </tr>
                     </tbody>
                 </table>
+
+
                 <pagination v-if="accounts != ''" v-model="page" :records="total_entries" :per-page="limit"
-                    @paginate="pagination" />
+                @paginate="pagination" />
+                
             </div>
+
         </div>
 
         <div v-if="modalPassword" class="modal-overlay" @click.self="closeModal">
@@ -186,7 +192,7 @@
             <div class="modalName">
 
                 <div class="upper-new">
-                    <i v-if="innerModal" class="bi bi-x-circle-fill" @click="innerModal=false"></i>
+                    <i v-if="innerModal" class="bi bi-x-circle-fill" @click="innerModal = false"></i>
                     <i v-else class="bi bi-x-circle-fill" @click="closeModalName"></i>
                 </div>
 
@@ -196,27 +202,29 @@
                         <div class="login-heading">
                             <h4>Jumboking, Kolkata</h4>
                             <div class="name-icon">
-                                <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1727073668/layer1_n2praq.svg" alt="name-icon">
+                                <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1727073668/layer1_n2praq.svg"
+                                    alt="name-icon">
                             </div>
                         </div>
-                        
+
                         <div class="login-content">
 
                             <div class="field-container">
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-one' ">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-one'">
 
                                     <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726642562/kwdd8u4nbdwnm4d5nda3.svg"
                                         alt="login-icon">
 
                                     <p>Login Details</p>
 
-                                </div>   
+                                </div>
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-two' ">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-two'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726657992/nixfuxmj09img99udgog.svg" alt="login-icon"/>
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726657992/nixfuxmj09img99udgog.svg"
+                                        alt="login-icon" />
 
                                     <p>Outlet Details</p>
 
@@ -224,19 +232,21 @@
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-three' ">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-three'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726722154/Group_fcrhwb.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726722154/Group_fcrhwb.svg"
+                                        alt="login-icon">
 
                                     <p>Loyalty Set - Up</p>
 
-                                </div>   
+                                </div>
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-four' ">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-four'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726730085/folder-cloud-svgrepo-com_1_p1xcuj.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726730085/folder-cloud-svgrepo-com_1_p1xcuj.svg"
+                                        alt="login-icon">
 
                                     <p>Sub-Accounts Permission</p>
 
@@ -244,9 +254,10 @@
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-five' ">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-five'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726736519/chat-round-line-svgrepo-com_1_iz4p9s.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726736519/chat-round-line-svgrepo-com_1_iz4p9s.svg"
+                                        alt="login-icon">
 
                                     <p>Set communication channels</p>
 
@@ -261,9 +272,10 @@
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-six' ">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-six'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738258/pos-svgrepo-com_1_l5vqn0.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738258/pos-svgrepo-com_1_l5vqn0.svg"
+                                        alt="login-icon">
 
                                     <p>Integrate with POS Vendor</p>
 
@@ -283,9 +295,10 @@
 
                             <div class="field-container">
 
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-seven' ">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-seven'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738938/hashtag-square-svgrepo-com_1_jiqmg3.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738938/hashtag-square-svgrepo-com_1_jiqmg3.svg"
+                                        alt="login-icon">
 
                                     <p>Manage POS level permissions</p>
 
@@ -300,13 +313,14 @@
                                     </label>
                                     
                                 </div> -->
-  
+
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-eight' ">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-eight'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742094/discount-svgrepo-com_2_1_kgb7s6.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742094/discount-svgrepo-com_2_1_kgb7s6.svg"
+                                        alt="login-icon">
 
                                     <p>Offers</p>
 
@@ -320,10 +334,11 @@
                                 </div> -->
                             </div>
 
-                            <div class="field-container" >
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-nine' ">
+                            <div class="field-container">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-nine'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742390/campaign-svgrepo-com_1_vx4hkk.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742390/campaign-svgrepo-com_1_vx4hkk.svg"
+                                        alt="login-icon">
 
                                     <p>Manage Campaigns</p>
 
@@ -338,9 +353,10 @@
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-ten' ">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-ten'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742390/campaign-svgrepo-com_1_vx4hkk.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742390/campaign-svgrepo-com_1_vx4hkk.svg"
+                                        alt="login-icon">
 
                                     <p>Membership Package</p>
 
@@ -364,37 +380,38 @@
                             <div class="tab-content">
                                 <h3>Login Details</h3>
 
-                                    <form class="modal-form" @submit.prevent="submitLoginForm">
+                                <form class="modal-form" @submit.prevent="submitLoginForm">
 
-                                        <div class="tab-div">
-                                            <div class="login-form">
-                                                <label for="name">Name</label>
-                                                <input type="text" name ="name" id="name" v-model="loginForm.name">
-                                            </div>
-
-                                            <div class="login-form">
-                                                <label for="email">Email</label>
-                                                <input type="email" name="email" id="email" disabled v-model="loginForm.email">
-                                            </div>
-
-                                            <div class="login-form">
-                                                <label for="address">Address</label>
-                                                <input type="text" name="address" id="address" v-model="loginForm.address">
-                                            </div>
-
-                                            <div class="login-form">
-                                                <label for="business">Business</label>
-                                                <input type="text" name="business" id="business" v-model="loginForm.business">
-                                            </div>
+                                    <div class="tab-div">
+                                        <div class="login-form">
+                                            <label for="name">Name</label>
+                                            <input type="text" name="name" id="name" v-model="loginForm.name">
                                         </div>
 
-                                        <div class="modal-sub">
-                                            <button class="discard">DISCARD</button>
-                                            <button class="save" type="submit">SAVE</button>
+                                        <div class="login-form">
+                                            <label for="email">Email</label>
+                                            <input type="email" name="email" id="email" disabled v-model="loginForm.email">
                                         </div>
 
-                                    </form>
-                                
+                                        <div class="login-form">
+                                            <label for="address">Address</label>
+                                            <input type="text" name="address" id="address" v-model="loginForm.address">
+                                        </div>
+
+                                        <div class="login-form">
+                                            <label for="business">Business</label>
+                                            <input type="text" name="business" id="business"
+                                                v-model="loginForm.business">
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-sub">
+                                        <button type="button" class="discard" @click="resetLoginForm">DISCARD</button>
+                                        <button class="save" type="submit">SAVE</button>
+                                    </div>
+
+                                </form>
+
                             </div>
 
                         </div>
@@ -403,36 +420,38 @@
                             <div class="tab-content">
                                 <h3>Outlet Details</h3>
 
-                                    <form class="modal-form" @submit.prevent="submitOutletDetails">
+                                <form class="modal-form" @submit.prevent="submitOutletDetails">
 
-                                        <div class="tab-div">
-                                            <div class="login-form">
-                                                <label for="email">Login Id</label>
-                                                <input type="email" id="email">
-                                            </div>
+                                    <div class="tab-div">
+                                        <div class="login-form">
+                                            <label for="email">Login Id</label>
+                                            <input type="email" name="email" id="email" v-model="outletForm.email">
+                                        </div>
 
-                                            <div class="login-form">
-                                                <label for="outlet">Outlet Name</label>
+                                        <div class="login-form">
+                                            <label for="outlet">Outlet Name</label>
 
-                                                <div class="input-holder">
-                                                    <input type="text" id="outlet">
-                                                    <div class="link">
-                                                        <i class="bi bi-link cust-link-icon"></i>
-                                                    </div>
+                                            <div class="input-holder">
+                                                <input type="text" name="outlet" id="outlet"
+                                                    v-model="outletForm.outletName">
+
+                                                <div class="link">
+                                                    <i class="bi bi-link cust-link-icon"></i>
                                                 </div>
-                                                
                                             </div>
+
                                         </div>
+                                    </div>
 
-                                        <div class="modal-sub">
-                                            <button class="discard">DISCARD</button>
-                                            <button class="save" type="submit">SAVE</button>
-                                        </div>
+                                    <div class="modal-sub">
+                                        <button type="button" class="discard" @click="resetOutletForm">DISCARD</button>
+                                        <button class="save" type="submit">SAVE</button>
+                                    </div>
 
-                                        
 
-                                    </form>
-                                
+
+                                </form>
+
                             </div>
                         </div>
 
@@ -440,35 +459,37 @@
                             <div class="tab-content">
                                 <h3>Loyalty Set - Up</h3>
 
-                                    <form class="modal-form" @submit.prevent="submitLoyaltyDetails">
+                                <form class="modal-form" @submit.prevent="submitLoyaltyDetails">
 
-                                        <div class="tab-div">
+                                    <div class="tab-div">
 
-                                            <div class="login-form">
-                                                <label for="flat">Flat</label>
-                                                <input type="text" name="flat" id="flat">
-                                            </div>
-
-                                            <div class="login-form">
-                                                <label for="loyalty">Advanced Loyalty</label>
-                                                <input type="text" name="text" id="loyalty">   
-                                            </div>
-
+                                        <div class="login-form">
+                                            <label for="flat">Flat</label>
+                                            <input type="text" name="flat" id="flat" v-model="loyaltyForm.flat">
                                         </div>
 
-                                        <div class="modal-sub">
-                                            <button class="discard">DISCARD</button>
-                                            <button class="save" type="submit">SAVE</button>
+                                        <div class="login-form">
+                                            <label for="loyalty">Advanced Loyalty</label>
+                                            <input type="text" name="text" id="loyalty" v-model="loyaltyForm.loyalty">
                                         </div>
 
-                                    
-                                    </form>
-                                
+                                    </div>
+
+                                    <div class="modal-sub">
+                                        <button type="button" class="discard" @click="resetLoyaltyForm">DISCARD</button>
+                                        <button class="save" type="submit">SAVE</button>
+                                    </div>
+
+
+                                </form>
+
                             </div>
                         </div>
 
                         <div v-if="currentModalTab === 'tab-four'" class="tab-four">
+
                             <div class="tab-content">
+
                                 <h3>Sub-Accounts Permission</h3>
 
                                 <form class="modal-form" @submit.prevent="submitSubaccountDetails">
@@ -480,124 +501,97 @@
                                                 <p>Add Credits</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="addCredits" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
+
                                         <div class="txt-div">
                                             <div class="txt">
                                                 <p>Verify code</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="verifyCode" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
+
                                         <div class="txt-div">
                                             <div class="txt">
                                                 <p>Pending Requests</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="pendingRequest" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
+
                                         <div class="txt-div">
                                             <div class="txt">
                                                 <p>Redeem Credits</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="redeemCredits" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
+
                                         <div class="txt-div">
                                             <div class="txt">
                                                 <p>Custom e-wallet</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="wallet" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
+
                                         <div class="txt-div">
                                             <div class="txt">
                                                 <p>Points on discounted bill permission</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="discount" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
-                                        <div class="txt-div">
-                                            <div class="txt">
-                                                <p>Pending Requests</p>
-                                            </div>
-                                            <label class="switch">
-                                                <input type="checkbox" checked>
-                                                <span class="slider round"></span>
-                                            </label>
-                                        </div>
+
                                         <div class="txt-div">
                                             <div class="txt">
                                                 <p>Points on coupon redemption</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="redemption" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
+
                                         <div class="txt-div">
                                             <div class="txt">
                                                 <p>Points on tax</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="tax" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
+
                                         <div class="txt-div">
                                             <div class="txt">
                                                 <p>Points on discounted Item</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="discount" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
+
                                         <div class="txt-div">
                                             <div class="txt">
                                                 <p>Redeem/Add credits permission</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
-                                                <span class="slider round"></span>
-                                            </label>
-                                        </div>
-                                        <div class="txt-div">
-                                            <div class="txt">
-                                                <p>Points on discounted bill permission</p>
-                                            </div>
-                                            <label class="switch">
-                                                <input type="checkbox" checked>
-                                                <span class="slider round"></span>
-                                            </label>
-                                        </div>
-                                        <div class="txt-div">
-                                            <div class="txt">
-                                                <p>Points on coupon redemption</p>
-                                            </div>
-                                            <label class="switch">
-                                                <input type="checkbox" checked>
-                                                <span class="slider round"></span>
-                                            </label>
-                                        </div>
-                                        <div class="txt-div">
-                                            <div class="txt">
-                                                <p>Points on tax</p>
-                                            </div>
-                                            <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="permission" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -609,9 +603,9 @@
                                         <button class="save" type="submit">SAVE</button>
                                     </div>
 
-                                
+
                                 </form>
-                                
+
                             </div>
                         </div>
 
@@ -635,15 +629,15 @@
                                             <select name="whatsApp" id="whatsApp">
                                                 <option value="*">SMS Gateway Hub</option>
                                             </select>
-                                            
+
                                         </div>
 
                                         <div class="login-form">
                                             <label for="route">Email</label>
                                             <select name="route" id="route">
                                                 <option value="*">Route Mobile</option>
-                                            </select>   
-                                        </div>   
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="modal-sub">
@@ -651,9 +645,9 @@
                                         <button class="save" type="submit">SAVE</button>
                                     </div>
 
-                                
+
                                 </form>
-                                
+
                             </div>
                         </div>
 
@@ -666,7 +660,7 @@
                                 <form class="modal-form" @submit.prevent="submitPosvendorDetails">
 
                                     <div class="tab-div">
-                                        
+
                                         <div class="login-form">
                                             <label for="vendor">Pos Vendor</label>
                                             <select name="vendor" id="vendor">
@@ -676,7 +670,7 @@
 
                                         <div class="login-form">
                                             <label for="key">Customer Key</label>
-                                            <input type="text" name="key" id="key">    
+                                            <input type="text" name="key" id="key">
                                         </div>
 
                                     </div>
@@ -686,9 +680,9 @@
                                         <button class="save" type="submit">SAVE</button>
                                     </div>
 
-                                
+
                                 </form>
-                                
+
                             </div>
                         </div>
 
@@ -747,7 +741,7 @@
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
-                                        
+
                                     </div>
 
                                     <div class="modal-sub">
@@ -755,9 +749,9 @@
                                         <button class="save" type="submit">SAVE</button>
                                     </div>
 
-                                
+
                                 </form>
-                                
+
                             </div>
                         </div>
 
@@ -769,17 +763,12 @@
 
                                 <form class="modal-form" @submit.prevent="submitOfferDetails">
 
-                                    <div class="tab-div">   
+                                    <div class="tab-div">
                                     </div>
 
-                                    <div class="modal-sub">
-                                        <button class="discard">DISCARD</button>
-                                        <button class="save" type="submit">SAVE</button>
-                                    </div>
-
-                                
+                                    
                                 </form>
-                                
+
                             </div>
                         </div>
 
@@ -790,17 +779,11 @@
 
                                 <form class="modal-form" @submit.prevent="submitCampaignDetails">
 
-                                    <div class="tab-div">    
+                                    <div class="tab-div">
                                     </div>
 
-                                    <div class="modal-sub">
-                                        <button class="discard">DISCARD</button>
-                                        <button class="save" type="submit">SAVE</button>
-                                    </div>
-
-                                
                                 </form>
-                                
+
                             </div>
                         </div>
 
@@ -811,22 +794,38 @@
 
                                 <form class="modal-form" @submit.prevent="submitPackageDetails">
 
-                                    <div class="tab-div">   
+                                    <div class="tab-div">
+
+                                        <div class="new-table">
+
+                                            <table>
+                                                <thead>
+                                                    <tr>
+
+                                                        <th class="name">Name</th>
+                                                        <th class="validity">Validity(days)</th>
+                                                        <th class="issue">Total Issues</th>
+                                                        <th class="days">Individual Issue Limit</th>
+                                                        <th>Linked Segment</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
                                     </div>
 
-                                    <div class="modal-sub">
-                                        <button class="discard">DISCARD</button>
-                                        <button class="save" type="submit">SAVE</button>
-                                    </div>
-
-                                
                                 </form>
-                                
+
                             </div>
                         </div>
 
                     </div>
-                    
+
                 </div>
 
             </div>
@@ -837,156 +836,148 @@
                 <div class="name-upper">
                     <h4>Edit Sub Account Details</h4>
                     <i class="bi bi-x-circle-fill" @click="closeModalName"></i>
-                </div> 
+                </div>
                 <div class="edit-form">
                     <form class="form-edit" @submit.prevent="edit">
 
-                        
+
                         <div class="input-fields">
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="name">Name <i class="bi bi-asterisk"></i></label>
-                                <input type="text" name="name" id="name" required>
-                            </div>
+
+                                <div>
+                                    <label for="name">Name <i class="bi bi-asterisk"></i></label>
+                                    <input type="text" name="name" id="name" required>
+                                </div>
 
                             </div>
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="mobile">Mobile</label>
-                                <input type="text" name="mobile" id="mobile">
-                            </div>
+
+                                <div>
+                                    <label for="mobile">Mobile</label>
+                                    <input type="text" name="mobile" id="mobile">
+                                </div>
 
                             </div>
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="email">Email ID <i class="bi bi-asterisk"></i></label>
-                                <input type="email" name="email" id="email" required>
-                            </div>
+
+                                <div>
+                                    <label for="email">Email ID <i class="bi bi-asterisk"></i></label>
+                                    <input type="email" name="email" id="email" required>
+                                </div>
 
                             </div>
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="pwd">Password <i class="bi bi-asterisk"></i></label>
-                                <input type="password" name="pwd" id="pwd" required>
-                            </div>
+
+                                <div>
+                                    <label for="pwd">Password <i class="bi bi-asterisk"></i></label>
+                                    <input type="password" name="pwd" id="pwd" required>
+                                </div>
 
                             </div>
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="pwd_2">Confirm Password<i class="bi bi-asterisk"></i></label>
-                                <input type="password" name="pwd_2" id="pwd_2" required>
-                            </div>
+
+                                <div>
+                                    <label for="pwd_2">Confirm Password<i class="bi bi-asterisk"></i></label>
+                                    <input type="password" name="pwd_2" id="pwd_2" required>
+                                </div>
 
                             </div>
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="bs">Business Name <i class="bi bi-asterisk"></i></label>
-                                <input type="text" name="bs" id="bs" required>
-                            </div>
+
+                                <div>
+                                    <label for="bs">Business Name <i class="bi bi-asterisk"></i></label>
+                                    <input type="text" name="bs" id="bs" required>
+                                </div>
 
                             </div>
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="loc">Business Location</label>
-                                <input type="text" name="loc" id="loc">
-                            </div>
+
+                                <div>
+                                    <label for="loc">Business Location</label>
+                                    <input type="text" name="loc" id="loc">
+                                </div>
 
                             </div>
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="cat">Category</label>
-                                <input type="text" name="cat" id="cat">
-                            </div>
+
+                                <div>
+                                    <label for="cat">Category</label>
+                                    <input type="text" name="cat" id="cat">
+                                </div>
 
                             </div>
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="country">Country</label>
-                                <select name="country" id="country">
-                                    <option value="*">India</option>
-                                </select>
-                            </div>
+
+                                <div>
+                                    <label for="country">Country</label>
+                                    <select name="country" id="country">
+                                        <option value="*">India</option>
+                                    </select>
+                                </div>
 
                             </div>
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="region">Region</label>
-                                <select name="region" id="region">
-                                    <option value="*">West Bengal</option>
-                                </select>
-                            </div>
+
+                                <div>
+                                    <label for="region">Region</label>
+                                    <select name="region" id="region">
+                                        <option value="*">West Bengal</option>
+                                    </select>
+                                </div>
 
                             </div>
                             <div class="multiple-fields-container">
-                            
-                            <div class="subfield-item">
-                                <label for="det">ASM Details</label>
-                                <input type="text" name="det" id="det">
-                            </div>
 
-                            <div class="multiple-item">
-                                <input type="email" name="mail" id="mail">
-                            </div>
+                                <div class="subfield-item">
+                                    <label for="det">ASM Details</label>
+                                    <input type="text" name="det" id="det">
+                                </div>
 
-                            <div class="multiple-item">
-                                <vue-tel-input
-                                v-model="form.mobile"
-                                mode="international"
-                                :default-country="iso_code"
-                                id="code"
-                            ></vue-tel-input>
-                            </div>
+                                <div class="multiple-item">
+                                    <input type="email" name="mail" id="mail">
+                                </div>
+
+                                <div class="multiple-item">
+                                    <vue-tel-input v-model="form.mobile" mode="international"
+                                        :default-country="iso_code" id="code"></vue-tel-input>
+                                </div>
 
                             </div>
                             <div class="multiple-fields-container">
-                            
-                            <div class="subfield-item">
-                                <label for="det">Manager Details</label>
-                                <input type="text" name="det" id="det">
-                            </div>
 
-                            <div class="multiple-item">
-                                <input type="email" name="mail" id="mail">
-                            </div>
+                                <div class="subfield-item">
+                                    <label for="det">Manager Details</label>
+                                    <input type="text" name="det" id="det">
+                                </div>
 
-                            <div class="multiple-item">
-                                <vue-tel-input
-                                v-model="form.mobile"
-                                mode="international"
-                                :default-country="iso_code"
-                                id="code"
-                            ></vue-tel-input>
-                            </div>
+                                <div class="multiple-item">
+                                    <input type="email" name="mail" id="mail">
+                                </div>
+
+                                <div class="multiple-item">
+                                    <vue-tel-input v-model="form.mobile" mode="international"
+                                        :default-country="iso_code" id="code"></vue-tel-input>
+                                </div>
 
                             </div>
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="cur">Currency</label>
-                                <select name="cur" id="cur">
-                                    <option value="*">Indian Rupees (India)</option>
-                                </select>
-                            </div>
+
+                                <div>
+                                    <label for="cur">Currency</label>
+                                    <select name="cur" id="cur">
+                                        <option value="*">Indian Rupees (India)</option>
+                                    </select>
+                                </div>
 
                             </div>
                             <div class="edit-input">
-                            
-                            <div>
-                                <label for="time">Time zone</label>
-                                <select name="time" id="time">
-                                    <option value="*">Asia/ Kolkata (India)</option>
-                                </select>
-                            </div>
+
+                                <div>
+                                    <label for="time">Time zone</label>
+                                    <select name="time" id="time">
+                                        <option value="*">Asia/ Kolkata (India)</option>
+                                    </select>
+                                </div>
 
                             </div>
 
@@ -1003,19 +994,20 @@
                             <div class="btn-container">
                                 <button class="discard">DISCARD</button>
                                 <button class="save" type="submit">SAVE</button>
-                            </div>   
+                            </div>
                         </div>
 
                     </form>
-                </div> 
+                </div>
             </div>
         </div>
 
     </div>
-   
+
 </template>
 
 <script>
+
 import { ref } from "vue";
 import axiosService from "@/axiosService";
 import Pagination from 'v-pagination-3';
@@ -1046,23 +1038,42 @@ export default {
             shouldReCall: true,
             modalName: false,
             innerModal: false,
-            modalEdit:false,
-            form:{
-                mobile:''
+            modalEdit: false,
+            form: {
+                mobile: ''
             },
 
-            iso_code: 'IN', 
+            iso_code: 'IN',
             isValidPhone: false,
             currentModalTab: 'tab-one',
+
             loginForm: {
-            name: '',
-            email: 'user@example.com', // Default email, since it's disabled.
-            address: '',
-            business: ''
-        }
+                name: '',
+                email: 'user@example.com', // Default email, since it's disabled.
+                address: '',
+                business: ''
+            },
 
+            outletForm: {
+                email: '',
+                outletName: ''
+            },
 
+            loyaltyForm: {
+                flat: '',
+                loyalty: ''
+            },
 
+            addCredits: false,
+            verifyCode: false,
+            pendingRequests: false,
+            redeemCredits: false,
+            customEwallet: true,
+            pointsOnDiscountedBill: false,
+            pointsOnCouponRedemption: false,
+            pointsOnTax: false,
+            pointsOnDiscountedItem: false,
+            redeemAddCreditsPermission: false
         };
     },
 
@@ -1082,12 +1093,6 @@ export default {
             console.log(searchQuery.value);
             this.getEmployeeData(this.page, searchQuery.value);
         };
-
-        // const searchAction = () => {
-        //     console.log("Searching for:", searchQuery.value);
-        //     // this.getEmployeeData(this.page,searchQuery.value);
-        // };
-
 
         return {
             searchQuery,
@@ -1127,9 +1132,9 @@ export default {
             this.isLoading = true;
             this.getEmployeeData(this.page);
         },
-        loadEditAccToName(id,instance,modalName) {
-            modalName === 'edit' && (this.modalEdit=true)
-            modalName === 'name' && (this.modalName=true)
+        loadEditAccToName(id, instance, modalName) {
+            modalName === 'edit' && (this.modalEdit = true)
+            modalName === 'name' && (this.modalName = true)
             this.editEmployeeProfile(id, this.shouldReCall);
         },
         handleUser(value) {
@@ -1169,7 +1174,7 @@ export default {
             this.isSearchActive = !this.isSearchActive;
             console.log(this.isSearchActive);
             if (this.isSearchActive) {
-                this.searchQuery = ''; 
+                this.searchQuery = '';
             } else {
                 this.isLoading = true;
                 this.getEmployeeData(this.page, this.searchQuery);
@@ -1195,16 +1200,85 @@ export default {
                     window.location.reload();
                 });
         },
-
-        validatePhone(phoneNumber) {
-            console.log(phoneNumber);
-            const digitsOnly = phoneNumber.replace(/\D/g, '');
-            this.isValidPhone = digitsOnly.length === 10;
-        },
         switchModalTab(tabName) {
             this.currentModalTab = tabName;
         },
 
+        submitLoginForm() {
+            console.log('Login Form Data:', this.loginForm);
+            this.loginForm = { name: '', email: '', address: '', business: '' };
+        },
+
+        resetLoginForm() {
+            this.loginForm = {
+                name: '',
+                email: 'user@example.com', // Reset to default
+                address: '',
+                business: ''
+            };
+        },
+
+        submitOutletDetails() {
+            console.log('Outlet Details:', this.outletForm);
+            this.resetOutletForm();
+        },
+
+        resetOutletForm() {
+            this.outletForm = {
+                email: '',
+                outletName: ''
+            };
+        },
+
+        submitSubaccountDetails() {
+            const submittedData = {
+                addCredits: this.addCredits,
+                verifyCode: this.verifyCode,
+                pendingRequests: this.pendingRequests,
+                redeemCredits: this.redeemCredits,
+                customEwallet: this.customEwallet,
+                pointsOnDiscountedBill: this.pointsOnDiscountedBill,
+                pointsOnCouponRedemption: this.pointsOnCouponRedemption,
+                pointsOnTax: this.pointsOnTax,
+                pointsOnDiscountedItem: this.pointsOnDiscountedItem,
+                redeemAddCreditsPermission: this.redeemAddCreditsPermission
+            };
+            console.log(submittedData); // Replace this with your API call
+        },
+
+        discardChanges() {
+            // Reset checkboxes to default values (all checked)
+            this.addCredits = true;
+            this.verifyCode = true;
+            this.pendingRequests = true;
+            this.redeemCredits = true;
+            this.customEwallet = true;
+            this.pointsOnDiscountedBill = true;
+            this.pointsOnCouponRedemption = true;
+            this.pointsOnTax = true;
+            this.pointsOnDiscountedItem = true;
+            this.redeemAddCreditsPermission = true;
+        },
+
+        submitLoyaltyDetails() {
+            console.log('Login Form Data:', this.loyaltyForm);
+            this.loyaltyForm = { flat: '', loyalty: ''};
+        },
+
+        resetLoyaltyForm() {
+            this.loyaltyForm = {
+                flat: '',
+                loyalty: ''
+            };
+        },
+
+
+
     }
-};
+
+
+
+
+
+}
 </script>
