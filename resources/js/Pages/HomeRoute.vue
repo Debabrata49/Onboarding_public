@@ -148,7 +148,7 @@
 
                 <pagination v-if="accounts != ''" v-model="page" :records="total_entries" :per-page="limit"
                 @paginate="pagination" />
-                
+
             </div>
 
         </div>
@@ -521,7 +521,7 @@
                                                 <p>Pending Requests</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" v-model="pendingRequest" checked>
+                                                <input type="checkbox" v-model="pendingRequests" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -541,7 +541,7 @@
                                                 <p>Custom e-wallet</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" v-model="wallet" checked>
+                                                <input type="checkbox" v-model="customEwallet" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -551,7 +551,7 @@
                                                 <p>Points on discounted bill permission</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" v-model="discount" checked>
+                                                <input type="checkbox" v-model="pointsOnDiscountedBill" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -561,7 +561,7 @@
                                                 <p>Points on coupon redemption</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" v-model="redemption" checked>
+                                                <input type="checkbox" v-model="pointsOnCouponRedemption" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -571,7 +571,7 @@
                                                 <p>Points on tax</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" v-model="tax" checked>
+                                                <input type="checkbox" v-model="pointsOnTax" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -581,7 +581,7 @@
                                                 <p>Points on discounted Item</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" v-model="discount" checked>
+                                                <input type="checkbox" v-model="pointsOnDiscountedItem" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -591,7 +591,7 @@
                                                 <p>Redeem/Add credits permission</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" v-model="permission" checked>
+                                                <input type="checkbox" v-model="redeemAddCreditsPermission" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -599,7 +599,7 @@
                                     </div>
 
                                     <div class="modal-sub">
-                                        <button class="discard">DISCARD</button>
+                                        <button type="button" class="discard" @click="discardChanges">DISCARD</button>
                                         <button class="save" type="submit">SAVE</button>
                                     </div>
 
@@ -619,14 +619,14 @@
 
                                         <div class="login-form">
                                             <label for="sms">SMS</label>
-                                            <select name="sms" id="sms">
+                                            <select name="sms" id="sms" v-model="selectedSms">
                                                 <option value="*">Gupshup</option>
                                             </select>
                                         </div>
 
                                         <div class="login-form">
                                             <label for="whatsApp">WhatsApp</label>
-                                            <select name="whatsApp" id="whatsApp">
+                                            <select name="whatsApp" id="whatsApp" v-model="selectedWhatsApp">
                                                 <option value="*">SMS Gateway Hub</option>
                                             </select>
 
@@ -634,7 +634,7 @@
 
                                         <div class="login-form">
                                             <label for="route">Email</label>
-                                            <select name="route" id="route">
+                                            <select name="route" id="route" v-model="selectedEmail">
                                                 <option value="*">Route Mobile</option>
                                             </select>
                                         </div>
@@ -663,20 +663,20 @@
 
                                         <div class="login-form">
                                             <label for="vendor">Pos Vendor</label>
-                                            <select name="vendor" id="vendor">
+                                            <select name="vendor" id="vendor" v-model="posVendor">
                                                 <option value="*">Generic</option>
                                             </select>
                                         </div>
 
                                         <div class="login-form">
                                             <label for="key">Customer Key</label>
-                                            <input type="text" name="key" id="key">
+                                            <input type="text" name="key" id="key" v-model="customerKey">
                                         </div>
 
                                     </div>
 
                                     <div class="modal-sub">
-                                        <button class="discard">DISCARD</button>
+                                        <button type="button" class="discard" @click="resetPosvendorDetails">DISCARD</button>
                                         <button class="save" type="submit">SAVE</button>
                                     </div>
 
@@ -701,7 +701,7 @@
                                                 <p>Points on coupon redemption</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="couponredemptionPoint" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -710,7 +710,7 @@
                                                 <p>Points on discounted bill permission</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="discountedbillPoint" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -719,7 +719,7 @@
                                                 <p>Points on discounted Item</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="discounteditemPoint" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -728,7 +728,7 @@
                                                 <p>Points on tax</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="taxPoint" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -737,7 +737,7 @@
                                                 <p>Redeem/Add credits permission</p>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" v-model="creditsPermission" checked>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -745,7 +745,7 @@
                                     </div>
 
                                     <div class="modal-sub">
-                                        <button class="discard">DISCARD</button>
+                                        <button type="button" class="discard" @click="discardValues">DISCARD</button>
                                         <button class="save" type="submit">SAVE</button>
                                     </div>
 
@@ -799,22 +799,74 @@
                                         <div class="new-table">
 
                                             <table>
+
                                                 <thead>
                                                     <tr>
-
                                                         <th class="name">Name</th>
                                                         <th class="validity">Validity(days)</th>
                                                         <th class="issue">Total Issues</th>
                                                         <th class="days">Individual Issue Limit</th>
-                                                        <th>Linked Segment</th>
-
+                                                        <th class="segment">Linked Segment</th>
                                                     </tr>
                                                 </thead>
+
                                                 <tbody>
 
-                                                </tbody>
-                                            </table>
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
 
+                                                    
+
+                                                </tbody>
+
+                                            </table>
                                         </div>
 
                                     </div>
@@ -1068,12 +1120,25 @@ export default {
             verifyCode: false,
             pendingRequests: false,
             redeemCredits: false,
-            customEwallet: true,
+            customEwallet: false,
             pointsOnDiscountedBill: false,
             pointsOnCouponRedemption: false,
             pointsOnTax: false,
             pointsOnDiscountedItem: false,
-            redeemAddCreditsPermission: false
+            redeemAddCreditsPermission: false,
+
+            selectedSms: '*',
+            selectedWhatsApp: '*',
+            selectedEmail: '*',
+            posVendor:'',
+            customerKey:'',
+
+            couponredemptionPoint:false,
+            discountedbillPoint:false,
+            discounteditemPoint:false,
+            taxPoint:false,
+            creditsPermission:false
+
         };
     },
 
@@ -1102,9 +1167,11 @@ export default {
         };
 
     },
+
     mounted() {
         this.getEmployeeData(this.page);
     },
+
     methods: {
         getEmployeeData(page_no, search = null) {
             let data = { page_number: page_no, search: search };
@@ -1124,19 +1191,23 @@ export default {
                     console.log(err);
                 })
         },
+
         modalHandel() {
             this.modalIsActive = !this.modalIsActive;
             console.log(this.modalIsActive);
         },
+
         pagination() {
             this.isLoading = true;
             this.getEmployeeData(this.page);
         },
+
         loadEditAccToName(id, instance, modalName) {
             modalName === 'edit' && (this.modalEdit = true)
             modalName === 'name' && (this.modalName = true)
             this.editEmployeeProfile(id, this.shouldReCall);
         },
+
         handleUser(value) {
             this.userObj = { ...value };
 
@@ -1170,6 +1241,7 @@ export default {
                     console.log(err);
                 })
         },
+
         toggleSearch() {
             this.isSearchActive = !this.isSearchActive;
             console.log(this.isSearchActive);
@@ -1180,6 +1252,7 @@ export default {
                 this.getEmployeeData(this.page, this.searchQuery);
             }
         },
+
         logoutCall() {
             axiosService.post("/api/logout", [])
                 .then(res => {
@@ -1200,6 +1273,7 @@ export default {
                     window.location.reload();
                 });
         },
+
         switchModalTab(tabName) {
             this.currentModalTab = tabName;
         },
@@ -1212,7 +1286,7 @@ export default {
         resetLoginForm() {
             this.loginForm = {
                 name: '',
-                email: 'user@example.com', // Reset to default
+                email: 'user@example.com', 
                 address: '',
                 business: ''
             };
@@ -1230,36 +1304,6 @@ export default {
             };
         },
 
-        submitSubaccountDetails() {
-            const submittedData = {
-                addCredits: this.addCredits,
-                verifyCode: this.verifyCode,
-                pendingRequests: this.pendingRequests,
-                redeemCredits: this.redeemCredits,
-                customEwallet: this.customEwallet,
-                pointsOnDiscountedBill: this.pointsOnDiscountedBill,
-                pointsOnCouponRedemption: this.pointsOnCouponRedemption,
-                pointsOnTax: this.pointsOnTax,
-                pointsOnDiscountedItem: this.pointsOnDiscountedItem,
-                redeemAddCreditsPermission: this.redeemAddCreditsPermission
-            };
-            console.log(submittedData); // Replace this with your API call
-        },
-
-        discardChanges() {
-            // Reset checkboxes to default values (all checked)
-            this.addCredits = true;
-            this.verifyCode = true;
-            this.pendingRequests = true;
-            this.redeemCredits = true;
-            this.customEwallet = true;
-            this.pointsOnDiscountedBill = true;
-            this.pointsOnCouponRedemption = true;
-            this.pointsOnTax = true;
-            this.pointsOnDiscountedItem = true;
-            this.redeemAddCreditsPermission = true;
-        },
-
         submitLoyaltyDetails() {
             console.log('Login Form Data:', this.loyaltyForm);
             this.loyaltyForm = { flat: '', loyalty: ''};
@@ -1272,13 +1316,113 @@ export default {
             };
         },
 
+        submitSubaccountDetails() {
+
+        const formData = {
+            addCredits: this.addCredits,
+            verifyCode: this.verifyCode,
+            pendingRequests: this.pendingRequests,
+            redeemCredits: this.redeemCredits,
+            customEwallet: this.customEwallet,
+            pointsOnDiscountedBill: this.pointsOnDiscountedBill,
+            pointsOnCouponRedemption: this.pointsOnCouponRedemption,
+            pointsOnTax: this.pointsOnTax,
+            pointsOnDiscountedItem: this.pointsOnDiscountedItem,
+            redeemAddCreditsPermission: this.redeemAddCreditsPermission,
+        };
+
+        console.log('Form Data:', formData);
+
+        this.resetForms();
+
+        },
+
+        discardChanges() {
+        this.resetForms();
+        },
+
+        resetForms() {   
+        this.addCredits = false;
+        this.verifyCode = false;
+        this.pendingRequests = false;
+        this.redeemCredits = false;
+        this.customEwallet = false;
+        this.pointsOnDiscountedBill = false;
+        this.pointsOnCouponRedemption = false;
+        this.pointsOnTax = false;
+        this.pointsOnDiscountedItem = false;
+        this.redeemAddCreditsPermission = false;
+        },
+
+        submitCommunicationDetails() {
+            console.log("Selected SMS:", this.selectedSms);
+            console.log("Selected WhatsApp:", this.selectedWhatsApp);
+            console.log("Selected Email:", this.selectedEmail);
+
+      // Make an API call with the selected data
+            const communicationDetails = {
+                sms: this.selectedSms,
+                whatsApp: this.selectedWhatsApp,
+                email: this.selectedEmail,
+            }; 
+
+        },
+
+        resetCommunicationDetails() {
+            this.selectedSms = '*';
+            this.selectedWhatsApp = '*';
+            this.selectedEmail = '*';
+        },
+
+        submitPosvendorDetails() {
+            
+            console.log('POS Vendor:', this.posVendor);
+            console.log('Customer Key:', this.customerKey);
+
+            const formData = {
+                vendor: this.posVendor,
+                key: this.customerKey
+            };
+
+        },
+
+        resetPosvendorDetails() {
+            this.posVendor = '';
+            this.customerKey = '';
+        },
+
+        submitPospermissionDetails(){
+
+            const newData = {
+
+                couponredemptionPoint: this.couponredemptionPoint,
+                discountedbillPoint: this.discountedbillPoint,
+                discounteditemPoint: this.discounteditemPoint,
+                taxPoint: this.taxPoint,
+                creditsPermission: this.creditsPermission
+            };
+
+            console.log('New Data:', newData);
+
+            this.resetPermission();
+
+        },
+
+        discardValues() {
+        this.resetPermission();
+        },
+
+        resetPermission(){
+
+            this.couponredemptionPoint = false,
+            this.discountedbillPoint = false,
+            this.discounteditemPoint = false,
+            this.taxPoint = false,
+            this.creditsPermission = false
+        },
 
 
     }
-
-
-
-
 
 }
 </script>
