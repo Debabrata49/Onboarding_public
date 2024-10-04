@@ -22,5 +22,6 @@ Route::middleware(['auth:api'])->group(function(){
     Route::post('me', [App\Http\Controllers\LoginController::class,'me']);
     Route::post('getEmployeeData',[App\Http\Controllers\EmployeeDataController::class,'getEmployeeData']);
     Route::POST('/editEmployeeProfile', [App\Http\Controllers\EmployeeDataEditController::class, 'editEmployeeProfile'])->name('editEmployeeProfile');
+    Route::POST('/getEditEmployeeMain', [App\Http\Controllers\EmployeeDataEditController::class, 'getEditEmployeeMain'])->name('getEditEmployeeMain');
 
 });

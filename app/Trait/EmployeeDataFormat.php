@@ -12,6 +12,10 @@ use App\Models\Booklet;
 use App\Models\EBooklet;
 use App\Models\Token;
 use App\Models\RecurringBookletDetails;
+use App\Models\CurrencyCode;
+use App\Models\TimeZone;
+use App\Models\MerchantRegion;
+use App\Models\CountryCode;
 
 trait EmployeeDataFormat
 {
@@ -659,5 +663,69 @@ trait EmployeeDataFormat
             'recurring_booklet_select' => $recurring_booklet_select
         ];
         return $offers;        
+    }
+
+    public function getCurrencyEmpWise($emp_currency)
+    {
+        $currency = CurrencyCode::all();
+        $currency_select = [];
+        if(count($currency)>0){
+            foreach ($currency as $curr) {
+                $currency_select[] = [
+                    'name' => $curr->currency_name.'('.$curr->country.')',
+                    'value' => $curr->currency,
+                    'select' => $curr->currency == $emp_currency ? 1 : 0
+                ];
+            }
+        }
+        return $currency_select;
+    }
+
+    public function getTimeZoneEmpWise($emp_time_zone)
+    {
+        $timezone = TimeZone::all();
+        $time_zone_select = [];
+        if(count($timezone)>0){
+            foreach ($timezone as $time) {
+                $time_zone_select[] = [
+                    'name' => $time->timezone.'('.$time->country.')',
+                    'value' => $time->timezone,
+                    'select' => $time->timezone == $emp_time_zone ? 1 : 0
+                ];
+            }
+        }
+        return $time_zone_select;
+    }
+
+    public function getRegionEmpWise($emp_region,$merchant_id)
+    {
+        $region = MerchantRegion::select('id','region')->where('merchant_id',$merchant_id)->groupBy('region','id')->get();
+        $region_select = [];
+        if(count($region)>0){
+            foreach ($region as $reg) {
+                $region_select[] = [
+                    'name' => $reg->region,
+                    'value' => $reg->id,
+                    'select' => $reg->id == $emp_region ? 1 : 0
+                ];
+            }
+        }
+        return $region_select;
+    }
+
+    public function getCountryEmpWise($emp_country)
+    {
+        $country = CountryCode::all();
+        $country_select = [];
+        if(count($country)>0){
+            foreach ($country as $count) {
+                $country_select[] = [
+                    'name' => $count->country,
+                    'value' => $count->country_code,
+                    'select' => $count->country_code == $emp_country ? 1 : 0
+                ];
+            }
+        }
+        return $country_select;
     }
 }

@@ -42,7 +42,7 @@ class EmployeeDataController extends Controller
         }
         $merchant_data = $merchant->toArray();
 
-        $employees = Employee::where('employee.merchant_id', $merchant_id)->join('wl_outlets', 'employee.outlet_id', '=', 'wl_outlets.id')->where('is_active',1)->where('deleted',0);
+        $employees = Employee::where('employee.merchant_id', $merchant_id)->where('employee.is_active',1)->where('employee.deleted',0)->join('wl_outlets', 'employee.outlet_id', '=', 'wl_outlets.id');
 
         if(!empty($request->search)){
             $search = $request->search;
@@ -55,11 +55,12 @@ class EmployeeDataController extends Controller
         }
         $total_entries = $employees->count();
         $total_pages = ceil($total_entries/$limit);
-        $employees = $employees->offset($offset)->limit($limit)->orderBy('employee.id','desc')->get(['employee.*','wl_outlets.id','wl_outlets.outletname']);
+        $employees = $employees->offset($offset)->limit($limit)->orderBy('employee.id','desc')->get(['employee.*','wl_outlets.id as outletId','wl_outlets.outletname']);
 
         $emp_array = [];
         if(count($employees) > 0){
             foreach ($employees as $employee) {
+                // dd($employee);
                 //outlet
                 $outletname = 'N/A';
                 if(isset($employee->outlet->outletname)){

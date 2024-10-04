@@ -127,7 +127,7 @@
                             <td>{{ i.module_access }}</td>
                             <td>
 
-                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i,'edit')">
+                                <div class="content" :data-id="i.id" @click="loadEditSubAccount(i.id)">
                                     {{ i.edit }}
                                 </div>
                                
@@ -516,7 +516,7 @@
                             
                             <div>
                                 <label for="name">Name <i class="bi bi-asterisk"></i></label>
-                                <input type="text" name="name" id="name" required>
+                                <input type="text" name="emp_name"  v-model="emp_arr.emp_name" id="name" required>
                             </div>
 
                             </div>
@@ -524,15 +524,27 @@
                             
                             <div>
                                 <label for="mobile">Mobile</label>
-                                <input type="text" name="mobile" id="mobile">
+                                <input type="text" name="emp_mobile" v-model="emp_arr.emp_mobile" id="mobile">
                             </div>
 
                             </div>
+
+                            <template v-if ="emp_loyalty_percentage_chk == 1">
+                                <div class="edit-input">
+                                
+                                <div>
+                                    <label for="loyaltypercent">Loyalty Program %</label>
+                                    <input type="text" name="loyalty_percentage" v-model="emp_arr.emp_loyalty_percentage" id="loyaltypercent">
+                                </div>
+
+                                </div>
+                            </template>
+
                             <div class="edit-input">
                             
                             <div>
                                 <label for="email">Email ID <i class="bi bi-asterisk"></i></label>
-                                <input type="email" name="email" id="email" required>
+                                <input type="email" name="emp_email" v-model="emp_arr.emp_email" id="email" required>
                             </div>
 
                             </div>
@@ -540,7 +552,7 @@
                             
                             <div>
                                 <label for="pwd">Password <i class="bi bi-asterisk"></i></label>
-                                <input type="password" name="pwd" id="pwd" required>
+                                <input type="password" name="password" v-model="emp_arr.emp_password" id="pwd" required>
                             </div>
 
                             </div>
@@ -548,7 +560,7 @@
                             
                             <div>
                                 <label for="pwd_2">Confirm Password<i class="bi bi-asterisk"></i></label>
-                                <input type="password" name="pwd_2" id="pwd_2" required>
+                                <input type="password" name="confirm_password" v-model="emp_arr.emp_confirm_password" id="pwd_2" required>
                             </div>
 
                             </div>
@@ -556,7 +568,7 @@
                             
                             <div>
                                 <label for="bs">Business Name <i class="bi bi-asterisk"></i></label>
-                                <input type="text" name="bs" id="bs" required>
+                                <input type="text" name="business_name" v-model="emp_arr.emp_business_name" id="bs" required>
                             </div>
 
                             </div>
@@ -564,7 +576,7 @@
                             
                             <div>
                                 <label for="loc">Business Location</label>
-                                <input type="text" name="loc" id="loc">
+                                <input type="text" name="business_location" v-model="emp_arr.emp_business_location" id="loc">
                             </div>
 
                             </div>
@@ -572,7 +584,7 @@
                             
                             <div>
                                 <label for="cat">Category</label>
-                                <input type="text" name="cat" id="cat">
+                                <input type="text" name="emp_category" v-model="emp_arr.emp_category" id="cat">
                             </div>
 
                             </div>
@@ -581,7 +593,10 @@
                             <div>
                                 <label for="country">Country</label>
                                 <select name="country" id="country">
-                                    <option value="*">India</option>
+                                    <option>Please Select</option>
+                                    <option v-for="country in emp_arr.emp_country" :key="country.value" :value="country.value" :selected="country.select">
+                                        {{ country.name }}
+                                    </option>
                                 </select>
                             </div>
 
@@ -591,7 +606,10 @@
                             <div>
                                 <label for="region">Region</label>
                                 <select name="region" id="region">
-                                    <option value="*">West Bengal</option>
+                                    <option>Please Select</option>
+                                    <option v-for="region in emp_arr.emp_region" :key="region.value" :value="region.value" :selected="region.select">
+                                        {{ region.name }}
+                                    </option>
                                 </select>
                             </div>
 
@@ -599,17 +617,17 @@
                             <div class="multiple-fields-container">
                             
                             <div class="subfield-item">
-                                <label for="det">ASM Details</label>
-                                <input type="text" name="det" id="det">
+                                <label for="asm_name">ASM Details</label>
+                                <input type="text" name="asm_name" id="asm_name" v-model="emp_arr.asm_data.asm_name">
                             </div>
 
                             <div class="multiple-item">
-                                <input type="email" name="mail" id="mail">
+                                <input type="email" name="asm_email" id="asm_email" v-model="emp_arr.asm_data.asm_email">
                             </div>
 
                             <div class="multiple-item">
                                 <vue-tel-input
-                                v-model="form.mobile"
+                                v-model="emp_arr.asm_data.asm_number"
                                 mode="international"
                                 :default-country="iso_code"
                                 id="code"
@@ -621,16 +639,16 @@
                             
                             <div class="subfield-item">
                                 <label for="det">Manager Details</label>
-                                <input type="text" name="det" id="det">
+                                <input type="text" name="det" id="det" v-model="emp_arr.manager_data.manager_name">
                             </div>
 
                             <div class="multiple-item">
-                                <input type="email" name="mail" id="mail">
+                                <input type="email" name="mail" id="mail" v-model="emp_arr.manager_data.manager_email">
                             </div>
 
                             <div class="multiple-item">
                                 <vue-tel-input
-                                v-model="form.mobile"
+                                v-model="emp_arr.manager_data.manager_number"
                                 mode="international"
                                 :default-country="iso_code"
                                 id="code"
@@ -641,9 +659,12 @@
                             <div class="edit-input">
                             
                             <div>
-                                <label for="cur">Currency</label>
-                                <select name="cur" id="cur">
-                                    <option value="*">Indian Rupees (India)</option>
+                                <label for="curency">Currency</label>
+                                <select name="curency" id="curency">
+                                    <option>Please Select</option>
+                                    <option v-for="curency in emp_arr.emp_currency" :key="curency.value" :value="curency.value" :selected="curency.select">
+                                        {{ curency.name }}
+                                    </option>
                                 </select>
                             </div>
 
@@ -651,9 +672,12 @@
                             <div class="edit-input">
                             
                             <div>
-                                <label for="time">Time zone</label>
-                                <select name="time" id="time">
-                                    <option value="*">Asia/ Kolkata (India)</option>
+                                <label for="timeZone">Time zone</label>
+                                <select name="timeZone" id="timeZone">
+                                    <option>Please Select</option>
+                                    <option v-for="timeZone in emp_arr.emp_timezone" :key="timeZone.value" :value="timeZone.value" :selected="timeZone.select">
+                                        {{ timeZone.name }}
+                                    </option>
                                 </select>
                             </div>
 
@@ -662,7 +686,7 @@
                             <div class="edit-input">
                                 <div>
                                     <label for="note">Note</label>
-                                    <textarea name="note" id="note" placeholder="Enter Note here"></textarea>
+                                    <textarea name="note" id="note" placeholder="Enter Note here">{{ emp_arr.emp_note }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -679,12 +703,6 @@
                 </div> 
             </div>
         </div>
-
-
-
-
-        
-
     </div>
    
 </template>
@@ -728,8 +746,27 @@ export default {
 
             iso_code: 'IN', 
             isValidPhone: false,
-            currentModalTab: 'tab-one'
-
+            currentModalTab: 'tab-one',
+            emp_arr: {
+                emp_name: '',
+                emp_email: '',
+                emp_mobile: '',
+                emp_password: '',
+                emp_confirm_password: '',
+                emp_business_name: '',
+                emp_business_location: '',
+                emp_category: '',
+                emp_loyalty_percentage: '',
+                emp_maxallow_award_trans: '',
+                emp_loyalty_percentage_chk: 0,
+                emp_note: '',
+                asm_data: [],
+                manager_data: [],
+                emp_country: [],
+                emp_currency: [],
+                emp_timezone: [],
+                emp_region: [],
+            }
 
         };
     },
@@ -800,6 +837,9 @@ export default {
             modalName === 'name' && (this.modalName=true)
             this.editEmployeeProfile(id, this.shouldReCall);
         },
+        loadEditSubAccount(id) {
+            this.editEmployeeData(id, this.shouldReCall);
+        },
         handleUser(value) {
             this.userObj = { ...value };
 
@@ -817,7 +857,6 @@ export default {
             this.modalName = false;
             this.modalEdit = false
         },
-
         editEmployeeProfile(id, shouldReCall) {
             if (shouldReCall == false) {
                 return false;
@@ -832,6 +871,24 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 })
+        },
+        editEmployeeData(id, shouldReCall){
+            if (shouldReCall == false) {
+                return false;
+            }
+            this.shouldReCall = false;
+            let data = { employee_id: id };
+            axiosService.post("/api/getEditEmployeeMain", data)
+                .then(res => {
+                    console.log(res.data.data);
+                    this.emp_arr = res.data.data;
+                    this.modalEdit=true;
+                })
+                .catch((err) => {
+                    console.log(err);
+                }).finally(() => {
+                    this.shouldReCall = true;
+                });
         },
         toggleSearch() {
             this.isSearchActive = !this.isSearchActive;
