@@ -49,109 +49,114 @@
             </div>
         </div>
 
-        <div class="onboarding-body-sub">
 
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th width="5%" class="col-name">Account Name</th>
-                            <th width="10%" class="col-email">Email</th>
-                            <th width="5%" class="col-password">Password</th>
-                            <th width="5%" class="col-status">Status</th>
-                            <th width="10%">Activated On</th>
-                            <th width="10%" class="col-deactivate">Deactivated On</th>
-                            <th width="5%">Valid Till</th>
-                            <th width="5%">Outlet</th>
-                            <th width="5%">Loyalty Structure</th>
-                            <th width="7%" class="th-loyalty">Advanced Loyalty</th>
-                            <th width="7%">POS Integration</th>
-                            <th width="11%" class="th-communication">Communication</th>
-                            <th width="5%">Permissions & Settings</th>
-                            <th width="5%">Module Accesses</th>
-                            <th width="5%">Edit Account</th>
-                        </tr>
-                    </thead>
-                    <tbody v-if="!isLoading">
-                        <tr v-for="i in accounts">
-                            <td>
-                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i, 'name')">
-                                    {{ i.name }}
-                                    <i class="bi bi-chevron-right"></i>
-                                </div>
-                            </td>
+        <div class="onboarding-parent">
+            <div class="onboarding-body-sub">
 
-                            <td>{{ i.email }}</td>
-                            <td>
-                                <div class="content" @click="handleUser(i)">
-                                    {{ i.password }}
-                                    <i class="bi bi-pencil"></i>
-                                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="5%" class="col-name">Account Name</th>
+                                <th width="10%" class="col-email">Email</th>
+                                <th width="5%" class="col-password">Password</th>
+                                <th width="5%" class="col-status">Status</th>
+                                <th width="10%">Activated On</th>
+                                <th width="10%" class="col-deactivate">Deactivated On</th>
+                                <th width="5%">Valid Till</th>
+                                <th width="5%">Outlet</th>
+                                <th width="5%">Loyalty Structure</th>
+                                <th width="7%" class="th-loyalty">Advanced Loyalty</th>
+                                <th width="7%">POS Integration</th>
+                                <th width="11%" class="th-communication">Communication</th>
+                                <th width="5%">Permissions & Settings</th>
+                                <th width="5%">Module Accesses</th>
+                                <th width="5%">Edit Account</th>
+                            </tr>
+                        </thead>
+                        <tbody v-if="!isLoading">
+                            <tr v-for="i in accounts">
+                                <td>
+                                    <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i, 'name')">
+                                        {{ i.name }}
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </td>
 
-                            </td>
-                            <td>{{ i.status }}</td>
-                            <td>{{ i.active_on }}</td>
-                            <td>{{ i.deactive_on }}</td>
-                            <td>{{ i.valid_till }}</td>
+                                <td>{{ i.email }}</td>
+                                <td>
+                                    <div class="content" @click="handleUser(i)">
+                                        {{ i.password }}
+                                        <i class="bi bi-pencil"></i>
+                                    </div>
 
-                            <td>
-                                <div class="content">
-                                    {{ i.outletname }}
-                                    <i class="bi bi-chevron-right"></i>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="content">
-                                    {{ i.loyalty_percentage }}
-                                    <i class="bi bi-chevron-right"></i>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="content">
-                                    {{ i.adv_loyalty }}
-                                    <i class="bi bi-chevron-right"></i>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="content">
-                                    {{ i.pos_vendor_name }}
-                                    <i class="bi bi-chevron-right"></i>
-                                </div>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>{{ i.sms_vendor_name }}</li>
-                                    <li>{{ i.promo_sms_vendor_name }}</li>
-                                    <li>{{ i.whatsapp_vendor_name }}</li>
-                                </ul>
-                            </td>
-                            <td>{{ i.permission_text }}</td>
-                            <td>{{ i.module_access }}</td>
-                            <td>
+                                </td>
+                                <td>{{ i.status }}</td>
+                                <td>{{ i.active_on }}</td>
+                                <td>{{ i.deactive_on }}</td>
+                                <td>{{ i.valid_till }}</td>
 
-                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i, 'edit')">
-                                    {{ i.edit }}
-                                </div>
+                                <td>
+                                    <div class="content">
+                                        {{ i.outletname }}
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="content">
+                                        {{ i.loyalty_percentage }}
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="content">
+                                        {{ i.adv_loyalty }}
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="content">
+                                        {{ i.pos_vendor_name }}
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>{{ i.sms_vendor_name }}</li>
+                                        <li>{{ i.promo_sms_vendor_name }}</li>
+                                        <li>{{ i.whatsapp_vendor_name }}</li>
+                                    </ul>
+                                </td>
+                                <td>{{ i.permission_text }}</td>
+                                <td>{{ i.module_access }}</td>
+                                <td>
 
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tbody v-else>
-                        <tr v-for="j in [...new Array(15)]">
-                            <td v-for="k in [...new Array(15)]">
-                                <div class="cust-skeleton-loader"></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                    <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i, 'edit')">
+                                        {{ i.edit }}
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody v-else>
+                            <tr v-for="j in [...new Array(15)]">
+                                <td v-for="k in [...new Array(15)]">
+                                    <div class="cust-skeleton-loader"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
 
-                <pagination v-if="accounts != ''" v-model="page" :records="total_entries" :per-page="limit"
-                @paginate="pagination" />
+                    
 
+                </div>
             </div>
-
+            <pagination v-if="accounts != ''" v-model="page" :records="total_entries" :per-page="limit"
+            @paginate="pagination" />
         </div>
+
+        
 
         <div v-if="modalPassword" class="modal-overlay" @click.self="closeModal">
 
@@ -189,6 +194,7 @@
         </div>
 
         <div v-if="modalName" class="modal-overlay" @click.self="closeModalName">
+
             <div class="modalName">
 
                 <div class="upper-new">
@@ -197,6 +203,7 @@
                 </div>
 
                 <div class="name-form">
+
                     <div class="login-details">
 
                         <div class="login-heading">
@@ -261,14 +268,7 @@
 
                                     <p>Set communication channels</p>
 
-                                </div>
-
-                                <!-- <div class="login-form">
-                                    <label for="sms">SMS</label>
-                                    <select name="sms" id="sms">
-                                        <option value="0">Gupshup</option>
-                                    </select>
-                                </div> -->
+                                </div>  
                             </div>
 
                             <div class="field-container">
@@ -280,17 +280,7 @@
                                     <p>Integrate with POS Vendor</p>
 
                                 </div>
-                                <!-- <div class="login-form">
-                                    <label for="vendor">Pos Vendor</label>
-                                    <select name="vendor" id="vendor">
-                                        <option value="0">Generic</option>
-                                    </select>
-                                </div>
-
-                                <div class="login-form">
-                                    <label for="key">customer key</label>
-                                    <input type="text" name="key" id="key">   
-                                </div> -->
+                                
                             </div>
 
                             <div class="field-container">
@@ -303,17 +293,6 @@
                                     <p>Manage POS level permissions</p>
 
                                 </div>
-
-                                <!-- <div class="login-form">
-                                    <label for="pos">Points on discounted bill permission</label>
-
-                                    <label class="switch">
-                                        <input type="checkbox" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                    
-                                </div> -->
-
                             </div>
 
                             <div class="field-container">
@@ -324,14 +303,7 @@
 
                                     <p>Offers</p>
 
-                                </div>
-
-                                <!-- <div class="login-form">
-                                    <label for="promo">Promos</label>
-                                    <select name="promo" id="promo">
-                                        <option value="0">Promos</option>
-                                    </select>
-                                </div> -->
+                                </div>  
                             </div>
 
                             <div class="field-container">
@@ -342,32 +314,17 @@
 
                                     <p>Manage Campaigns</p>
 
-                                </div>
-
-                                <!-- <div class="login-form">
-                                    <label for="instant">Instant Gratification</label>
-                                    <select name="instant" id="instant">
-                                        <option value="0">IG</option>
-                                    </select>
-                                </div> -->
+                                </div>  
                             </div>
 
                             <div class="field-container">
                                 <div class="login-details-heading" @click="currentModalTab = 'tab-ten'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742390/campaign-svgrepo-com_1_vx4hkk.svg"
-                                        alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1728043238/Vector_umkhns.svg" alt="login-icon">
 
                                     <p>Membership Package</p>
 
-                                </div>
-
-                                <!-- <div class="login-form">
-                                    <label for="instant">Instant Gratification</label>
-                                    <select name="instant" id="instant">
-                                        <option value="0">IG</option>
-                                    </select>
-                                </div> -->
+                                </div>   
                             </div>
                         </div>
 
@@ -761,13 +718,62 @@
 
                                 <h3>Offers / Promos</h3>
 
-                                <form class="modal-form" @submit.prevent="submitOfferDetails">
+                                <div class="modal-form" @submit.prevent="submitOfferDetails">
 
                                     <div class="tab-div">
+
+                                        <div class="new-table">
+
+                                            <table>
+
+                                                <thead>
+                                                    <tr>
+                                                        <th class="name">Promo name</th>
+                                                        <th class="validity">Promo Type</th>
+                                                        <th class="issue">Validity</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td>classsic promo_01</td>
+                                                        <td>Open</td>
+                                                        <td>2nd Jan 23 to 4th April 24</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>classsic promo_01</td>
+                                                        <td>Open</td>
+                                                        <td>2nd Jan 23 to 4th April 24</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>classsic promo_01</td>
+                                                        <td>Open</td>
+                                                        <td>2nd Jan 23 to 4th April 24</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>classsic promo_01</td>
+                                                        <td>Open</td>
+                                                        <td>2nd Jan 23 to 4th April 24</td>
+                                                        
+                                                    </tr>
+
+                                                    
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+
                                     </div>
 
                                     
-                                </form>
+                                </div>
 
                             </div>
                         </div>
@@ -777,12 +783,50 @@
 
                                 <h3>Campaigns / Auto Engagement</h3>
 
-                                <form class="modal-form" @submit.prevent="submitCampaignDetails">
+                                <div class="modal-form" @submit.prevent="submitCampaignDetails">
 
                                     <div class="tab-div">
+
+                                        <div class="new-table">
+
+                                            <table>
+
+                                                <thead>
+                                                    <tr>
+                                                        <th class="name">Name</th>
+                                                        <th class="validity">Database</th>
+                                                        <th class="days">Segment Name</th>
+                                                        <th class="issue">Gratification</th>
+                                                        <th class="segment">Communication</th>
+                                                        <th class="issue">Trigger Frequency</th>
+                                                        <th class="segment">Pause</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td>High_end_campaign_74</td>
+                                                        <td>Full Database</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>View Details</td>
+                                                        <td>Daily</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    
+
+                                                    
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
                                     </div>
 
-                                </form>
+                                </div>
 
                             </div>
                         </div>
@@ -792,7 +836,7 @@
 
                                 <h3>Membership Package</h3>
 
-                                <form class="modal-form" @submit.prevent="submitPackageDetails">
+                                <div class="modal-form" @submit.prevent="submitPackageDetails">
 
                                     <div class="tab-div">
 
@@ -819,41 +863,7 @@
                                                         <td>Unlimited</td>
                                                         <td></td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Alaska Premium Package</td>
-                                                        <td>40</td>
-                                                        <td>4/Unlimited</td>
-                                                        <td>Unlimited</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alaska Premium Package</td>
-                                                        <td>40</td>
-                                                        <td>4/Unlimited</td>
-                                                        <td>Unlimited</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alaska Premium Package</td>
-                                                        <td>40</td>
-                                                        <td>4/Unlimited</td>
-                                                        <td>Unlimited</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alaska Premium Package</td>
-                                                        <td>40</td>
-                                                        <td>4/Unlimited</td>
-                                                        <td>Unlimited</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alaska Premium Package</td>
-                                                        <td>40</td>
-                                                        <td>4/Unlimited</td>
-                                                        <td>Unlimited</td>
-                                                        <td></td>
-                                                    </tr>
+
                                                     <tr>
                                                         <td>Alaska Premium Package</td>
                                                         <td>40</td>
@@ -862,16 +872,97 @@
                                                         <td></td>
                                                     </tr>
 
-                                                    
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
 
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
                                                 </tbody>
 
                                             </table>
+
+                                        </div>
+
+                                        <div class="overflow-auto">
+    
+                                            <b-pagination
+                                            v-model="currentPage"
+                                            :total-rows="rows"
+                                            :per-page="perPage"
+                                            aria-controls="my-table"
+                                            prev-text="Prev"    
+                                            next-text="Next"    
+                                            hide-goto-end-buttons  
+                                            class="my-pagination"  
+                                            ></b-pagination>
+
+                                            <p class="mt-3">Current Page: {{ currentPage }}</p>
+
+                                            <b-table
+                                            id="my-table"
+                                            :items="paginatedData"   
+                                            :per-page="perPage"
+                                            :current-page="currentPage"
+                                            small
+                                            >
+                                            
+
+                                            </b-table>
                                         </div>
 
                                     </div>
 
-                                </form>
+                                </div>
 
                             </div>
                         </div>
@@ -1075,6 +1166,7 @@ export default {
             activateAccounts: 3,
             accounts: [],
             merchant: '',
+            isLoading: true,
             page: 1,
             current_page: 0,
             total_entries: 0,
@@ -1137,9 +1229,27 @@ export default {
             discountedbillPoint:false,
             discounteditemPoint:false,
             taxPoint:false,
-            creditsPermission:false
+            creditsPermission:false,
+
+            perPage: 3,        
+            currentPage: 1,
 
         };
+    },
+
+    computed: {
+      rows() {
+        return this.tableData ? this.tableData.length : 0;  
+      },
+      paginatedData() {
+        
+        if (this.tableData && this.tableData.length > 0) {
+          const start = (this.currentPage - 1) * this.perPage;
+          const end = start + this.perPage;
+          return this.tableData.slice(start, end);
+        }
+        return [];
+      }
     },
 
     components: {
@@ -1413,7 +1523,6 @@ export default {
         },
 
         resetPermission(){
-
             this.couponredemptionPoint = false,
             this.discountedbillPoint = false,
             this.discounteditemPoint = false,

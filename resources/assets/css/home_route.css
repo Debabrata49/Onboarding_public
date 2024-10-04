@@ -39,6 +39,7 @@ body {
     --sb-thumb-color: #6BAF8D;
     --sb-size: 6px;
     font-family: "Instrument Sans", sans-serif;
+    background-color: #f9f7fb;
 }
 
 a {
@@ -55,6 +56,7 @@ input:focus {
     align-items: center;
     border-bottom: 1px solid #ebebeb;
     padding: 13px 20px;
+    background-color: white;
 }
 
 .flex-container-inner {
@@ -314,6 +316,11 @@ input:focus {
     width: 100%;
     overflow: hidden;
     overflow-x: scroll;
+}
+
+.onboarding-body-sub::-webkit-scrollbar {
+    display: none;
+
 }
 
 .table-container {
@@ -1028,6 +1035,7 @@ body.modal-active {
 
 .tab-ten .tab-div {
     padding: 7px;
+    height: 500px;
 }
 
 .new-table td {
@@ -1038,14 +1046,50 @@ body.modal-active {
     border-left: 1px solid #D6CFCF;
 }
 
-.new-table tbody tr:first-child td:first-child{
+
+
+.new-table tbody tr td:first-child {
     border-left: 0;
 }
+
 
 
 .new-table table tbody tr {
     border-bottom: 1px solid #D6CFCF;
 }
+
+
+
+.VuePagination {
+    margin: 30px 0;
+}
+
+.VuePagination p {
+    display: none;
+}
+
+.pagination {
+    width: 76%;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.active>.page-link,
+.page-link.active {
+    z-index: 3;
+    color: var(--bs-pagination-active-color);
+    background-color: #2A1151;
+    border: 0;
+    border-radius: 3px;
+
+}
+
+.VuePagination nav ul li button {
+    width: 40px;
+}
+
+/* .tab-ten pagination */
+
 
 
 
