@@ -58,7 +58,7 @@ class LoginController extends Controller
                 if (!$token = JWTAuth::fromUser($user)) {
                     return response()->json(['error' => 'Unable to generate token'], 500);
                 }
-                Auth::login($user);
+                // Auth::login($user);
                 return response()->json(["error"=>false,"message"=>$this->respondWithToken($token,$user)]);
             }
             else{
@@ -78,11 +78,62 @@ class LoginController extends Controller
         return response()->json(auth('api')->user());
     }
 
+    // public function logout()
+    // {
+    //     auth()->logout(true);
+        
+    //     return response()->json(['error'=>false,'message' => 'Successfully logged out']);
+    // }
+
     public function logout()
     {
-        auth()->logout();
+        // Check if token exists
+        $token = JWTAuth::getToken();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        if (!$token) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Token not provided'
+            ], 400); // Bad Request
+        }
+
+        try {
+            // Validate the token
+            $user = JWTAuth::authenticate($token);
+
+            if (!$user) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'User not found'
+                ], 404); // Not Found
+            }
+
+            // Invalidate the token and log out the user
+            JWTAuth::invalidate($token);
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Successfully logged out'
+            ], 200); // Success
+
+        } catch (TokenExpiredException $e) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Token expired'
+            ], 401); // Unauthorized
+
+        } catch (TokenInvalidException $e) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Token invalid'
+            ], 401); // Unauthorized
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Could not log out, please try again'
+            ], 500); // Internal Server Error
+        }
     }
 
     public function refresh()
@@ -90,12 +141,12 @@ class LoginController extends Controller
         return $this->respondWithToken(auth('api')->refresh());
     }
 
-    protected function respondWithToken($token)
+    protected function respondWithToken($token,$user)
     {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'user' => Auth::user(),
+            'user' => $user,
             'expires_in' => auth('api')->factory()->getTTL() * 1
         ]);
     }

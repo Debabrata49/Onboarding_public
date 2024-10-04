@@ -10,12 +10,19 @@ const routes = [
         component: () => import("./Pages/HomeRoute.vue"),
     },
     {
-        path: "/test",
-        component: () => import("./Pages/TestRoute.vue"),
+        path: "/edit/account/:encodedId",  // Accept the encoded ID
+        name: 'editAccount',
+        component: () => import("./Pages/EditAccToName.vue"),
+        props: true, 
     },
     {
         path: "/test1",
         component: () => import("./Pages/TestRoute2.vue"),
+    },
+    {
+        path: "/:catchAll(.*)",  // Vue Router 4 syntax for a wildcard route
+        name: "NotFound",
+        component: () => import("./Pages/NotFound.vue"),
     },
 ];
 

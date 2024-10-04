@@ -12,6 +12,7 @@ use App\Models\PosRegistration;
 use App\Models\PosVendorRegistration;
 use App\Models\SmsVendor;
 use App\Models\WhatsappVendor;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class EmployeeDataController extends Controller
 {
@@ -33,22 +34,33 @@ class EmployeeDataController extends Controller
         $limit = 10;
         $offset = ($request->page_number - 1) * $limit;
         
-        
-        $merchant_id = Auth::user()->id;
+        $merchant = JWTAuth::parseToken()->authenticate();
+        $merchant_id = $merchant->id;
         $merchant = MerchantDetails::where('user_id', $merchant_id)->first();
         if (!$merchant) {
             return response()->json(['error' => 'Merchant not found'], 404);
         }
         $merchant_data = $merchant->toArray();
-        // $employees = $merchant->employees()->select('id', 'name', 'merchant_id','email','password','vaid_till','status','deactived','created_at','updated_at','outlet_id')->get();
-        $employees = Employee::where('merchant_id', $merchant_id)->with('outlet:id,outletname');
 
+        $employees = Employee::where('employee.merchant_id', $merchant_id)->where('employee.is_active',1)->where('employee.deleted',0)->join('wl_outlets', 'employee.outlet_id', '=', 'wl_outlets.id');
+
+        if(!empty($request->search)){
+            $search = $request->search;
+            $employees = $employees->where(function ($query) use(&$search) {
+                $query->where('employee.id','LIKE','%'.$search.'%')
+                    ->orWhere('employee.name','LIKE','%'.$search.'%')
+                    ->orWhere('employee.email', 'LIKE', '%' . $search . '%')
+                    ->orWhere('wl_outlets.outletname', 'LIKE', '%' . $search . '%');
+            });
+        }
         $total_entries = $employees->count();
         $total_pages = ceil($total_entries/$limit);
-        $employees = $employees->offset($offset)->limit($limit)->get(['id', 'name', 'merchant_id','email','password','orginialpassword','status','created_at','updated_at','outlet_id','loyalty_percentage','sms_vendor_type','promo_sms_vendor_type','whatsapp_vendor_type','push_redeemption_permission','permission']);
+        $employees = $employees->offset($offset)->limit($limit)->orderBy('employee.id','desc')->get(['employee.*','wl_outlets.id as outletId','wl_outlets.outletname']);
+
         $emp_array = [];
         if(count($employees) > 0){
             foreach ($employees as $employee) {
+                // dd($employee);
                 //outlet
                 $outletname = 'N/A';
                 if(isset($employee->outlet->outletname)){
@@ -100,7 +112,7 @@ class EmployeeDataController extends Controller
                 //Activated ON
                 $active_on = 'N/A';
                 if($employee->status == 1){
-                    $active_on = $employee->created_at;
+                    $active_on = date('d-m-Y',strtotime($employee->created_at));
                 }
                 //Deactivated ON
                 $deactive_on = 'N/A';
@@ -118,12 +130,13 @@ class EmployeeDataController extends Controller
                 $adv_loyalty = 'N/A';
 
                 $emp_array[] = [
+                    'id' => $employee->id,
                     'name' => $employee->name,
                     'email' => $employee->email,
                     'password' => $employee->orginialpassword,
                     'active_on' => $active_on,
                     'deactive_on' => $deactive_on,
-                    'valid_till' => $employee->vaid_till,
+                    'valid_till' => date('d-m-Y',strtotime($employee->valid_till)),
                     'outletname' => $outletname,
                     'loyalty_percentage' => $loyalty_structure,  
                     'adv_loyalty' => $adv_loyalty,  
@@ -149,7 +162,9 @@ class EmployeeDataController extends Controller
             'employees' => $emp_array,
             'total_entries' => $total_entries,
             'total_pages' => $total_pages,
+            'limit' => $limit,
             'current_page' => (int)$request->page_number,
+            'next_page' => (int)$request->page_number+1,
         ];
         return response()->json(['data' => $data], 200);
     }
