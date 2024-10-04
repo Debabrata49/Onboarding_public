@@ -38,6 +38,8 @@ body {
     --sb-track-color: #232E33;
     --sb-thumb-color: #6BAF8D;
     --sb-size: 6px;
+    font-family: "Instrument Sans", sans-serif;
+    background-color: #f9f7fb;
 }
 
 a {
@@ -54,6 +56,7 @@ input:focus {
     align-items: center;
     border-bottom: 1px solid #ebebeb;
     padding: 13px 20px;
+    background-color: white;
 }
 
 .flex-container-inner {
@@ -159,8 +162,6 @@ input:focus {
 
 }
 
-
-
 .search-container form input::placeholder {
     font-family: "FontLight", sans-serif;
     font-size: 12px;
@@ -236,7 +237,7 @@ input:focus {
     border-radius: 9px;
 }
 
-th {
+.table-container th {
     font-family: "FontNew", sans-serif;
     padding: 12px 11px;
     border: 1px solid #ffffff;
@@ -245,7 +246,7 @@ th {
     color: #353b41;
 }
 
-td {
+.table-container td {
     padding: 10px;
     font-size: 12px;
     font-weight: 500;
@@ -255,18 +256,18 @@ td {
     cursor: pointer;
 }
 
-tbody tr {
+.table-container tbody tr {
     background-color: #ffffff;
     margin: 3px 2px;
     border-top: 5px solid #e1dbea;
 }
 
-table tbody tr td ul {
+.table-container table tbody tr td ul {
     list-style-type: none;
     padding-left: 0;
 }
 
-table tbody tr td i {
+.table-container table tbody tr td i {
     float: right;
     color: #f78e31;
 }
@@ -315,6 +316,11 @@ table tbody tr td i {
     width: 100%;
     overflow: hidden;
     overflow-x: scroll;
+}
+
+.onboarding-body-sub::-webkit-scrollbar {
+    display: none;
+
 }
 
 .table-container {
@@ -504,8 +510,7 @@ table tbody tr td i {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-
+    /* align-items: center; */
 }
 
 .name-upper {
@@ -607,10 +612,6 @@ body.modal-active {
     margin-bottom: 8px;
 }
 
-/* .field-container {
-    margin-top: 30px;
-} */
-
 .login-form label {
     font-family: "Instrument Sans", sans-serif;
     font-size: 12px;
@@ -674,8 +675,8 @@ body.modal-active {
 .switch {
     position: relative;
     display: inline-block;
-    width: 52px;
-    height: 24px;
+    width: 49px;
+    height: 23px;
 }
 
 .switch input {
@@ -699,8 +700,8 @@ body.modal-active {
 .slider:before {
     position: absolute;
     content: "";
-    height: 17px;
-    width: 17px;
+    height: 15px;
+    width: 15px;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -966,9 +967,143 @@ body.modal-active {
     align-items: center;
 }
 
-.modal-sub .discard{
+.modal-sub .discard {
     margin-right: 2%;
-} 
+}
+
+.txt-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 12px;
+    border-bottom: 1px dashed #EAE7EE;
+}
+
+.tab-div .txt-div:nth-of-type(2n) {
+    background-color: #FBFBFB;
+}
+
+.txt p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #615C65;
+    margin-bottom: 0;
+}
+
+.tab-four .tab-div {
+    height: 681px;
+}
+
+.tab-five .login-form {
+    display: block;
+}
+
+.tab-five .login-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.tab-six .login-form input {
+    width: 68%;
+}
+
+.new-table {
+    width: 100%;
+}
+
+.new-table table {
+    width: 100%;
+}
+
+.new-table th {
+    font-family: "FontNew";
+    font-size: 12px;
+    font-weight: 400;
+    padding: 16px 24px;
+    color: #353B41;
+    background-color: #E9E1E1;
+    border-left: 1px solid white;
+}
+
+.new-table table {
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 100%;
+    overflow: hidden;
+    border-collapse: collapse;
+}
+
+.tab-ten .tab-div {
+    padding: 7px;
+    height: 500px;
+}
+
+.new-table td {
+    font-size: 12px;
+    font-weight: 500;
+    color: #565459;
+    padding: 16px 30px;
+    border-left: 1px solid #D6CFCF;
+}
+
+
+
+.new-table tbody tr td:first-child {
+    border-left: 0;
+}
+
+
+
+.new-table table tbody tr {
+    border-bottom: 1px solid #D6CFCF;
+}
+
+
+
+.VuePagination {
+    margin: 30px 0;
+}
+
+.VuePagination p {
+    display: none;
+}
+
+.pagination {
+    width: 76%;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.active>.page-link,
+.page-link.active {
+    z-index: 3;
+    color: var(--bs-pagination-active-color);
+    background-color: #2A1151;
+    border: 0;
+    border-radius: 3px;
+
+}
+
+.VuePagination nav ul li button {
+    width: 40px;
+}
+
+/* .tab-ten pagination */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

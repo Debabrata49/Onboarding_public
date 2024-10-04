@@ -25,6 +25,7 @@
 
         </div>
     </div>
+
     <div class="onboarding-body">
 
         <div class="txt-middle">
@@ -48,105 +49,113 @@
             </div>
         </div>
 
-        <div class="onboarding-body-sub">
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th width="5%" class="col-name">Account Name</th>
-                            <th width="10%" class="col-email">Email</th>
-                            <th width="5%" class="col-password">Password</th>
-                            <th width="5%" class="col-status">Status</th>
-                            <th width="10%">Activated On</th>
-                            <th width="10%" class="col-deactivate">Deactivated On</th>
-                            <th width="5%">Valid Till</th>
-                            <th width="5%">Outlet</th>
-                            <th width="5%">Loyalty Structure</th>
-                            <th width="7%" class="th-loyalty">Advanced Loyalty</th>
-                            <th width="7%">POS Integration</th>
-                            <th width="11%" class="th-communication">Communication</th>
-                            <th width="5%">Permissions & Settings</th>
-                            <th width="5%">Module Accesses</th>
-                            <th width="5%">Edit Account</th>
-                        </tr>
-                    </thead>
-                    <tbody v-if="!isLoading">
-                        <tr v-for="i in accounts">
-                            <td>
-                                <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i,'name')">
-                                    {{ i.name }}
-                                    <i class="bi bi-chevron-right"></i>
-                                </div>
-                            </td>
 
-                            <td>{{ i.email }}</td>
-                            <td>
-                                <div class="content" @click="handleUser(i)">
-                                    {{ i.password }}
-                                    <i class="bi bi-pencil"></i>
-                                </div>
+        <div class="onboarding-parent">
+            <div class="onboarding-body-sub">
 
-                            </td>
-                            <td>{{ i.status }}</td>
-                            <td>{{ i.active_on }}</td>
-                            <td>{{ i.deactive_on }}</td>
-                            <td>{{ i.valid_till }}</td>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="5%" class="col-name">Account Name</th>
+                                <th width="10%" class="col-email">Email</th>
+                                <th width="5%" class="col-password">Password</th>
+                                <th width="5%" class="col-status">Status</th>
+                                <th width="10%">Activated On</th>
+                                <th width="10%" class="col-deactivate">Deactivated On</th>
+                                <th width="5%">Valid Till</th>
+                                <th width="5%">Outlet</th>
+                                <th width="5%">Loyalty Structure</th>
+                                <th width="7%" class="th-loyalty">Advanced Loyalty</th>
+                                <th width="7%">POS Integration</th>
+                                <th width="11%" class="th-communication">Communication</th>
+                                <th width="5%">Permissions & Settings</th>
+                                <th width="5%">Module Accesses</th>
+                                <th width="5%">Edit Account</th>
+                            </tr>
+                        </thead>
+                        <tbody v-if="!isLoading">
+                            <tr v-for="i in accounts">
+                                <td>
+                                    <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i, 'name')">
+                                        {{ i.name }}
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </td>
 
-                            <td>
-                                <div class="content">
-                                    {{ i.outletname }}
-                                    <i class="bi bi-chevron-right"></i>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="content">
-                                    {{ i.loyalty_percentage }}
-                                    <i class="bi bi-chevron-right"></i>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="content">
-                                    {{ i.adv_loyalty }}
-                                    <i class="bi bi-chevron-right"></i>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="content">
-                                    {{ i.pos_vendor_name }}
-                                    <i class="bi bi-chevron-right"></i>
-                                </div>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>{{ i.sms_vendor_name }}</li>
-                                    <li>{{ i.promo_sms_vendor_name }}</li>
-                                    <li>{{ i.whatsapp_vendor_name }}</li>
-                                </ul>
-                            </td>
-                            <td>{{ i.permission_text }}</td>
-                            <td>{{ i.module_access }}</td>
-                            <td>
+                                <td>{{ i.email }}</td>
+                                <td>
+                                    <div class="content" @click="handleUser(i)">
+                                        {{ i.password }}
+                                        <i class="bi bi-pencil"></i>
+                                    </div>
+                                </td>
+                                <td>{{ i.status }}</td>
+                                <td>{{ i.active_on }}</td>
+                                <td>{{ i.deactive_on }}</td>
+                                <td>{{ i.valid_till }}</td>
 
-                                <div class="content" :data-id="i.id" @click="loadEditSubAccount(i.id)">
-                                    {{ i.edit }}
-                                </div>
-                               
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tbody v-else>
-                        <tr v-for="j in [...new Array(15)]">
-                            <td v-for="k in [...new Array(15)]">
-                                <div class="cust-skeleton-loader"></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <pagination v-if="accounts != ''" v-model="page" :records="total_entries" :per-page="limit"
-                    @paginate="pagination" />
-                <!-- <p v-else>No - Data found</p> -->
+                                <td>
+                                    <div class="content">
+                                        {{ i.outletname }}
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="content">
+                                        {{ i.loyalty_percentage }}
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="content">
+                                        {{ i.adv_loyalty }}
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="content">
+                                        {{ i.pos_vendor_name }}
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>{{ i.sms_vendor_name }}</li>
+                                        <li>{{ i.promo_sms_vendor_name }}</li>
+                                        <li>{{ i.whatsapp_vendor_name }}</li>
+                                    </ul>
+                                </td>
+                                <td>{{ i.permission_text }}</td>
+                                <td>{{ i.module_access }}</td>
+                                <td>
+
+                                    <div class="content" :data-id="i.id" @click="loadEditSubAccount(i.id)">
+                                        {{ i.edit }}
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody v-else>
+                            <tr v-for="j in [...new Array(15)]">
+                                <td v-for="k in [...new Array(15)]">
+                                    <div class="cust-skeleton-loader"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    
+
+                </div>
             </div>
+            <pagination v-if="accounts != ''" v-model="page" :records="total_entries" :per-page="limit"
+            @paginate="pagination" />
         </div>
+
+        
 
         <div v-if="modalPassword" class="modal-overlay" @click.self="closeModal">
 
@@ -184,66 +193,66 @@
         </div>
 
         <div v-if="modalName" class="modal-overlay" @click.self="closeModalName">
+
             <div class="modalName">
 
                 <div class="upper-new">
-                    
-                    <i v-if="innerModal" class="bi bi-x-circle-fill" @click="innerModal=false"></i>
+                    <i v-if="innerModal" class="bi bi-x-circle-fill" @click="innerModal = false"></i>
                     <i v-else class="bi bi-x-circle-fill" @click="closeModalName"></i>
                 </div>
 
                 <div class="name-form">
+
                     <div class="login-details">
 
                         <div class="login-heading">
                             <h4>Jumboking, Kolkata</h4>
                             <div class="name-icon">
-                                <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1727073668/layer1_n2praq.svg" alt="name-icon">
+                                <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1727073668/layer1_n2praq.svg"
+                                    alt="name-icon">
                             </div>
                         </div>
-                        
-                        <div class="login-content">
-                            <div class="field-container">
 
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-one' ">
+                        <div class="login-content">
+
+                            <div class="field-container">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-one'">
 
                                     <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726642562/kwdd8u4nbdwnm4d5nda3.svg"
                                         alt="login-icon">
 
                                     <p>Login Details</p>
 
-                                </div>   
+                                </div>
                             </div>
 
                             <div class="field-container">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-two'">
 
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-two' ">
-
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726657992/nixfuxmj09img99udgog.svg" alt="login-icon"/>
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726657992/nixfuxmj09img99udgog.svg"
+                                        alt="login-icon" />
 
                                     <p>Outlet Details</p>
 
                                 </div>
-
                             </div>
 
                             <div class="field-container">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-three'">
 
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-three' ">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726722154/Group_fcrhwb.svg"
+                                        alt="login-icon">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726722154/Group_fcrhwb.svg" alt="login-icon">
-
-                                    <p>Loyalty Set - up</p>
+                                    <p>Loyalty Set - Up</p>
 
                                 </div>
-
-                                
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading" @click="currentModalTab = 'tab-four' ">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-four'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726730085/folder-cloud-svgrepo-com_1_p1xcuj.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726730085/folder-cloud-svgrepo-com_1_p1xcuj.svg"
+                                        alt="login-icon">
 
                                     <p>Sub-Accounts Permission</p>
 
@@ -251,97 +260,70 @@
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-five'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726736519/chat-round-line-svgrepo-com_1_iz4p9s.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726736519/chat-round-line-svgrepo-com_1_iz4p9s.svg"
+                                        alt="login-icon">
 
                                     <p>Set communication channels</p>
 
-                                </div>
-
-                                <!-- <div class="login-form">
-                                    <label for="sms">SMS</label>
-                                    <select name="sms" id="sms">
-                                        <option value="0">Gupshup</option>
-                                    </select>
-                                </div> -->
+                                </div>  
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-six'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738258/pos-svgrepo-com_1_l5vqn0.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738258/pos-svgrepo-com_1_l5vqn0.svg"
+                                        alt="login-icon">
 
                                     <p>Integrate with POS Vendor</p>
 
                                 </div>
-                                <!-- <div class="login-form">
-                                    <label for="vendor">Pos Vendor</label>
-                                    <select name="vendor" id="vendor">
-                                        <option value="0">Generic</option>
-                                    </select>
-                                </div>
-
-                                <div class="login-form">
-                                    <label for="key">customer key</label>
-                                    <input type="text" name="key" id="key">   
-                                </div> -->
+                                
                             </div>
 
                             <div class="field-container">
 
-                                <div class="login-details-heading">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-seven'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738938/hashtag-square-svgrepo-com_1_jiqmg3.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738938/hashtag-square-svgrepo-com_1_jiqmg3.svg"
+                                        alt="login-icon">
 
                                     <p>Manage POS level permissions</p>
 
                                 </div>
-
-                                <!-- <div class="login-form">
-                                    <label for="pos">Points on discounted bill permission</label>
-
-                                    <label class="switch">
-                                        <input type="checkbox" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                    
-                                </div> -->
-  
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-eight'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742094/discount-svgrepo-com_2_1_kgb7s6.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742094/discount-svgrepo-com_2_1_kgb7s6.svg"
+                                        alt="login-icon">
 
                                     <p>Offers</p>
 
-                                </div>
-
-                                <!-- <div class="login-form">
-                                    <label for="promo">Promos</label>
-                                    <select name="promo" id="promo">
-                                        <option value="0">Promos</option>
-                                    </select>
-                                </div> -->
+                                </div>  
                             </div>
 
                             <div class="field-container">
-                                <div class="login-details-heading">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-nine'">
 
-                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742390/campaign-svgrepo-com_1_vx4hkk.svg" alt="login-icon">
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742390/campaign-svgrepo-com_1_vx4hkk.svg"
+                                        alt="login-icon">
 
                                     <p>Manage Campaigns</p>
 
-                                </div>
+                                </div>  
+                            </div>
 
-                                <!-- <div class="login-form">
-                                    <label for="instant">Instant Gratification</label>
-                                    <select name="instant" id="instant">
-                                        <option value="0">IG</option>
-                                    </select>
-                                </div> -->
+                            <div class="field-container">
+                                <div class="login-details-heading" @click="currentModalTab = 'tab-ten'">
+
+                                    <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1728043238/Vector_umkhns.svg" alt="login-icon">
+
+                                    <p>Membership Package</p>
+
+                                </div>   
                             </div>
                         </div>
 
@@ -354,149 +336,639 @@
                             <div class="tab-content">
                                 <h3>Login Details</h3>
 
-                                    <form class="modal-form" @submit.prevent="modal">
+                                <form class="modal-form" @submit.prevent="submitLoginForm">
 
-                                        <div class="tab-div">
-                                            <div class="login-form">
-                                                <label for="name">Name</label>
-                                                <input type="text" id="name">
-                                            </div>
-
-                                            <div class="login-form">
-                                                <label for="email">Email</label>
-                                                <input type="email" id="email" disabled>
-                                            </div>
-
-                                            <div class="login-form">
-                                                <label for="address">Address</label>
-                                                <input type="text" id="address">
-                                            </div>
-
-                                            <div class="login-form">
-                                                <label for="business">Business</label>
-                                                <input type="text" id="business">
-                                            </div>
+                                    <div class="tab-div">
+                                        <div class="login-form">
+                                            <label for="name">Name</label>
+                                            <input type="text" name="name" id="name" v-model="loginForm.name">
                                         </div>
 
-                                        <div class="modal-sub">
-                                            <button class="discard">DISCARD</button>
-                                            <button class="save" type="submit">SAVE</button>
+                                        <div class="login-form">
+                                            <label for="email">Email</label>
+                                            <input type="email" name="email" id="email" disabled v-model="loginForm.email">
                                         </div>
 
-                                    </form>
-                                
+                                        <div class="login-form">
+                                            <label for="address">Address</label>
+                                            <input type="text" name="address" id="address" v-model="loginForm.address">
+                                        </div>
+
+                                        <div class="login-form">
+                                            <label for="business">Business</label>
+                                            <input type="text" name="business" id="business"
+                                                v-model="loginForm.business">
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-sub">
+                                        <button type="button" class="discard" @click="resetLoginForm">DISCARD</button>
+                                        <button class="save" type="submit">SAVE</button>
+                                    </div>
+
+                                </form>
+
                             </div>
 
                         </div>
 
-                        
                         <div v-if="currentModalTab === 'tab-two'" class="tab-two">
                             <div class="tab-content">
                                 <h3>Outlet Details</h3>
 
-                                    <form class="modal-form" @submit.prevent="modal">
+                                <form class="modal-form" @submit.prevent="submitOutletDetails">
 
-                                        <div class="tab-div">
-                                            <div class="login-form">
-                                                <label for="email">Login Id</label>
-                                                <input type="email" id="email">
-                                            </div>
+                                    <div class="tab-div">
+                                        <div class="login-form">
+                                            <label for="email">Login Id</label>
+                                            <input type="email" name="email" id="email" v-model="outletForm.email">
+                                        </div>
 
-                                            <div class="login-form">
-                                                <label for="outlet">Outlet Name</label>
+                                        <div class="login-form">
+                                            <label for="outlet">Outlet Name</label>
 
-                                                <div class="input-holder">
-                                                    <input type="text" id="outlet">
-                                                    <div class="link">
-                                                        <i class="bi bi-link cust-link-icon"></i>
-                                                    </div>
+                                            <div class="input-holder">
+                                                <input type="text" name="outlet" id="outlet"
+                                                    v-model="outletForm.outletName">
+
+                                                <div class="link">
+                                                    <i class="bi bi-link cust-link-icon"></i>
                                                 </div>
-                                                
                                             </div>
+
                                         </div>
+                                    </div>
 
-                                        <div class="modal-sub">
-                                            <button class="discard">DISCARD</button>
-                                            <button class="save" type="submit">SAVE</button>
-                                        </div>
+                                    <div class="modal-sub">
+                                        <button type="button" class="discard" @click="resetOutletForm">DISCARD</button>
+                                        <button class="save" type="submit">SAVE</button>
+                                    </div>
 
-                                        
 
-                                    </form>
-                                
+
+                                </form>
+
                             </div>
                         </div>
 
-                        
                         <div v-if="currentModalTab === 'tab-three'" class="tab-three">
                             <div class="tab-content">
                                 <h3>Loyalty Set - Up</h3>
 
-                                    <form class="modal-form" @submit.prevent="modal">
+                                <form class="modal-form" @submit.prevent="submitLoyaltyDetails">
 
-                                        <div class="tab-div">
+                                    <div class="tab-div">
 
-                                            <div class="login-form">
-                                                <label for="flat">Flat</label>
-                                                <input type="text" name="flat" id="flat">
-                                            </div>
-
-                                            <div class="login-form">
-                                                <label for="loyalty">Advanced Loyalty</label>
-                                                <input type="text" name="text" id="loyalty">   
-                                            </div>
-
+                                        <div class="login-form">
+                                            <label for="flat">Flat</label>
+                                            <input type="text" name="flat" id="flat" v-model="loyaltyForm.flat">
                                         </div>
 
-                                        <div class="modal-sub">
-                                            <button class="discard">DISCARD</button>
-                                            <button class="save" type="submit">SAVE</button>
+                                        <div class="login-form">
+                                            <label for="loyalty">Advanced Loyalty</label>
+                                            <input type="text" name="text" id="loyalty" v-model="loyaltyForm.loyalty">
                                         </div>
 
-                                    
-                                    </form>
-                                
+                                    </div>
+
+                                    <div class="modal-sub">
+                                        <button type="button" class="discard" @click="resetLoyaltyForm">DISCARD</button>
+                                        <button class="save" type="submit">SAVE</button>
+                                    </div>
+
+
+                                </form>
+
                             </div>
                         </div>
 
                         <div v-if="currentModalTab === 'tab-four'" class="tab-four">
+
                             <div class="tab-content">
+
                                 <h3>Sub-Accounts Permission</h3>
 
-                                    <form class="modal-form" @submit.prevent="modal">
+                                <form class="modal-form" @submit.prevent="submitSubaccountDetails">
 
-                                        <div class="tab-div">
+                                    <div class="tab-div">
 
-                                            <div class="txt-div">
-                                                <div class="txt">
-
-                                                </div>
-                                                <label class="switch">
-                                                    <input type="checkbox" checked>
-                                                    <span class="slider round"></span>
-                                                </label>
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Add Credits</p>
                                             </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="addCredits" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
 
-                                            
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Verify code</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="verifyCode" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
 
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Pending Requests</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="pendingRequests" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Redeem Credits</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="redeemCredits" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Custom e-wallet</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="customEwallet" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Points on discounted bill permission</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="pointsOnDiscountedBill" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Points on coupon redemption</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="pointsOnCouponRedemption" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Points on tax</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="pointsOnTax" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Points on discounted Item</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="pointsOnDiscountedItem" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Redeem/Add credits permission</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="redeemAddCreditsPermission" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-sub">
+                                        <button type="button" class="discard" @click="discardChanges">DISCARD</button>
+                                        <button class="save" type="submit">SAVE</button>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div v-if="currentModalTab === 'tab-five'" class="tab-five">
+                            <div class="tab-content">
+                                <h3>Set communication channels</h3>
+
+                                <form class="modal-form" @submit.prevent="submitCommunicationDetails">
+
+                                    <div class="tab-div">
+
+                                        <div class="login-form">
+                                            <label for="sms">SMS</label>
+                                            <select name="sms" id="sms" v-model="selectedSms">
+                                                <option value="*">Gupshup</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="login-form">
+                                            <label for="whatsApp">WhatsApp</label>
+                                            <select name="whatsApp" id="whatsApp" v-model="selectedWhatsApp">
+                                                <option value="*">SMS Gateway Hub</option>
+                                            </select>
 
                                         </div>
 
-                                        <div class="modal-sub">
-                                            <button class="discard">DISCARD</button>
-                                            <button class="save" type="submit">SAVE</button>
+                                        <div class="login-form">
+                                            <label for="route">Email</label>
+                                            <select name="route" id="route" v-model="selectedEmail">
+                                                <option value="*">Route Mobile</option>
+                                            </select>
                                         </div>
+                                    </div>
+
+                                    <div class="modal-sub">
+                                        <button class="discard">DISCARD</button>
+                                        <button class="save" type="submit">SAVE</button>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div v-if="currentModalTab === 'tab-six'" class="tab-six">
+
+                            <div class="tab-content">
+
+                                <h3>Integrate with POS Vendor</h3>
+
+                                <form class="modal-form" @submit.prevent="submitPosvendorDetails">
+
+                                    <div class="tab-div">
+
+                                        <div class="login-form">
+                                            <label for="vendor">Pos Vendor</label>
+                                            <select name="vendor" id="vendor" v-model="posVendor">
+                                                <option value="*">Generic</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="login-form">
+                                            <label for="key">Customer Key</label>
+                                            <input type="text" name="key" id="key" v-model="customerKey">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-sub">
+                                        <button type="button" class="discard" @click="resetPosvendorDetails">DISCARD</button>
+                                        <button class="save" type="submit">SAVE</button>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div v-if="currentModalTab === 'tab-seven'" class="tab-seven">
+
+                            <div class="tab-content">
+
+                                <h3>Manage POS level permissions</h3>
+
+                                <form class="modal-form" @submit.prevent="submitPospermissionDetails">
+
+                                    <div class="tab-div">
+
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Points on coupon redemption</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="couponredemptionPoint" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Points on discounted bill permission</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="discountedbillPoint" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Points on discounted Item</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="discounteditemPoint" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Points on tax</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="taxPoint" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="txt-div">
+                                            <div class="txt">
+                                                <p>Redeem/Add credits permission</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" v-model="creditsPermission" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-sub">
+                                        <button type="button" class="discard" @click="discardValues">DISCARD</button>
+                                        <button class="save" type="submit">SAVE</button>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div v-if="currentModalTab === 'tab-eight'" class="tab-eight">
+
+                            <div class="tab-content">
+
+                                <h3>Offers / Promos</h3>
+
+                                <div class="modal-form" @submit.prevent="submitOfferDetails">
+
+                                    <div class="tab-div">
+
+                                        <div class="new-table">
+
+                                            <table>
+
+                                                <thead>
+                                                    <tr>
+                                                        <th class="name">Promo name</th>
+                                                        <th class="validity">Promo Type</th>
+                                                        <th class="issue">Validity</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td>classsic promo_01</td>
+                                                        <td>Open</td>
+                                                        <td>2nd Jan 23 to 4th April 24</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>classsic promo_01</td>
+                                                        <td>Open</td>
+                                                        <td>2nd Jan 23 to 4th April 24</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>classsic promo_01</td>
+                                                        <td>Open</td>
+                                                        <td>2nd Jan 23 to 4th April 24</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>classsic promo_01</td>
+                                                        <td>Open</td>
+                                                        <td>2nd Jan 23 to 4th April 24</td>
+                                                        
+                                                    </tr>
+
+                                                    
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+
+                                    </div>
 
                                     
-                                    </form>
-                                
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div v-if="currentModalTab === 'tab-nine'" class="tab-nine">
+                            <div class="tab-content">
+
+                                <h3>Campaigns / Auto Engagement</h3>
+
+                                <div class="modal-form" @submit.prevent="submitCampaignDetails">
+
+                                    <div class="tab-div">
+
+                                        <div class="new-table">
+
+                                            <table>
+
+                                                <thead>
+                                                    <tr>
+                                                        <th class="name">Name</th>
+                                                        <th class="validity">Database</th>
+                                                        <th class="days">Segment Name</th>
+                                                        <th class="issue">Gratification</th>
+                                                        <th class="segment">Communication</th>
+                                                        <th class="issue">Trigger Frequency</th>
+                                                        <th class="segment">Pause</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td>High_end_campaign_74</td>
+                                                        <td>Full Database</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>View Details</td>
+                                                        <td>Daily</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    
+
+                                                    
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div v-if="currentModalTab === 'tab-ten'" class="tab-ten">
+                            <div class="tab-content">
+
+                                <h3>Membership Package</h3>
+
+                                <div class="modal-form" @submit.prevent="submitPackageDetails">
+
+                                    <div class="tab-div">
+
+                                        <div class="new-table">
+
+                                            <table>
+
+                                                <thead>
+                                                    <tr>
+                                                        <th class="name">Name</th>
+                                                        <th class="validity">Validity(days)</th>
+                                                        <th class="issue">Total Issues</th>
+                                                        <th class="days">Individual Issue Limit</th>
+                                                        <th class="segment">Linked Segment</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Alaska Premium Package</td>
+                                                        <td>40</td>
+                                                        <td>4/Unlimited</td>
+                                                        <td>Unlimited</td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                        <div class="overflow-auto">
+    
+                                            <b-pagination
+                                            v-model="currentPage"
+                                            :total-rows="rows"
+                                            :per-page="perPage"
+                                            aria-controls="my-table"
+                                            prev-text="Prev"    
+                                            next-text="Next"    
+                                            hide-goto-end-buttons  
+                                            class="my-pagination"  
+                                            ></b-pagination>
+
+                                            <p class="mt-3">Current Page: {{ currentPage }}</p>
+
+                                            <b-table
+                                            id="my-table"
+                                            :items="paginatedData"   
+                                            :per-page="perPage"
+                                            :current-page="currentPage"
+                                            small
+                                            >
+                                            
+
+                                            </b-table>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
 
                     </div>
-                    
-                </div>
 
+                </div>
 
             </div>
         </div>
@@ -506,11 +978,11 @@
                 <div class="name-upper">
                     <h4>Edit Sub Account Details</h4>
                     <i class="bi bi-x-circle-fill" @click="closeModalName"></i>
-                </div> 
+                </div>
                 <div class="edit-form">
                     <form class="form-edit" @submit.prevent="edit">
 
-                        
+
                         <div class="input-fields">
                             <div class="edit-input">
                             
@@ -696,18 +1168,19 @@
                             <div class="btn-container">
                                 <button class="discard">DISCARD</button>
                                 <button class="save" type="submit">SAVE</button>
-                            </div>   
+                            </div>
                         </div>
 
                     </form>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
-   
+
 </template>
 
 <script>
+
 import { ref } from "vue";
 import axiosService from "@/axiosService";
 import Pagination from 'v-pagination-3';
@@ -723,6 +1196,7 @@ export default {
             activateAccounts: 3,
             accounts: [],
             merchant: '',
+            isLoading: true,
             page: 1,
             current_page: 0,
             total_entries: 0,
@@ -738,13 +1212,12 @@ export default {
             shouldReCall: true,
             modalName: false,
             innerModal: false,
-            
-            modalEdit:false,
-            form:{
-                mobile:''
+            modalEdit: false,
+            form: {
+                mobile: ''
             },
 
-            iso_code: 'IN', 
+            iso_code: 'IN',
             isValidPhone: false,
             currentModalTab: 'tab-one',
             emp_arr: {
@@ -766,9 +1239,67 @@ export default {
                 emp_currency: [],
                 emp_timezone: [],
                 emp_region: [],
-            }
+            },
+
+            loginForm: {
+                name: '',
+                email: 'user@example.com', // Default email, since it's disabled.
+                address: '',
+                business: ''
+            },
+
+            outletForm: {
+                email: '',
+                outletName: ''
+            },
+
+            loyaltyForm: {
+                flat: '',
+                loyalty: ''
+            },
+
+            addCredits: false,
+            verifyCode: false,
+            pendingRequests: false,
+            redeemCredits: false,
+            customEwallet: false,
+            pointsOnDiscountedBill: false,
+            pointsOnCouponRedemption: false,
+            pointsOnTax: false,
+            pointsOnDiscountedItem: false,
+            redeemAddCreditsPermission: false,
+
+            selectedSms: '*',
+            selectedWhatsApp: '*',
+            selectedEmail: '*',
+            posVendor:'',
+            customerKey:'',
+
+            couponredemptionPoint:false,
+            discountedbillPoint:false,
+            discounteditemPoint:false,
+            taxPoint:false,
+            creditsPermission:false,
+
+            perPage: 3,        
+            currentPage: 1,
 
         };
+    },
+
+    computed: {
+      rows() {
+        return this.tableData ? this.tableData.length : 0;  
+      },
+      paginatedData() {
+        
+        if (this.tableData && this.tableData.length > 0) {
+          const start = (this.currentPage - 1) * this.perPage;
+          const end = start + this.perPage;
+          return this.tableData.slice(start, end);
+        }
+        return [];
+      }
     },
 
     components: {
@@ -788,12 +1319,6 @@ export default {
             this.getEmployeeData(this.page, searchQuery.value);
         };
 
-        // const searchAction = () => {
-        //     console.log("Searching for:", searchQuery.value);
-        //     // this.getEmployeeData(this.page,searchQuery.value);
-        // };
-
-
         return {
             searchQuery,
             isSearchActive,
@@ -802,9 +1327,11 @@ export default {
         };
 
     },
+
     mounted() {
         this.getEmployeeData(this.page);
     },
+
     methods: {
         getEmployeeData(page_no, search = null) {
             let data = { page_number: page_no, search: search };
@@ -824,17 +1351,20 @@ export default {
                     console.log(err);
                 })
         },
+
         modalHandel() {
             this.modalIsActive = !this.modalIsActive;
             console.log(this.modalIsActive);
         },
+
         pagination() {
             this.isLoading = true;
             this.getEmployeeData(this.page);
         },
-        loadEditAccToName(id,instance,modalName) {
-            modalName === 'edit' && (this.modalEdit=true)
-            modalName === 'name' && (this.modalName=true)
+
+        loadEditAccToName(id, instance, modalName) {
+            modalName === 'edit' && (this.modalEdit = true)
+            modalName === 'name' && (this.modalName = true)
             this.editEmployeeProfile(id, this.shouldReCall);
         },
         loadEditSubAccount(id) {
@@ -894,12 +1424,13 @@ export default {
             this.isSearchActive = !this.isSearchActive;
             console.log(this.isSearchActive);
             if (this.isSearchActive) {
-                this.searchQuery = ''; 
+                this.searchQuery = '';
             } else {
                 this.isLoading = true;
                 this.getEmployeeData(this.page, this.searchQuery);
             }
         },
+
         logoutCall() {
             axiosService.post("/api/logout", [])
                 .then(res => {
@@ -921,14 +1452,152 @@ export default {
                 });
         },
 
-        validatePhone(phoneNumber) {
-            console.log(phoneNumber);
-            const digitsOnly = phoneNumber.replace(/\D/g, '');
-            this.isValidPhone = digitsOnly.length === 10;
-        },
         switchModalTab(tabName) {
             this.currentModalTab = tabName;
         },
+
+        submitLoginForm() {
+            console.log('Login Form Data:', this.loginForm);
+            this.loginForm = { name: '', email: '', address: '', business: '' };
+        },
+
+        resetLoginForm() {
+            this.loginForm = {
+                name: '',
+                email: 'user@example.com', 
+                address: '',
+                business: ''
+            };
+        },
+
+        submitOutletDetails() {
+            console.log('Outlet Details:', this.outletForm);
+            this.resetOutletForm();
+        },
+
+        resetOutletForm() {
+            this.outletForm = {
+                email: '',
+                outletName: ''
+            };
+        },
+
+        submitLoyaltyDetails() {
+            console.log('Login Form Data:', this.loyaltyForm);
+            this.loyaltyForm = { flat: '', loyalty: ''};
+        },
+
+        resetLoyaltyForm() {
+            this.loyaltyForm = {
+                flat: '',
+                loyalty: ''
+            };
+        },
+
+        submitSubaccountDetails() {
+
+        const formData = {
+            addCredits: this.addCredits,
+            verifyCode: this.verifyCode,
+            pendingRequests: this.pendingRequests,
+            redeemCredits: this.redeemCredits,
+            customEwallet: this.customEwallet,
+            pointsOnDiscountedBill: this.pointsOnDiscountedBill,
+            pointsOnCouponRedemption: this.pointsOnCouponRedemption,
+            pointsOnTax: this.pointsOnTax,
+            pointsOnDiscountedItem: this.pointsOnDiscountedItem,
+            redeemAddCreditsPermission: this.redeemAddCreditsPermission,
+        };
+
+        console.log('Form Data:', formData);
+
+        this.resetForms();
+
+        },
+
+        discardChanges() {
+        this.resetForms();
+        },
+
+        resetForms() {   
+        this.addCredits = false;
+        this.verifyCode = false;
+        this.pendingRequests = false;
+        this.redeemCredits = false;
+        this.customEwallet = false;
+        this.pointsOnDiscountedBill = false;
+        this.pointsOnCouponRedemption = false;
+        this.pointsOnTax = false;
+        this.pointsOnDiscountedItem = false;
+        this.redeemAddCreditsPermission = false;
+        },
+
+        submitCommunicationDetails() {
+            console.log("Selected SMS:", this.selectedSms);
+            console.log("Selected WhatsApp:", this.selectedWhatsApp);
+            console.log("Selected Email:", this.selectedEmail);
+
+      // Make an API call with the selected data
+            const communicationDetails = {
+                sms: this.selectedSms,
+                whatsApp: this.selectedWhatsApp,
+                email: this.selectedEmail,
+            }; 
+
+        },
+
+        resetCommunicationDetails() {
+            this.selectedSms = '*';
+            this.selectedWhatsApp = '*';
+            this.selectedEmail = '*';
+        },
+
+        submitPosvendorDetails() {
+            
+            console.log('POS Vendor:', this.posVendor);
+            console.log('Customer Key:', this.customerKey);
+
+            const formData = {
+                vendor: this.posVendor,
+                key: this.customerKey
+            };
+
+        },
+
+        resetPosvendorDetails() {
+            this.posVendor = '';
+            this.customerKey = '';
+        },
+
+        submitPospermissionDetails(){
+
+            const newData = {
+
+                couponredemptionPoint: this.couponredemptionPoint,
+                discountedbillPoint: this.discountedbillPoint,
+                discounteditemPoint: this.discounteditemPoint,
+                taxPoint: this.taxPoint,
+                creditsPermission: this.creditsPermission
+            };
+
+            console.log('New Data:', newData);
+
+            this.resetPermission();
+
+        },
+
+        discardValues() {
+        this.resetPermission();
+        },
+
+        resetPermission(){
+            this.couponredemptionPoint = false,
+            this.discountedbillPoint = false,
+            this.discounteditemPoint = false,
+            this.taxPoint = false,
+            this.creditsPermission = false
+        },
+
 
     }
 };
