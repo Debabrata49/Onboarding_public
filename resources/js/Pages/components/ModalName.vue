@@ -78,7 +78,7 @@
                         </div>
 
                         <div class="field-container">
-                            <div class="login-details-heading" @click="currentModalTab = 'tab-six'">
+                            <div class="login-details-heading" @click="switchModalTab('tab-six')">
 
                                 <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738258/pos-svgrepo-com_1_l5vqn0.svg"
                                     alt="login-icon">
@@ -145,85 +145,10 @@
                     <LoyaltySetUP :currentModalTab="currentModalTab"/>
 
                     <SubAcc :currentModalTab="currentModalTab"/>
-
-                    <!-- <div v-if="currentModalTab === 'tab-five'" class="tab-five">
-                        <div class="tab-content">
-                            <h3>Set communication channels</h3>
-
-                            <form class="modal-form" @submit.prevent="submitCommunicationDetails">
-
-                                <div class="tab-div">
-
-                                    <div class="login-form">
-                                        <label for="sms">SMS</label>
-                                        <select name="sms" id="sms" v-model="selectedSms">
-                                            <option value="*">Gupshup</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="login-form">
-                                        <label for="whatsApp">WhatsApp</label>
-                                        <select name="whatsApp" id="whatsApp" v-model="selectedWhatsApp">
-                                            <option value="*">SMS Gateway Hub</option>
-                                        </select>
-
-                                    </div>
-
-                                    <div class="login-form">
-                                        <label for="route">Email</label>
-                                        <select name="route" id="route" v-model="selectedEmail">
-                                            <option value="*">Route Mobile</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="modal-sub">
-                                    <button class="discard">DISCARD</button>
-                                    <button class="save" type="submit">SAVE</button>
-                                </div>
-
-
-                            </form>
-
-                        </div>
-                    </div> -->
                      
                     <SetCom :currentModalTab="currentModalTab"/>
 
-                    <div v-if="currentModalTab === 'tab-six'" class="tab-six">
-
-                        <div class="tab-content">
-
-                            <h3>Integrate with POS Vendor</h3>
-
-                            <form class="modal-form" @submit.prevent="submitPosvendorDetails">
-
-                                <div class="tab-div">
-
-                                    <div class="login-form">
-                                        <label for="vendor">Pos Vendor</label>
-                                        <select name="vendor" id="vendor" v-model="posVendor">
-                                            <option value="*">Generic</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="login-form">
-                                        <label for="key">Customer Key</label>
-                                        <input type="text" name="key" id="key" v-model="customerKey">
-                                    </div>
-
-                                </div>
-
-                                <div class="modal-sub">
-                                    <button type="button" class="discard" @click="resetPosvendorDetails">DISCARD</button>
-                                    <button class="save" type="submit">SAVE</button>
-                                </div>
-
-
-                            </form>
-
-                        </div>
-                    </div>
+                    <PosVendor :currentModalTab = "currentModalTab"/>
 
                     <div v-if="currentModalTab === 'tab-seven'" class="tab-seven">
 
@@ -564,6 +489,7 @@ import OutletDetails from './tabs/OutletDetails.vue';
 import LoyaltySetUP from './tabs/LoyaltySetUP.vue';
 import SubAcc from './tabs/SubAcc.vue';
 import SetCom from './tabs/SetCom.vue';
+import PosVendor from './tabs/PosVendor.vue';
 
 export default {
     data() {
@@ -586,7 +512,9 @@ export default {
         OutletDetails,
         LoyaltySetUP,
         SubAcc,
-        SetCom
+        SetCom,
+        PosVendor
+        
     },
 
     setup() {
