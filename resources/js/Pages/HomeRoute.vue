@@ -130,7 +130,7 @@
                                 <td>{{ i.module_access }}</td>
                                 <td>
 
-                                    <div class="content" :data-id="i.id" @click="loadEditSubAccount(i.id)">
+                                    <div class="content" :data-id="i.id" @click="testModalHandle()">
                                         {{ i.edit }}
                                     </div>
 
@@ -157,7 +157,7 @@
 
         
 
-        <div v-if="modalPassword" class="modal-overlay" @click.self="closeModal">
+        <!-- <div v-if="modalPassword" class="modal-overlay" @click.self="closeModal">
 
             <div class="modal-password">
                 <form class="password-form" @submit.prevent="sent">
@@ -190,9 +190,11 @@
                 </form>
             </div>
 
-        </div>
+        </div> -->
 
-        <div v-if="modalName" class="modal-overlay" @click.self="closeModalName">
+        <ModalPassword :modalPassword="modalPassword" :closeModal="closeModal"/>
+
+        <!-- <div v-if="modalName" class="modal-overlay" @click.self="closeModalName">
 
             <div class="modalName">
 
@@ -971,9 +973,13 @@
                 </div>
 
             </div>
-        </div>
+        </div> -->
+         
+        <ModalName :modalName = "modalName" :closeModalName = "closeModalName"/>
 
-        <div v-if="modalEdit" class="modal-overlay" @click.self="closeModalName">
+        <EditModal :modalEdit="modalEdit" :closeModalName="closeModalName"/>
+
+        <!-- <div v-if="modalEdit" class="modal-overlay" @click.self="closeModalName">
             <div class="modalEdit">
                 <div class="name-upper">
                     <h4>Edit Sub Account Details</h4>
@@ -1174,7 +1180,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
 </template>
@@ -1186,6 +1192,9 @@ import axiosService from "@/axiosService";
 import Pagination from 'v-pagination-3';
 import { VueTelInput } from 'vue-tel-input';
 import 'vue-tel-input/vue-tel-input.css';
+import EditModal from "./components/EditModal.vue";
+import ModalPassword from "./components/ModalPassword.vue";
+import ModalName from "./components/ModalName.vue"
 
 
 export default {
@@ -1304,7 +1313,10 @@ export default {
 
     components: {
         Pagination,
-        VueTelInput
+        VueTelInput,
+        EditModal,
+        ModalPassword,
+        ModalName
     },
 
     setup() {
@@ -1598,7 +1610,10 @@ export default {
             this.creditsPermission = false
         },
 
-
+        testModalHandle(){
+            this.modalEdit = true;
+        }
     }
 };
+
 </script>
