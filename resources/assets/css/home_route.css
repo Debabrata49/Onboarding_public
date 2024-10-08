@@ -1007,6 +1007,14 @@ body.modal-active {
     width: 68%;
 }
 
+.tab-eight .tab-div{
+    padding: 9px 18px;
+}
+
+.tab-nine .tab-div {
+    padding: 14px 12px;
+}
+
 .new-table {
     width: 100%;
 }

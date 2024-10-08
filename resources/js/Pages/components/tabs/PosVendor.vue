@@ -88,9 +88,7 @@ export default {
             this.posVendor = '';
             this.customerKey = '';
         }
-
-    
-        
+   
     }
 };
 

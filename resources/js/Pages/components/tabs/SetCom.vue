@@ -4,7 +4,7 @@
         <div class="tab-content">
             <h3>Set communication channels</h3>
 
-            <form class="modal-form" @submit.prevent="submitCommunicationDetails">
+            <form class="modal-form" @submit.prevent="submitCommunicationDetails()">
 
                 <div class="tab-div">
 
@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="modal-sub">
-                    <button class="discard">DISCARD</button>
+                    <button type="button" class="discard" @click="resetCommunicationDetails()">DISCARD</button>
                     <button class="save" type="submit">SAVE</button>
                 </div>
 
@@ -75,25 +75,26 @@ export default {
 
     methods: {
         
-        submitCommunicationDetails() {
-            console.log("Selected SMS:", this.selectedSms);
-            console.log("Selected WhatsApp:", this.selectedWhatsApp);
-            console.log("Selected Email:", this.selectedEmail);
+    submitCommunicationDetails() {
+        console.log("Selected SMS:", this.selectedSms);
+        console.log("Selected WhatsApp:", this.selectedWhatsApp);
+        console.log("Selected Email:", this.selectedEmail);
 
-      // Make an API call with the selected data
-            const communicationDetails = {
-                sms: this.selectedSms,
-                whatsApp: this.selectedWhatsApp,
-                email: this.selectedEmail,
-            }; 
+    // Make an API call with the selected data
 
-        },
+    const communicationDetails = {
+        sms: this.selectedSms,
+        whatsApp: this.selectedWhatsApp,
+        email: this.selectedEmail,
+    }; 
 
-        resetCommunicationDetails() {
-            this.selectedSms = '*';
-            this.selectedWhatsApp = '*';
-            this.selectedEmail = '*';
-        },
+    },
+
+    resetCommunicationDetails() {
+        this.selectedSms = '*';
+        this.selectedWhatsApp = '*';
+        this.selectedEmail = '*';
+    },
 
     }
 };

@@ -91,7 +91,7 @@
 
                         <div class="field-container">
 
-                            <div class="login-details-heading" @click="currentModalTab = 'tab-seven'">
+                            <div class="login-details-heading" @click="switchModalTab('tab-seven')">
 
                                 <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726738938/hashtag-square-svgrepo-com_1_jiqmg3.svg"
                                     alt="login-icon">
@@ -102,7 +102,7 @@
                         </div>
 
                         <div class="field-container">
-                            <div class="login-details-heading" @click="currentModalTab = 'tab-eight'">
+                            <div class="login-details-heading" @click="switchModalTab('tab-eight')">
 
                                 <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742094/discount-svgrepo-com_2_1_kgb7s6.svg"
                                     alt="login-icon">
@@ -113,7 +113,7 @@
                         </div>
 
                         <div class="field-container">
-                            <div class="login-details-heading" @click="currentModalTab = 'tab-nine'">
+                            <div class="login-details-heading" @click="switchModalTab('tab-nine')">
 
                                 <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1726742390/campaign-svgrepo-com_1_vx4hkk.svg"
                                     alt="login-icon">
@@ -124,7 +124,7 @@
                         </div>
 
                         <div class="field-container">
-                            <div class="login-details-heading" @click="currentModalTab = 'tab-ten'">
+                            <div class="login-details-heading" @click="switchModalTab('tab-ten')">
 
                                 <img src="https://res.cloudinary.com/diktdm4c9/image/upload/v1728043238/Vector_umkhns.svg" alt="login-icon">
 
@@ -150,330 +150,15 @@
 
                     <PosVendor :currentModalTab = "currentModalTab"/>
 
-                    <div v-if="currentModalTab === 'tab-seven'" class="tab-seven">
+                    <PosPermission :currentModalTab = "currentModalTab"/>
 
-                        <div class="tab-content">
+                     <Offers :currentModalTab = "currentModalTab"/>
 
-                            <h3>Manage POS level permissions</h3>
+                     <Campaign :currentModalTab = "currentModalTab"/>
 
-                            <form class="modal-form" @submit.prevent="submitPospermissionDetails">
+                     <Package :currentModalTab = "currentModalTab"/>
 
-                                <div class="tab-div">
-
-                                    <div class="txt-div">
-                                        <div class="txt">
-                                            <p>Points on coupon redemption</p>
-                                        </div>
-                                        <label class="switch">
-                                            <input type="checkbox" v-model="couponredemptionPoint" checked>
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                    <div class="txt-div">
-                                        <div class="txt">
-                                            <p>Points on discounted bill permission</p>
-                                        </div>
-                                        <label class="switch">
-                                            <input type="checkbox" v-model="discountedbillPoint" checked>
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                    <div class="txt-div">
-                                        <div class="txt">
-                                            <p>Points on discounted Item</p>
-                                        </div>
-                                        <label class="switch">
-                                            <input type="checkbox" v-model="discounteditemPoint" checked>
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                    <div class="txt-div">
-                                        <div class="txt">
-                                            <p>Points on tax</p>
-                                        </div>
-                                        <label class="switch">
-                                            <input type="checkbox" v-model="taxPoint" checked>
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                    <div class="txt-div">
-                                        <div class="txt">
-                                            <p>Redeem/Add credits permission</p>
-                                        </div>
-                                        <label class="switch">
-                                            <input type="checkbox" v-model="creditsPermission" checked>
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-
-                                </div>
-
-                                <div class="modal-sub">
-                                    <button type="button" class="discard" @click="discardValues">DISCARD</button>
-                                    <button class="save" type="submit">SAVE</button>
-                                </div>
-
-
-                            </form>
-
-                        </div>
-                    </div>
-
-                    <div v-if="currentModalTab === 'tab-eight'" class="tab-eight">
-
-                        <div class="tab-content">
-
-                            <h3>Offers / Promos</h3>
-
-                            <div class="modal-form" @submit.prevent="submitOfferDetails">
-
-                                <div class="tab-div">
-
-                                    <div class="new-table">
-
-                                        <table>
-
-                                            <thead>
-                                                <tr>
-                                                    <th class="name">Promo name</th>
-                                                    <th class="validity">Promo Type</th>
-                                                    <th class="issue">Validity</th>
-                                                    
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-
-                                                <tr>
-                                                    <td>classsic promo_01</td>
-                                                    <td>Open</td>
-                                                    <td>2nd Jan 23 to 4th April 24</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>classsic promo_01</td>
-                                                    <td>Open</td>
-                                                    <td>2nd Jan 23 to 4th April 24</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>classsic promo_01</td>
-                                                    <td>Open</td>
-                                                    <td>2nd Jan 23 to 4th April 24</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>classsic promo_01</td>
-                                                    <td>Open</td>
-                                                    <td>2nd Jan 23 to 4th April 24</td>
-                                                    
-                                                </tr>
-
-                                                
-                                            </tbody>
-
-                                        </table>
-
-                                    </div>
-
-
-                                </div>
-
-                                
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div v-if="currentModalTab === 'tab-nine'" class="tab-nine">
-                        <div class="tab-content">
-
-                            <h3>Campaigns / Auto Engagement</h3>
-
-                            <div class="modal-form" @submit.prevent="submitCampaignDetails">
-
-                                <div class="tab-div">
-
-                                    <div class="new-table">
-
-                                        <table>
-
-                                            <thead>
-                                                <tr>
-                                                    <th class="name">Name</th>
-                                                    <th class="validity">Database</th>
-                                                    <th class="days">Segment Name</th>
-                                                    <th class="issue">Gratification</th>
-                                                    <th class="segment">Communication</th>
-                                                    <th class="issue">Trigger Frequency</th>
-                                                    <th class="segment">Pause</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-
-                                                <tr>
-                                                    <td>High_end_campaign_74</td>
-                                                    <td>Full Database</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>View Details</td>
-                                                    <td>Daily</td>
-                                                    <td></td>
-                                                </tr>
-
-                                                
-
-                                                
-                                            </tbody>
-
-                                        </table>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div v-if="currentModalTab === 'tab-ten'" class="tab-ten">
-                        <div class="tab-content">
-
-                            <h3>Membership Package</h3>
-
-                            <div class="modal-form" @submit.prevent="submitPackageDetails">
-
-                                <div class="tab-div">
-
-                                    <div class="new-table">
-
-                                        <table>
-
-                                            <thead>
-                                                <tr>
-                                                    <th class="name">Name</th>
-                                                    <th class="validity">Validity(days)</th>
-                                                    <th class="issue">Total Issues</th>
-                                                    <th class="days">Individual Issue Limit</th>
-                                                    <th class="segment">Linked Segment</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-
-                                                <tr>
-                                                    <td>Alaska Premium Package</td>
-                                                    <td>40</td>
-                                                    <td>4/Unlimited</td>
-                                                    <td>Unlimited</td>
-                                                    <td></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Alaska Premium Package</td>
-                                                    <td>40</td>
-                                                    <td>4/Unlimited</td>
-                                                    <td>Unlimited</td>
-                                                    <td></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Alaska Premium Package</td>
-                                                    <td>40</td>
-                                                    <td>4/Unlimited</td>
-                                                    <td>Unlimited</td>
-                                                    <td></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Alaska Premium Package</td>
-                                                    <td>40</td>
-                                                    <td>4/Unlimited</td>
-                                                    <td>Unlimited</td>
-                                                    <td></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Alaska Premium Package</td>
-                                                    <td>40</td>
-                                                    <td>4/Unlimited</td>
-                                                    <td>Unlimited</td>
-                                                    <td></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Alaska Premium Package</td>
-                                                    <td>40</td>
-                                                    <td>4/Unlimited</td>
-                                                    <td>Unlimited</td>
-                                                    <td></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Alaska Premium Package</td>
-                                                    <td>40</td>
-                                                    <td>4/Unlimited</td>
-                                                    <td>Unlimited</td>
-                                                    <td></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Alaska Premium Package</td>
-                                                    <td>40</td>
-                                                    <td>4/Unlimited</td>
-                                                    <td>Unlimited</td>
-                                                    <td></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Alaska Premium Package</td>
-                                                    <td>40</td>
-                                                    <td>4/Unlimited</td>
-                                                    <td>Unlimited</td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-
-                                        </table>
-
-                                    </div>
-
-                                    <div class="overflow-auto">
-
-                                        <b-pagination
-                                        v-model="currentPage"
-                                        :total-rows="rows"
-                                        :per-page="perPage"
-                                        aria-controls="my-table"
-                                        prev-text="Prev"    
-                                        next-text="Next"    
-                                        hide-goto-end-buttons  
-                                        class="my-pagination"  
-                                        ></b-pagination>
-
-                                        <p class="mt-3">Current Page: {{ currentPage }}</p>
-
-                                        <b-table
-                                        id="my-table"
-                                        :items="paginatedData"   
-                                        :per-page="perPage"
-                                        :current-page="currentPage"
-                                        small
-                                        >
-                                        
-
-                                        </b-table>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
+                    
                 </div>
 
             </div>
@@ -490,6 +175,12 @@ import LoyaltySetUP from './tabs/LoyaltySetUP.vue';
 import SubAcc from './tabs/SubAcc.vue';
 import SetCom from './tabs/SetCom.vue';
 import PosVendor from './tabs/PosVendor.vue';
+import PosPermission from './tabs/PosPermission.vue';
+import Offers from './tabs/Offers.vue';
+import Campaign from './tabs/Campaign.vue';
+import Package from './tabs/Package.vue'
+
+
 
 export default {
     data() {
@@ -513,13 +204,15 @@ export default {
         LoyaltySetUP,
         SubAcc,
         SetCom,
-        PosVendor
+        PosVendor,
+        PosPermission,
+        Offers,
+        Campaign,
+        Package
         
     },
 
     setup() {
-        
-
     },
 
     mounted() {
