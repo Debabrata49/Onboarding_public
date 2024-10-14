@@ -937,7 +937,7 @@
          
         <ModalName :modalName = "modalName" :closeModalName = "closeModalName"/>
 
-        <EditModal :modalEdit="modalEdit" :closeModalName="closeModalName"/>
+        <EditModal :modalEdit = "modalEdit" :closeModalName="closeModalName"/>
 
         <!-- <div v-if="modalEdit" class="modal-overlay" @click.self="closeModalName">
             <div class="modalEdit">
