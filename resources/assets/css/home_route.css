@@ -1007,8 +1007,9 @@ body.modal-active {
     width: 68%;
 }
 
-.tab-eight .tab-div{
+.tab-eight .tab-div {
     padding: 9px 18px;
+    height: auto;
 }
 
 .tab-nine .tab-div {
@@ -1095,6 +1096,29 @@ body.modal-active {
 .VuePagination nav ul li button {
     width: 40px;
 }
+
+.tab-heading-container{
+    border-bottom: 1px solid #D6CFCF;
+}
+
+.tab-heading {
+    display: inline-block;
+    padding: 12px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #615C65;
+    cursor: pointer;
+
+}
+
+.tab-heading.active {
+    font-weight: bold;
+    color: blue;
+}
+
+
+
+
 
 /* .tab-ten pagination */
 
