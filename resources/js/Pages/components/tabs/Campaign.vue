@@ -11,38 +11,39 @@
 
                     <div class="new-table">
 
-                        <table>
+                        <div class="tab-heading-container">
 
-                            <thead>
-                                <tr>
-                                    <th class="name">Name</th>
-                                    <th class="validity">Database</th>
-                                    <th class="days">Segment Name</th>
-                                    <th class="issue">Gratification</th>
-                                    <th class="segment">Communication</th>
-                                    <th class="issue">Trigger Frequency</th>
-                                    <th class="segment">Pause</th>
-                                </tr>
-                            </thead>
+                            <span class="tab-heading" :class="{ active: selectedTab === 'auto' }"
+                                @click="setActiveTab('auto')">Auto Engagement</span>
 
-                            <tbody>
+                            <span class="tab-heading" :class="{ active: selectedTab === 'instant' }"
+                            @click="setActiveTab('instant')"
+                            >Instant Gratification</span>
 
-                                <tr>
-                                    <td>High_end_campaign_74</td>
-                                    <td>Full Database</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>View Details</td>
-                                    <td>Daily</td>
-                                    <td></td>
-                                </tr>
+                        </div>
 
-                                
+                        <div class="tab-table">
 
-                                
-                            </tbody>
+                            <table v-if="tableColumns.length">
+                                <thead>
+                                    <tr>
+                                        <th v-for="(column, index) in tableColumns" :key="index">{{ column.label }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in tableData" :key="item.id">
+                                        <td v-for="(column, index) in tableColumns" :key="index">
+                                            {{ item[column.key] }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                        </table>
+                            <div v-if="!tableColumns.length">
+                                No data available for this tab.
+                            </div>
+
+                        </div>
 
                     </div>
 
@@ -60,6 +61,9 @@
     export default {
         data() {
             return {
+                selectedTab: "auto",
+                tableData: [],
+                tableColumns: []
             };
         },
 
@@ -80,10 +84,64 @@
         },
 
         mounted() {
-            
+            this.setTableColumns();
+            this.fetchTabData();     
         },
 
-        methods: {    
+        methods: {  
+            
+            setActiveTab(tab) {
+            this.selectedTab = tab;
+            this.fetchTabData();
+            this.setTableColumns();
+        },
+
+        setTableColumns() {
+            const columnMapping = {
+                auto: [
+                    { label: 'Name', key: 'name' },
+                    { label: 'Database ', key: 'database' },
+                    { label: 'Segment Name', key: 'segmentName' },
+                    { label: 'Gratification', key: 'gratification' },
+                    { label: 'Communication', key: 'com' },
+                    { label: 'Trigger Frequency', key: 'frequency' },
+                    { label: 'Pause', key: 'pause' },
+
+
+                ],
+                instant: [
+                    { label: 'Name', key: 'name' },
+                    { label: 'Activity', key: 'active' },
+                    { label: 'Gratification', key: 'ins_gratification' },
+                    { label: 'Communication', key: 'ins_com' },
+                    { label: 'Pause', key: 'pause' }
+                ]
+                
+            };
+            this.tableColumns = columnMapping[this.selectedTab] || [];
+        },
+
+        fetchTabData() {
+            let apiUrl = '';
+            switch (this.selectedTab) {
+                case 'auto':
+                    apiUrl = '/api/promos';
+                    break;
+                case 'instant':
+                    apiUrl = 'https://670e306d073307b4ee45d062.mockapi.io/test/api/instant';
+                    break;    
+            }
+
+            axios.get(apiUrl)
+                .then(response => {
+                    this.tableData = response.data;  // Store the data from the API
+                    console.log(this.tableData);
+                    
+                })
+                .catch(error => {
+                    console.error("Error fetching data: ", error);
+                });
+        }
         }
     };
 

@@ -64,10 +64,6 @@
 
                         </div>
 
-
-
-
-
                     </div>
 
 
@@ -91,7 +87,6 @@ export default {
             selectedTab: "promos",
             tableData: [],
             tableColumns: []
-
         };
     },
 
@@ -142,32 +137,32 @@ export default {
                 ],
                 booklets: [
                     { label: 'Booklet Name', key: 'name' },
-                    { label: 'Coupons', key: 'coupon' },
-                    { label: 'Issued', key: 'issue' },
-                    { label: 'Values', key: 'value' }
+                    { label: 'No. of Coupons in the Booklet', key: 'coupon' },
+                    { label: 'Booklets Issued', key: 'issue' },
+                    { label: 'Booklet Value', key: 'value' }
                 ],
                 ebooklets: [
-                    { label: 'E-Booklet ID', key: 'id' },
-                    { label: 'Values', key: 'value' },
-                    { label: 'Credits', key: 'credit' },
-                    { label: 'E-Booklet Price', key: 'price' },
-                    { label: 'E-Booklet Issued', key: 'issue' },
+                    { label: 'e-Booklet Name', key: 'id' },
+                    { label: 'Top Up Value', key: 'value' },
+                    { label: 'Validity Of Credits (days)', key: 'credit' },
+                    { label: 'e-Booklet Price', key: 'price' },
+                    { label: 'e-Booklet Issued', key: 'issue' },
 
                 ],
                 recurringBooklets: [
                     { label: 'Booklet Name', key: 'name' },
                     { label: 'Booklet Price', key: 'price' },
-                    { label: 'Cycle', key: 'cycle' },
+                    { label: 'Start Date', key: 'cycle' },
                     { label: 'Booklet Issued', key: 'issue' },
                     { label: 'Booklet Revenue', key: 'revenue' },
 
                 ],
                 wallet: [
                     { label: 'Wallet Name', key: 'walletName' },
-                    { label: 'Value', key: 'topUpValue' },
-                    { label: 'Validity', key: 'validity' },
+                    { label: 'Top Up Value', key: 'topUpValue' },
+                    { label: 'Validity (days)', key: 'validity' },
                     { label: 'Wallet Price', key: 'walletPrice' },
-                    { label: 'Wallet Issued', key: 'issued' }
+                    { label: 'Issued', key: 'issued' }
                 ]
             };
             this.tableColumns = columnMapping[this.selectedTab] || [];
