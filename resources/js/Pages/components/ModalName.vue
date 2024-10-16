@@ -158,7 +158,6 @@
 
                      <Package :currentModalTab = "currentModalTab"/>
 
-                    
                 </div>
 
             </div>
@@ -185,14 +184,15 @@ import Package from './tabs/Package.vue'
 export default {
     data() {
         return {
-            currentModalTab :"tab-one",
+            currentModalTab :this.currentTab,
         };
     },
 
     props:{
      modalName: Boolean,
      closeModalName: Function,
-     tabName: String
+     tabName: String,
+     currentTab: String
     },
 
     computed: {
@@ -209,21 +209,22 @@ export default {
         Offers,
         Campaign,
         Package
-        
     },
 
     setup() {
     },
 
     mounted() {
-        
+        this.currentModalTab=this.currentTab
     },
 
     methods: {
         switchModalTab(tabName) {
-            this.currentModalTab = tabName;
+            if (tabName) {
+                this.currentModalTab = tabName;
+            }
         },
-    }
+    },
 };
 
 </script>

@@ -227,6 +227,8 @@ input:focus {
 }
 
 .content {
+    font-size: 12px;
+    font-weight: 500;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -247,7 +249,7 @@ input:focus {
 }
 
 .table-container td {
-    padding: 10px;
+    padding: 2px 12px;
     font-size: 12px;
     font-weight: 500;
     font-family: "Poppins", sans-serif;
@@ -606,6 +608,7 @@ body.modal-active {
 }
 
 .login-form {
+    width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
