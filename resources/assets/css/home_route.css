@@ -249,7 +249,7 @@ input:focus {
 }
 
 .table-container td {
-    padding: 2px 12px;
+    padding: 8px 12px;
     font-size: 12px;
     font-weight: 500;
     font-family: "Poppins", sans-serif;
@@ -267,6 +267,7 @@ input:focus {
 .table-container table tbody tr td ul {
     list-style-type: none;
     padding-left: 0;
+    margin-bottom: 0;
 }
 
 .table-container table tbody tr td i {
