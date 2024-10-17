@@ -170,7 +170,6 @@ import 'vue-tel-input/vue-tel-input.css';
 import EditModal from "./components/EditModal.vue";
 import ModalPassword from "./components/ModalPassword.vue";
 import ModalName from "./components/ModalName.vue";
-import LoyaltySetUP from './components/tabs/LoyaltySetUP.vue';
 
 
 export default {
@@ -359,7 +358,6 @@ export default {
 
         loadEditAccToName(id, instance, modalName,tab) {
             this.currentTab = tab
-            console.log(this.currentTab,'current');
             modalName === 'edit' && (this.modalEdit = true)
             modalName === 'name' && (this.modalName = true)
             this.editEmployeeProfile(id, this.shouldReCall);
@@ -422,7 +420,8 @@ export default {
             console.log(this.isSearchActive);
             if (this.isSearchActive) {
                 this.searchQuery = '';
-            } else {
+            }
+            if(this.searchQuery!=='') {
                 this.isLoading = true;
                 this.getEmployeeData(this.page, this.searchQuery);
             }

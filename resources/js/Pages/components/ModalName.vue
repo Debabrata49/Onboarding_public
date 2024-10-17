@@ -170,7 +170,7 @@
 <script>
 import LoginDetails from './tabs/LoginDetails.vue';
 import OutletDetails from './tabs/OutletDetails.vue';
-import LoyaltySetUP from './tabs/LoyaltySetUP.vue';
+import LoyaltySetUP from './tabs/LoyaltySetUp.vue';
 import SubAcc from './tabs/SubAcc.vue';
 import SetCom from './tabs/SetCom.vue';
 import PosVendor from './tabs/PosVendor.vue';
@@ -215,7 +215,6 @@ export default {
     },
 
     mounted() {
-        this.currentModalTab=this.currentTab
     },
 
     methods: {
