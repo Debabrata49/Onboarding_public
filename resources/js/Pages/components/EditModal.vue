@@ -6,7 +6,7 @@
                 <i class="bi bi-x-circle-fill" @click="closeModalName"></i>
             </div>
             <div class="edit-form">
-                <form class="form-edit" @submit.prevent="edit">
+                <form class="form-edit" @submit.prevent="validateForm">
 
 
                     <div class="input-fields">
@@ -15,6 +15,7 @@
                             <div>
                                 <label for="name">Name <i class="bi bi-asterisk"></i></label>
                                 <input type="text" name="emp_name" v-model="emp_arr.emp_name" id="name" required>
+                                <span v-if="errors.name" class="error-message">{{ errors.name }}</span>
                             </div>
 
                         </div>
@@ -44,6 +45,7 @@
                             <div>
                                 <label for="email">Email ID <i class="bi bi-asterisk"></i></label>
                                 <input type="email" name="emp_email" v-model="emp_arr.emp_email" id="email" required>
+                                <span v-if="errors.email" class="error-message">{{ errors.email }}</span>
                             </div>
 
                         </div>
@@ -52,6 +54,7 @@
                             <div>
                                 <label for="pwd">Password <i class="bi bi-asterisk"></i></label>
                                 <input type="password" name="password" v-model="emp_arr.emp_password" id="pwd" required>
+                                <span v-if="errors.password" class="error-message">{{ errors.password }}</span>
                             </div>
 
                         </div>
@@ -61,6 +64,8 @@
                                 <label for="pwd_2">Confirm Password<i class="bi bi-asterisk"></i></label>
                                 <input type="password" name="confirm_password" v-model="emp_arr.emp_confirm_password"
                                     id="pwd_2" required>
+                                <span v-if="errors.confirmPassword" class="error-message">{{ errors.confirmPassword }}</span>
+
                             </div>
 
                         </div>
@@ -70,6 +75,7 @@
                                 <label for="bs">Business Name <i class="bi bi-asterisk"></i></label>
                                 <input type="text" name="business_name" v-model="emp_arr.emp_business_name" id="bs"
                                     required>
+                                <span v-if="errors.businessName" class="error-message">{{ errors.businessName }}</span>
                             </div>
 
                         </div>
@@ -94,10 +100,10 @@
 
                             <div>
                                 <label for="country">Country</label>
-                                <select name="country" id="country">
+                                <select name="country" id="country" v-model="form.selectedCountry">
                                     <option>Please Select</option>
                                     <option v-for="country in emp_arr.emp_country" :key="country.value"
-                                        :value="country.value" :selected="country.select">
+                                        :value="country.value">
                                         {{ country.name }}
                                     </option>
                                 </select>
@@ -108,7 +114,7 @@
 
                             <div>
                                 <label for="region">Region</label>
-                                <select name="region" id="region">
+                                <select name="region" id="region"  v-model="selectedRegion">
                                     <option>Please Select</option>
                                     <option v-for="region in emp_arr.emp_region" :key="region.value"
                                         :value="region.value" :selected="region.select">
@@ -157,7 +163,7 @@
 
                             <div>
                                 <label for="curency">Currency</label>
-                                <select name="curency" id="curency">
+                                <select name="curency" id="curency" v-model="selectedCurency">
                                     <option>Please Select</option>
                                     <option v-for="curency in emp_arr.emp_currency" :key="curency.value"
                                         :value="curency.value" :selected="curency.select">
@@ -171,7 +177,7 @@
 
                             <div>
                                 <label for="timeZone">Time zone</label>
-                                <select name="timeZone" id="timeZone">
+                                <select name="timeZone" id="timeZone" v-model="selectedTimeZone">
                                     <option>Please Select</option>
                                     <option v-for="timeZone in emp_arr.emp_timezone" :key="timeZone.value"
                                         :value="timeZone.value" :selected="timeZone.select">
@@ -206,35 +212,25 @@
 </template>
 
 <script>
+
+import { reactive,ref } from "vue";
+import axiosService from "@/axiosService";
+
 export default {
     data() {
         return {
-            emp_arr: {
-                emp_name: '',
-                emp_email: '',
-                emp_mobile: '',
-                emp_password: '',
-                emp_confirm_password: '',
-                emp_business_name: '',
-                emp_business_location: '',
-                emp_category: '',
-                emp_loyalty_percentage: '',
-                emp_maxallow_award_trans: '',
-                emp_loyalty_percentage_chk: 0,
-                emp_note: '',
-                asm_data: [],
-                manager_data: [],
-                emp_country: [],
-                emp_currency: [],
-                emp_timezone: [],
-                emp_region: [],
-            },
+            errors: {},
+            selectedCountry: null,
+            selectedRegion: null,
+            selectedCurency: null,
+            selectedTimeZone: null,
         };
     },
 
     props: {
         modalEdit: Boolean,
         closeModalName: Function,
+        emp_arr: Object
     },
 
     computed: {
@@ -246,14 +242,111 @@ export default {
     },
 
     setup() {
-
+        const form = reactive({
+            
+        });
+        return {
+            form
+        };
     },
 
     mounted() {
+        const preselectedCountry = this.emp_arr.emp_country.find(country => country.select);
+        if (preselectedCountry) {
+            this.form.selectedCountry = preselectedCountry.value;
+        }
     },
 
     methods: {
-        
+        validateForm() {
+            this.errors = {};
+
+            // Validate Name
+            if (!this.emp_arr.emp_name) {
+                this.errors.name = 'Name is required';
+            }
+
+            // Validate Email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!this.emp_arr.emp_email) {
+                this.errors.email = 'Email is required';
+            } else if (!emailPattern.test(this.emp_arr.emp_email)) {
+                this.errors.email = 'Invalid email format';
+            }
+
+            // Validate Password
+            if (!this.emp_arr.emp_password) {
+                this.errors.password = 'Password is required';
+            } else if (this.emp_arr.emp_password.length < 6) {
+                this.errors.password = 'Password must be at least 6 characters';
+            }
+
+            // Validate Confirm Password
+            if (!this.emp_arr.emp_confirm_password) {
+                this.errors.confirmPassword = 'Confirm Password is required';
+            } else if (this.emp_arr.emp_password !== this.emp_arr.emp_confirm_password) {
+                this.errors.confirmPassword = 'Passwords do not match';
+            }
+
+            // Validate Business Name
+            if (!this.emp_arr.emp_business_name) {
+                this.errors.businessName = 'Business Name is required';
+            }
+
+            // If no errors, proceed with form submission (e.g., call an API)
+            if (Object.keys(this.errors).length === 0) {
+                this.saveProfile(); 
+                alert(this.selectedCountry);
+            }
+        },
+        async saveProfile() {
+            try {
+                const payload = {
+                    employee_id: this.emp_arr.emp_id,
+                    emp_name: this.emp_arr.emp_name,
+                    emp_mobile: this.emp_arr.emp_mobile,
+                    emp_email: this.emp_arr.emp_email,
+                    emp_password: this.emp_arr.emp_password,
+                    emp_confirm_password: this.emp_arr.emp_confirm_password,
+                    emp_business_name: this.emp_arr.emp_business_name,
+                    emp_business_location: this.emp_arr.emp_business_location,
+                    emp_category: this.emp_arr.emp_category,
+                    emp_loyalty_percentage: this.emp_arr.emp_loyalty_percentage,
+                    emp_maxallow_award_trans: this.emp_arr.emp_maxallow_award_trans,
+                    emp_loyalty_percentage_chk: this.emp_arr.emp_loyalty_percentage_chk,
+                    emp_note: this.emp_arr.emp_note,
+                    asm_name: this.emp_arr.asm_data.asm_name,
+                    asm_email: this.emp_arr.asm_data.asm_email,
+                    asm_number: this.emp_arr.asm_data.asm_number,
+                    asm_country_code: this.emp_arr.asm_data.asm_country_code,
+                    manager_name: this.emp_arr.manager_data.manager_name,
+                    manager_email: this.emp_arr.manager_data.manager_email,
+                    manager_number: this.emp_arr.manager_data.manager_number,
+                    manager_country_code: this.emp_arr.manager_data.manager_country_code,
+                    emp_country: this.selectedCountry, // Send only the selected country
+                    emp_region: this.selectedRegion,
+                    emp_curency: this.selectedCurency,
+                    emp_timezone: this.selectedTimeZone,
+                };
+
+                axiosService.post("/api/updateEmployeeMain", payload)
+                .then(res => {
+                    if (response.status === 200) {
+                        console.log('Profile updated successfully:', res.data);
+
+                        // Close the modal after successful save
+                        this.closeModalName();
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                }).finally(() => {
+                    
+                });
+            }catch (error){
+
+            }
+        }
     }
 };
 </script>

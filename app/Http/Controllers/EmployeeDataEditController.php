@@ -144,6 +144,7 @@ class EmployeeDataEditController extends Controller
         $region = $this->getRegionEmpWise($employee->region,$merchant_id);
 
         $employeeData = [
+            'emp_id' => $employee->id,
             'emp_name' => !empty($employee->name)?$employee->name:'',
             'emp_email' => !empty($employee->email)?$employee->email:'',
             'emp_mobile' => !empty($employee->mobile_number)?$employee->mobile_number:0,
@@ -166,5 +167,45 @@ class EmployeeDataEditController extends Controller
         ];
 
         return response()->json(['data' => $employeeData], 200);
+    }
+
+    public function updateEmployeeMain(Request $request)
+    {
+        $rules = [
+            'employee_id'=>'required',
+            'emp_name'=>'required',
+            'emp_email'=>'required',
+            'emp_mobile'=>'required',
+            'emp_business_name'=>'required'
+        ];
+        
+        $validator = Validator::make($request->input(), $rules);
+        if($validator->fails() ){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        $merchant = JWTAuth::parseToken()->authenticate();
+        $merchant_id = $merchant->id;
+        $merchant = MerchantDetails::where('user_id', $merchant_id)->first();
+        if (!$merchant) {
+            return response()->json(['error' =>false, 'msg' => 'Merchant not found'], 404);
+        }
+        $employee = Employee::where('id', $request->employee_id)->where('is_active', 1)->where('deleted', 0)->first();
+        if (!$employee) {
+            return response()->json(['error' =>false, 'msg' => 'Employee not found'], 404);
+        }
+        $employee->name = $request->emp_name;
+        $employee->email = $request->emp_email;
+        $employee->mobile_number = $request->emp_mobile;
+        $employee->business_name = $request->emp_business_name;
+        $employee->business_location = !empty($request->emp_business_location)?$request->emp_business_location:'';
+        $employee->category = !empty($request->emp_category)?$request->emp_category:'';
+        $employee->loyalty_percentage = !empty($request->emp_loyalty_percentage)?$request->emp_loyalty_percentage:0;
+        $employee->note = !empty($request->emp_note)?$request->emp_note:'';
+        $employee->save();
+        return response()->json(['error' =>false, 'msg' => 'Employee updated successfully'], 200);
     }
 }

@@ -127,7 +127,7 @@
                                 <td>{{ i.module_access }}</td>
                                 <td>
 
-                                    <div class="content" :data-id="i.id" @click="testModalHandle()">
+                                    <div class="content" :data-id="i.id" @click="loadEditSubAccount(i.id)">
                                         {{ i.edit }}
                                     </div>
 
@@ -153,7 +153,7 @@
 
         <ModalName :modalName = "modalName" :closeModalName = "closeModalName"/>
 
-        <EditModal :modalEdit = "modalEdit" :closeModalName="closeModalName"/>
+        <EditModal :modalEdit = "modalEdit" :closeModalName="closeModalName" :emp_arr="emp_arr"/>
 
         
     </div>
@@ -224,6 +224,7 @@ export default {
                 emp_timezone: [],
                 emp_region: [],
             },
+            editProfileData:[],
 
             loginForm: {
                 name: '',
@@ -583,10 +584,6 @@ export default {
             this.discounteditemPoint = false,
             this.taxPoint = false,
             this.creditsPermission = false
-        },
-
-        testModalHandle(){
-            this.modalEdit = true;
         }
     }
 };
