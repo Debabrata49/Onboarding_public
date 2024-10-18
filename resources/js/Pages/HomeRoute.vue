@@ -74,7 +74,7 @@
                         <tbody v-if="!isLoading">
                             <tr v-for="i in accounts">
                                 <td>
-                                    <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i, 'name')">
+                                    <div class="content" :data-id="i.id" @click="loadEditAccToName(i.id, i, 'name','tab-one')">
                                         {{ i.name }}
                                         <i class="bi bi-chevron-right"></i>
                                     </div>
@@ -93,13 +93,13 @@
                                 <td>{{ i.valid_till }}</td>
 
                                 <td>
-                                    <div class="content">
+                                    <div class="content" @click="openLoyaltySetupTab(i.outletname)">
                                         {{ i.outletname }}
                                         <i class="bi bi-chevron-right"></i>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="content">
+                                    <div class="content" @click="loadEditAccToName(i.id, i, 'name','tab-three')">
                                         {{ i.loyalty_percentage }}
                                         <i class="bi bi-chevron-right"></i>
                                     </div>
@@ -126,11 +126,9 @@
                                 <td>{{ i.permission_text }}</td>
                                 <td>{{ i.module_access }}</td>
                                 <td>
-
                                     <div class="content" :data-id="i.id" @click="loadEditSubAccount(i.id)">
                                         {{ i.edit }}
                                     </div>
-
                                 </td>
                             </tr>
                         </tbody>
@@ -151,7 +149,7 @@
         
         <ModalPassword :modalPassword="modalPassword" :closeModal="closeModal"/>
 
-        <ModalName :modalName = "modalName" :closeModalName = "closeModalName"/>
+        <ModalName :currentTab="currentTab" :modalName = "modalName" :closeModalName = "closeModalName"/>
 
         <EditModal :modalEdit = "modalEdit" :closeModalName="closeModalName" :emp_arr="emp_arr"/>
 
@@ -169,7 +167,7 @@ import { VueTelInput } from 'vue-tel-input';
 import 'vue-tel-input/vue-tel-input.css';
 import EditModal from "./components/EditModal.vue";
 import ModalPassword from "./components/ModalPassword.vue";
-import ModalName from "./components/ModalName.vue"
+import ModalName from "./components/ModalName.vue";
 
 
 export default {
@@ -195,7 +193,6 @@ export default {
             isSearchActive: false,
             shouldReCall: true,
             modalName: false,
-            innerModal: false,
             modalEdit: false,
             form: {
                 mobile: ''
@@ -203,7 +200,7 @@ export default {
 
             iso_code: 'IN',
             isValidPhone: false,
-            currentModalTab: 'tab-one',
+            currentTab: 'tab-one',
             emp_arr: {
                 emp_name: '',
                 emp_email: '',
@@ -269,8 +266,14 @@ export default {
             perPage: 3,        
             currentPage: 1,
 
+           
+
+            
+
         };
     },
+
+   
 
     computed: {
       rows() {
@@ -292,7 +295,8 @@ export default {
         VueTelInput,
         EditModal,
         ModalPassword,
-        ModalName
+        ModalName,
+        
     },
 
     setup() {
@@ -303,7 +307,7 @@ export default {
             if (isSearchActive.value) {
                 searchQuery.value = null;
             }
-            console.log(searchQuery.value);
+            // console.log(searchQuery.value);
             this.getEmployeeData(this.page, searchQuery.value);
         };
 
@@ -318,6 +322,7 @@ export default {
 
     mounted() {
         this.getEmployeeData(this.page);
+        this.currentModalTab = this.currentTab;
     },
 
     methods: {
@@ -350,7 +355,8 @@ export default {
             this.getEmployeeData(this.page);
         },
 
-        loadEditAccToName(id, instance, modalName) {
+        loadEditAccToName(id, instance, modalName,tab) {
+            this.currentTab = tab
             modalName === 'edit' && (this.modalEdit = true)
             modalName === 'name' && (this.modalName = true)
             this.editEmployeeProfile(id, this.shouldReCall);
@@ -413,7 +419,8 @@ export default {
             console.log(this.isSearchActive);
             if (this.isSearchActive) {
                 this.searchQuery = '';
-            } else {
+            }
+            if(this.searchQuery!=='') {
                 this.isLoading = true;
                 this.getEmployeeData(this.page, this.searchQuery);
             }
@@ -438,10 +445,6 @@ export default {
                     localStorage.removeItem("expires_in");
                     window.location.reload();
                 });
-        },
-
-        switchModalTab(tabName) {
-            this.currentModalTab = tabName;
         },
 
         submitLoginForm() {

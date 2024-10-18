@@ -158,7 +158,6 @@
 
                      <Package :currentModalTab = "currentModalTab"/>
 
-                    
                 </div>
 
             </div>
@@ -171,7 +170,7 @@
 <script>
 import LoginDetails from './tabs/LoginDetails.vue';
 import OutletDetails from './tabs/OutletDetails.vue';
-import LoyaltySetUP from './tabs/LoyaltySetUP.vue';
+import LoyaltySetUP from './tabs/LoyaltySetUp.vue';
 import SubAcc from './tabs/SubAcc.vue';
 import SetCom from './tabs/SetCom.vue';
 import PosVendor from './tabs/PosVendor.vue';
@@ -185,14 +184,15 @@ import Package from './tabs/Package.vue'
 export default {
     data() {
         return {
-            currentModalTab :"tab-one",
+            currentModalTab :this.currentTab,
         };
     },
 
     props:{
      modalName: Boolean,
      closeModalName: Function,
-     tabName: String
+     tabName: String,
+     currentTab: String
     },
 
     computed: {
@@ -209,21 +209,21 @@ export default {
         Offers,
         Campaign,
         Package
-        
     },
 
     setup() {
     },
 
     mounted() {
-        
     },
 
     methods: {
         switchModalTab(tabName) {
-            this.currentModalTab = tabName;
+            if (tabName) {
+                this.currentModalTab = tabName;
+            }
         },
-    }
+    },
 };
 
 </script>
